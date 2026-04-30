@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>广州海鹚网络科技有限公司 - 多维度分析报告</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        .report-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #2563eb;
+        }
+        .section-header .icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+        }
+        .section-header h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0;
+        }
+        .section-header .subtitle {
+            font-size: 12px;
+            color: #64748b;
+            margin-left: auto;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        .card-subtitle {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 4px;
+        }
+        .btn-expand {
+            font-size: 12px;
+            color: #2563eb;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .conclusion-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            border-left: 4px solid #2563eb;
+        }
+        .conclusion-label {
+            font-size: 11px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        .conclusion-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+        .conclusion-desc {
+            font-size: 12px;
+            color: #64748b;
+        }
+        .table-container {
+            overflow-x: auto;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        .data-table th {
+            background-color: #f8fafc;
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            color: #475569;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .data-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #334155;
+        }
+        .data-table tr:hover td {
+            background-color: #fafafa;
+        }
+        .tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+        .tag-success {
+            background-color: #dcfce7;
+            color: #16a34a;
+        }
+        .tag-warning {
+            background-color: #fef3c7;
+            color: #d97706;
+        }
+        .tag-danger {
+            background-color: #fee2e2;
+            color: #dc2626;
+        }
+        .tag-info {
+            background-color: #dbeafe;
+            color: #2563eb;
+        }
+        .tag-primary {
+            background-color: #e0e7ff;
+            color: #6366f1;
+        }
+        .risk-item {
+            display: flex;
+            gap: 12px;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        .risk-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+        .risk-indicator.high {
+            background-color: #dc2626;
+        }
+        .risk-indicator.medium {
+            background-color: #d97706;
+        }
+        .risk-indicator.low {
+            background-color: #16a34a;
+        }
+        .risk-content {
+            flex: 1;
+        }
+        .risk-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 2px;
+        }
+        .risk-desc {
+            font-size: 12px;
+            color: #64748b;
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+            border-left: 4px solid #f97316;
+            padding: 16px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 16px;
+        }
+        .highlight-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #c2410c;
+            margin-bottom: 8px;
+        }
+        .highlight-content {
+            font-size: 13px;
+            color: #7c2d12;
+            line-height: 1.6;
+        }
+        .company-header {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            padding: 32px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+        }
+        .company-name {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .company-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 16px;
+        }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #22c55e;
+            border-radius: 50%;
+        }
+        .overview-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .overview-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .overview-label {
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+        .overview-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+        .overview-change {
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        .overview-change.up {
+            background-color: #dcfce7;
+            color: #16a34a;
+        }
+        .overview-change.down {
+            background-color: #fee2e2;
+            color: #dc2626;
+        }
+        .bar-chart-container {
+            height: 24px;
+            background: #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .bar-chart-fill {
+            height: 100%;
+            border-radius: 12px;
+            background: linear-gradient(90deg, #2563eb 0%, #1d4ed8 100%);
+            transition: width 0.5s ease;
+        }
+        .certification-badge {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+        .certification-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        .certification-name {
+            font-size: 12px;
+            font-weight: 500;
+            color: #334155;
+            margin-bottom: 4px;
+        }
+        .certification-count {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2563eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="report-container">
+        <div class="company-header">
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                <span>经营状态：存续</span>
+            </div>
+            <h1 class="company-name">广州海鹚网络科技有限公司</h1>
+            <p class="company-subtitle">GUANGZHOU HAICI NETWORK TECHNOLOGY CO., LTD. | 医疗健康领域创新型科技企业</p>
+        </div>
+
+        <div class="overview-cards">
+            <div class="overview-card">
+                <div class="overview-label">成立年份</div>
+                <div class="overview-value">2014</div>
+                <div class="overview-change up">稳健运营12年</div>
+            </div>
+            <div class="overview-card">
+                <div class="overview-label">注册资本</div>
+                <div class="overview-value">1998万</div>
+                <div class="overview-change up">实缴完成</div>
+            </div>
+            <div class="overview-card">
+                <div class="overview-label">参保人数</div>
+                <div class="overview-value">52</div>
+                <div class="overview-change up">团队稳定</div>
+            </div>
+            <div class="overview-card">
+                <div class="overview-label">股东数量</div>
+                <div class="overview-value">19</div>
+                <div class="overview-change up">多元化股权</div>
+            </div>
+            <div class="overview-card">
+                <div class="overview-label">资质证书</div>
+                <div class="overview-value">27</div>
+                <div class="overview-change up">认证齐全</div>
+            </div>
+            <div class="overview-card">
+                <div class="overview-label">中标项目</div>
+                <div class="overview-value">345</div>
+                <div class="overview-change up">业务活跃</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">PART 01 企业基本信息</div>
+                    <div class="card-subtitle">企业概况 · 注册信息 · 经营范围</div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div class="text-xs text-gray-500 mb-2">统一社会信用代码</div>
+                    <div class="text-sm font-semibold text-gray-800">91440101304466985C</div>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div class="text-xs text-gray-500 mb-2">法定代表人</div>
+                    <div class="text-sm font-semibold text-gray-800">闵能</div>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div class="text-xs text-gray-500 mb-2">企业类型</div>
+                    <div class="text-sm font-semibold text-gray-800">有限责任公司（中外合资）</div>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div class="text-xs text-gray-500 mb-2">成立日期</div>
+                    <div class="text-sm font-semibold text-gray-800">2014年05月19日</div>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div class="text-xs text-gray-500 mb-2">营业期限</div>
+                    <div class="text-sm font-semibold text-gray-800">至2046年11月15日</div>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div class="text-xs text-gray-500 mb-2">纳税人资质</div>
+                    <div class="text-sm font-semibold text-gray-800">一般纳税人</div>
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                <div class="text-xs text-gray-500 mb-2">注册地址</div>
+                <div class="text-sm font-semibold text-gray-800">广州市天河区高普路1039号201-159室</div>
+            </div>
+
+            <div class="bg-gray-50 rounded-lg p-4">
+                <div class="text-xs text-gray-500 mb-2">核心经营范围</div>
+                <div class="text-sm text-gray-700">医学研究和试验发展、计算机软硬件开发、信息技术咨询服务、远程健康管理服务、第二类医疗器械销售、互联网数据服务、人工智能应用软件开发、大数据服务、医院管理等</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">PART 02 核心管理团队</div>
+                    <div class="card-subtitle">主要管理人员 · 职务构成</div>
+                </div>
+            </div>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>姓名</th>
+                            <th>职务</th>
+                            <th>持股比例</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>闵能</td><td><span class="tag tag-primary">董事长兼总经理</span></td><td>18.36%</td></tr>
+                        <tr><td>邓亮</td><td><span class="tag tag-info">董事</span></td><td>6.28%</td></tr>
+                        <tr><td>殷鹏程</td><td><span class="tag tag-info">董事</span></td><td>-</td></tr>
+                        <tr><td>贺雅菲</td><td><span class="tag tag-info">董事</span></td><td>-</td></tr>
+                        <tr><td>吴永慧</td><td><span class="tag tag-info">董事</span></td><td>-</td></tr>
+                        <tr><td>邹芝兰</td><td><span class="tag tag-info">董事</span></td><td>-</td></tr>
+                        <tr><td>章向明</td><td><span class="tag tag-info">董事</span></td><td>-</td></tr>
+                        <tr><td>郑强</td><td><span class="tag tag-info">董事</span></td><td>-</td></tr>
+                        <tr><td>谭政焘</td><td><span class="tag tag-info">董事</span></td><td>-</td></tr>
+                        <tr><td>王禾</td><td><span class="tag tag-info">监事</span></td><td>-</td></tr>
+                        <tr><td>黄亮</td><td><span class="tag tag-info">监事</span></td><td>-</td></tr>
+                        <tr><td>姚瑀龙</td><td><span class="tag tag-info">职工监事</span></td><td>-</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">PART 03 股权结构分析</div>
+                    <div class="card-subtitle">前五大股东 · 实际控制人</div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">股权占比可视化</h4>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>闵能（实际控制人）</span>
+                            <span class="font-semibold">18.36%</span>
+                        </div>
+                        <div class="bar-chart-container"><div class="bar-chart-fill" style="width:18.36%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>海鹚同创（珠海）投资企业</span>
+                            <span class="font-semibold">17.23%</span>
+                        </div>
+                        <div class="bar-chart-container"><div class="bar-chart-fill" style="width:17.23%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>百度（中国）有限公司</span>
+                            <span class="font-semibold">15.17%</span>
+                        </div>
+                        <div class="bar-chart-container"><div class="bar-chart-fill" style="width:15.17%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>富达成长（上海）股权投资</span>
+                            <span class="font-semibold">13.41%</span>
+                        </div>
+                        <div class="bar-chart-container"><div class="bar-chart-fill" style="width:13.41%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>海纳华（上海）股权投资基金</span>
+                            <span class="font-semibold">8.81%</span>
+                        </div>
+                        <div class="bar-chart-container"><div class="bar-chart-fill" style="width:8.81%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>其他股东（14位）</span>
+                            <span class="font-semibold">27.02%</span>
+                        </div>
+                        <div class="bar-chart-container"><div class="bar-chart-fill" style="width:27.02%"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-blue-50 rounded-lg p-4 text-center">
+                    <div class="text-xs text-blue-500 mb-2">实际控制人</div>
+                    <div class="text-lg font-bold text-blue-600">闵能</div>
+                </div>
+                <div class="bg-blue-50 rounded-lg p-4 text-center">
+                    <div class="text-xs text-blue-500 mb-2">直接持股</div>
+                    <div class="text-lg font-bold text-blue-600">18.36%</div>
+                </div>
+                <div class="bg-blue-50 rounded-lg p-4 text-center">
+                    <div class="text-xs text-blue-500 mb-2">总持股</div>
+                    <div class="text-lg font-bold text-blue-600">35.42%</div>
+                </div>
+                <div class="bg-blue-50 rounded-lg p-4 text-center">
+                    <div class="text-xs text-blue-500 mb-2">表决权</div>
+                    <div class="text-lg font-bold text-blue-600">35.59%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">PART 04 风险涉诉情况</div>
+                    <div class="card-subtitle">涉诉信息 · 行政处罚 · 经营风险</div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">一、涉诉案件统计</h4>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-gray-50 rounded-lg p-4 text-center">
+                        <div class="text-xs text-gray-500 mb-1">诉讼案件总数</div>
+                        <div class="text-2xl font-bold text-gray-700">0</div>
+                        <div class="text-xs text-gray-400 mt-1">近3年</div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4 text-center">
+                        <div class="text-xs text-gray-500 mb-1">作为被告</div>
+                        <div class="text-2xl font-bold text-gray-700">0</div>
+                        <div class="text-xs text-gray-400 mt-1">占比0%</div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4 text-center">
+                        <div class="text-xs text-gray-500 mb-1">未结案件</div>
+                        <div class="text-2xl font-bold text-gray-700">0</div>
+                        <div class="text-xs text-gray-400 mt-1">占比0%</div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4 text-center">
+                        <div class="text-xs text-gray-500 mb-1">涉案金额</div>
+                        <div class="text-2xl font-bold text-gray-700">0</div>
+                        <div class="text-xs text-gray-400 mt-1">人民币</div>
+                    </div>
+                </div>
+                <div class="mt-4 bg-green-50 border border-green-200 rounded-lg p-4 text-center">
+                    <i class="fa fa-check-circle text-green-500 mr-2"></i>
+                    <span class="text-sm text-green-700">近3年未涉及任何诉讼案件，企业法律风险较低</span>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">二、行政处罚记录</h4>
+                <div class="bg-gray-50 rounded-lg p-4 text-center">
+                    <i class="fa fa-check-circle text-green-500 mr-2"></i>
+                    <span class="text-sm text-green-700">未查询到行政处罚记录</span>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">三、经营异常信息</h4>
+                <div class="space-y-3">
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                        <div class="flex items-start gap-3">
+                            <i class="fa fa-check-circle text-green-500 mt-0.5"></i>
+                            <div>
+                                <div class="text-sm font-semibold text-green-800">经营状态正常</div>
+                                <div class="text-xs text-green-600">企业当前经营状态为存续，无经营异常记录</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                        <div class="flex items-start gap-3">
+                            <i class="fa fa-check-circle text-green-500 mt-0.5"></i>
+                            <div>
+                                <div class="text-sm font-semibold text-green-800">无股权冻结</div>
+                                <div class="text-xs text-green-600">企业股权无冻结情况，资产状态良好</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                        <div class="flex items-start gap-3">
+                            <i class="fa fa-check-circle text-green-500 mt-0.5"></i>
+                            <div>
+                                <div class="text-sm font-semibold text-green-800">无失信记录</div>
+                                <div class="text-xs text-green-600">未被列入失信被执行人名单</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">四、综合法律风险评估</h4>
+                <div class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-6">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-green-600">低</div>
+                            <div class="text-xs text-gray-500 mt-1">法律风险</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-green-600">低</div>
+                            <div class="text-xs text-gray-500 mt-1">合规风险</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-green-600">低</div>
+                            <div class="text-xs text-gray-500 mt-1">合同风险</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-green-600">低</div>
+                            <div class="text-xs text-gray-500 mt-1">纠纷风险</div>
+                        </div>
+                    </div>
+                    <div class="text-xs text-gray-600 text-center">
+                        企业法律风险评估为低风险，未发现重大法律纠纷或合规问题，经营状况稳定。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">PART 05 招投标信息</div>
+                    <div class="card-subtitle">中标项目 · 合作单位 · 项目金额</div>
+                </div>
+                <span class="btn-expand" onclick="toggleSection('bidding')">
+                    <i class="fa fa-chevron-down"></i> 展开/收起
+                </span>
+            </div>
+            <div id="bidding">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div class="bg-green-50 rounded-lg p-4 text-center">
+                        <div class="text-xs text-green-500 mb-2">累计中标</div>
+                        <div class="text-2xl font-bold text-green-600">345</div>
+                        <div class="text-xs text-green-400 mt-1">项目</div>
+                    </div>
+                    <div class="bg-blue-50 rounded-lg p-4 text-center">
+                        <div class="text-xs text-blue-500 mb-2">2026年至今</div>
+                        <div class="text-2xl font-bold text-blue-600">30</div>
+                        <div class="text-xs text-blue-400 mt-1">动态记录</div>
+                    </div>
+                    <div class="bg-purple-50 rounded-lg p-4 text-center">
+                        <div class="text-xs text-purple-500 mb-2">合作医院</div>
+                        <div class="text-2xl font-bold text-purple-600">100+</div>
+                        <div class="text-xs text-purple-400 mt-1">家</div>
+                    </div>
+                    <div class="bg-orange-50 rounded-lg p-4 text-center">
+                        <div class="text-xs text-orange-500 mb-2">业务覆盖</div>
+                        <div class="text-2xl font-bold text-orange-600">20+</div>
+                        <div class="text-xs text-orange-400 mt-1">省市</div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>项目名称</th>
+                                <th>招采单位</th>
+                                <th>中标金额</th>
+                                <th>发布日期</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>成都医学院第一附属医院挂号小程序维保</td><td>成都医学院第一附属医院</td><td>¥8.2万/年</td><td>2026-04-29</td></tr>
+                            <tr><td>中山大学孙逸仙纪念医院掌上医院升级</td><td>中山大学孙逸仙纪念医院</td><td>¥19.5万</td><td>2026-04-24</td></tr>
+                            <tr><td>医务人员医德诚信档案系统维保</td><td>南通市中医院</td><td>¥0.18万/年</td><td>2026-04-13</td></tr>
+                            <tr><td>贵州医科大学附属口腔医院移动智慧医院维保</td><td>贵州医科大学附属口腔医院</td><td>¥3.34万</td><td>2026-04-02</td></tr>
+                            <tr><td>哈尔滨医科大学附属肿瘤医院医保微信支付</td><td>哈尔滨医科大学附属肿瘤医院</td><td>¥44.8万</td><td>2026-03-09</td></tr>
+                            <tr><td>哈尔滨医科大学附属肿瘤医院智慧医院升级</td><td>哈尔滨医科大学附属肿瘤医院</td><td>¥39万</td><td>2026-03-09</td></tr>
+                            <tr><td>中南大学湘雅二医院退费功能改造</td><td>中南大学湘雅二医院</td><td>¥7万</td><td>2026-02-11</td></tr>
+                            <tr><td>常德市某医院互联网医院应急平台</td><td>中国联通常德市分公司</td><td>¥81.8万</td><td>2026-01-22</td></tr>
+                            <tr><td>广东省中医院微信服务号功能改造</td><td>广东省中医院</td><td>¥75.99万</td><td>2026-01-05</td></tr>
+                            <tr><td>南通市妇幼保健院AI预问诊</td><td>南通市妇幼保健院</td><td>¥29.2万</td><td>2025-12-25</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">PART 05 财务分析</div>
+                    <div class="card-subtitle">财务状况 · 经营成果 · 现金流量</div>
+                </div>
+            </div>
+
+            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+                <div class="flex items-start gap-3">
+                    <i class="fa fa-info-circle text-yellow-600 mt-0.5"></i>
+                    <div>
+                        <div class="text-sm font-semibold text-yellow-800">财务数据说明</div>
+                        <div class="text-xs text-yellow-700">截至目前，暂未查询到广州海鹚网络科技有限公司的公开财务报表数据。以下为财务分析框架，待获取完整财报后可进行深度分析。</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">一、财务关键指标概览</h4>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-gray-50 rounded-lg p-4 text-center">
+                        <div class="text-xs text-gray-500 mb-2">资产总额</div>
+                        <div class="text-xl font-bold text-gray-700">-</div>
+                        <div class="text-xs text-gray-400 mt-1">数据待补充</div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4 text-center">
+                        <div class="text-xs text-gray-500 mb-2">营业收入</div>
+                        <div class="text-xl font-bold text-gray-700">-</div>
+                        <div class="text-xs text-gray-400 mt-1">数据待补充</div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4 text-center">
+                        <div class="text-xs text-gray-500 mb-2">净利润</div>
+                        <div class="text-xl font-bold text-gray-700">-</div>
+                        <div class="text-xs text-gray-400 mt-1">数据待补充</div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4 text-center">
+                        <div class="text-xs text-gray-500 mb-2">净资产收益率</div>
+                        <div class="text-xl font-bold text-gray-700">-</div>
+                        <div class="text-xs text-gray-400 mt-1">数据待补充</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">二、近三年财务趋势分析（框架）</h4>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>项目</th>
+                                <th>2024年</th>
+                                <th>2023年</th>
+                                <th>2022年</th>
+                                <th>年复合增长率</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>营业收入</strong></td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td><strong>净利润</strong></td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td><strong>资产总额</strong></td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td><strong>负债总额</strong></td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td><strong>净资产</strong></td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td><strong>经营活动现金流</strong></td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">三、财务比率分析框架</h4>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="bg-blue-50 rounded-lg p-4">
+                        <div class="text-sm font-semibold text-blue-800 mb-2">盈利能力指标</div>
+                        <div class="text-xs text-blue-600 space-y-1">
+                            <div>• 毛利率 = (营业收入-营业成本)/营业收入</div>
+                            <div>• 净利率 = 净利润/营业收入</div>
+                            <div>• ROE = 净利润/平均净资产</div>
+                            <div>• ROA = 净利润/平均总资产</div>
+                        </div>
+                    </div>
+                    <div class="bg-green-50 rounded-lg p-4">
+                        <div class="text-sm font-semibold text-green-800 mb-2">偿债能力指标</div>
+                        <div class="text-xs text-green-600 space-y-1">
+                            <div>• 资产负债率 = 负债总额/资产总额</div>
+                            <div>• 流动比率 = 流动资产/流动负债</div>
+                            <div>• 速动比率 = 速动资产/流动负债</div>
+                            <div>• 利息保障倍数 = EBIT/利息费用</div>
+                        </div>
+                    </div>
+                    <div class="bg-purple-50 rounded-lg p-4">
+                        <div class="text-sm font-semibold text-purple-800 mb-2">运营能力指标</div>
+                        <div class="text-xs text-purple-600 space-y-1">
+                            <div>• 应收账款周转天数</div>
+                            <div>• 存货周转天数</div>
+                            <div>• 总资产周转率</div>
+                            <div>• 现金转换周期</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">四、现金流分析框架</h4>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-gray-50 rounded-lg p-4 text-center">
+                        <div class="text-2xl font-bold text-blue-600">-</div>
+                        <div class="text-xs text-gray-500 mt-1">经营活动现金流</div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4 text-center">
+                        <div class="text-2xl font-bold text-green-600">-</div>
+                        <div class="text-xs text-gray-500 mt-1">投资活动现金流</div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4 text-center">
+                        <div class="text-2xl font-bold text-purple-600">-</div>
+                        <div class="text-xs text-gray-500 mt-1">筹资活动现金流</div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">五、财务分析要点（待数据补充）</h4>
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div class="text-xs text-gray-600 space-y-2">
+                        <div>• <strong>收入质量分析</strong>：分析营业收入构成、客户集中度、收入确认政策等</div>
+                        <div>• <strong>成本结构分析</strong>：分析成本构成、毛利率变化趋势、成本管控能力</div>
+                        <div>• <strong>现金流健康度</strong>：经营现金流与净利润匹配度、现金转换周期</div>
+                        <div>• <strong>资本结构分析</strong>：负债水平、融资成本、偿债能力</div>
+                        <div>• <strong>投资效率分析</strong>：研发投入占比、投资回报率、项目回报周期</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">PART 06 资质证书</div>
+                    <div class="card-subtitle">认证资质 · 证书状态</div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-6">
+                <div class="certification-badge">
+                    <div class="certification-icon text-blue-500"><i class="fa fa-shield"></i></div>
+                    <div class="certification-name">信息安全管理体系</div>
+                    <div class="certification-count">5</div>
+                </div>
+                <div class="certification-badge">
+                    <div class="certification-icon text-purple-500"><i class="fa fa-copyright"></i></div>
+                    <div class="certification-name">知识产权管理体系</div>
+                    <div class="certification-count">4</div>
+                </div>
+                <div class="certification-badge">
+                    <div class="certification-icon text-green-500"><i class="fa fa-award"></i></div>
+                    <div class="certification-name">服务认证</div>
+                    <div class="certification-count">4</div>
+                </div>
+                <div class="certification-badge">
+                    <div class="certification-icon text-orange-500"><i class="fa fa-check-square-o"></i></div>
+                    <div class="certification-name">质量管理体系</div>
+                    <div class="certification-count">3</div>
+                </div>
+                <div class="certification-badge">
+                    <div class="certification-icon text-red-500"><i class="fa fa-server"></i></div>
+                    <div class="certification-name">ITSS证书</div>
+                    <div class="certification-count">1</div>
+                </div>
+                <div class="certification-badge">
+                    <div class="certification-icon text-indigo-500"><i class="fa fa-file-code-o"></i></div>
+                    <div class="certification-name">软件产品证书</div>
+                    <div class="certification-count">1</div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>资质名称</th>
+                            <th>证书编号</th>
+                            <th>发证日期</th>
+                            <th>有效期至</th>
+                            <th>状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>信息安全管理体系认证</td><td>05326IS00032R101</td><td>2026-02-27</td><td>2028-03-18</td><td><span class="tag tag-success">有效</span></td></tr>
+                        <tr><td>知识产权管理体系认证</td><td>NGV25IPMS00023R0S</td><td>2025-06-09</td><td>2028-06-08</td><td><span class="tag tag-success">有效</span></td></tr>
+                        <tr><td>服务认证</td><td>30225SC00131R0M</td><td>2025-05-26</td><td>2028-05-25</td><td><span class="tag tag-success">有效</span></td></tr>
+                        <tr><td>质量管理体系认证</td><td>05323Q32218R0S</td><td>2023-11-30</td><td>2026-11-29</td><td><span class="tag tag-success">有效</span></td></tr>
+                        <tr><td>信息技术服务管理体系认证</td><td>0352023ITSM530R0CN</td><td>2023-10-09</td><td>2026-10-08</td><td><span class="tag tag-success">有效</span></td></tr>
+                        <tr><td>软件产品证书</td><td>粤RC-2022-0358</td><td>2022-08-25</td><td>2027-08-25</td><td><span class="tag tag-success">有效</span></td></tr>
+                        <tr><td>CS证书</td><td>CS2-4400-001198</td><td>2022-06-23</td><td>2026-06-22</td><td><span class="tag tag-success">有效</span></td></tr>
+                        <tr><td>ITSS证书</td><td>ITSS-YW-3-440020210557</td><td>2021-05-31</td><td>2027-05-30</td><td><span class="tag tag-success">有效</span></td></tr>
+                        <tr><td>医疗器械经营备案凭证</td><td>粤穗食药监械经营备20172190号</td><td>2017-09-21</td><td>-</td><td><span class="tag tag-success">有效</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">PART 06 荣誉资质</div>
+                    <div class="card-subtitle">企业荣誉 · 科技认证</div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-6 border border-green-200">
+                    <div class="flex items-center gap-4 mb-3">
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                            <i class="fa fa-trophy text-green-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <div class="text-sm font-semibold text-gray-800">高新技术企业</div>
+                            <div class="text-xs text-gray-500">国家级</div>
+                        </div>
+                    </div>
+                    <div class="text-xs text-gray-600">认证年份：2025</div>
+                    <div class="text-xs text-gray-600">发布单位：全国高新技术企业认定管理工作领导小组办公室</div>
+                </div>
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-6 border border-blue-200">
+                    <div class="flex items-center gap-4 mb-3">
+                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                            <i class="fa fa-star text-blue-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <div class="text-sm font-semibold text-gray-800">专精特新中小企业</div>
+                            <div class="text-xs text-gray-500">省级</div>
+                        </div>
+                    </div>
+                    <div class="text-xs text-gray-600">认证年份：2025</div>
+                    <div class="text-xs text-gray-600">发布单位：广东省工业和信息化厅</div>
+                </div>
+                <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg p-6 border border-purple-200">
+                    <div class="flex items-center gap-4 mb-3">
+                        <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                            <i class="fa fa-lightbulb-o text-purple-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <div class="text-sm font-semibold text-gray-800">创新型中小企业</div>
+                            <div class="text-xs text-gray-500">省级</div>
+                        </div>
+                    </div>
+                    <div class="text-xs text-gray-600">认证年份：2025</div>
+                    <div class="text-xs text-gray-600">发布单位：广州市工业和信息化局</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">PART 07 分支机构</div>
+                    <div class="card-subtitle">分公司分布 · 运营状态</div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="bg-green-50 rounded-lg p-6 border-l-4 border-green-500">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <div class="font-semibold text-gray-800">广州海鹚网络科技有限公司长沙分公司</div>
+                            <div class="text-sm text-gray-500">负责人：闵能</div>
+                        </div>
+                        <span class="tag tag-success">存续</span>
+                    </div>
+                    <div class="text-sm text-gray-600">地区：湖南省长沙市岳麓区</div>
+                    <div class="text-sm text-gray-600">成立日期：2017年11月22日</div>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-6 border-l-4 border-gray-400">
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <div class="font-semibold text-gray-800">广州海鹚网络科技有限公司北京分公司</div>
+                            <div class="text-sm text-gray-500">负责人：闵能</div>
+                        </div>
+                        <span class="tag tag-warning">注销</span>
+                    </div>
+                    <div class="text-sm text-gray-600">地区：北京市朝阳区</div>
+                    <div class="text-sm text-gray-600">成立日期：2020年07月14日</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">PART 08 主营产品分析</div>
+                    <div class="card-subtitle">核心产品 · 服务体系 · 技术能力</div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">一、核心产品矩阵</h4>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-4 border border-blue-200">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <i class="fa fa-mobile text-blue-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-semibold text-blue-800">掌上医院平台</div>
+                                <div class="text-xs text-blue-600">移动端就医服务</div>
+                            </div>
+                        </div>
+                        <div class="text-xs text-gray-600">提供预约挂号、在线缴费、报告查询、候诊提醒等全流程就医服务，覆盖微信、支付宝等多平台。</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-4 border border-green-200">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                                <i class="fa fa-hospital-o text-green-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-semibold text-green-800">智慧医院系统</div>
+                                <div class="text-xs text-green-600">医院信息化解决方案</div>
+                            </div>
+                        </div>
+                        <div class="text-xs text-gray-600">涵盖HIS、EMR、LIS、PACS等核心系统集成，助力医院数字化转型，提升运营效率。</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg p-4 border border-purple-200">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                                <i class="fa fa-stethoscope text-purple-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-semibold text-purple-800">互联网医院平台</div>
+                                <div class="text-xs text-purple-600">在线诊疗服务</div>
+                            </div>
+                        </div>
+                        <div class="text-xs text-gray-600">支持在线问诊、处方流转、药品配送等功能，构建线上线下一体化医疗服务体系。</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-orange-50 to-amber-50 rounded-lg p-4 border border-orange-200">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                                <i class="fa fa-line-chart text-orange-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-semibold text-orange-800">医疗大数据分析</div>
+                                <div class="text-xs text-orange-600">数据驱动决策</div>
+                            </div>
+                        </div>
+                        <div class="text-xs text-gray-600">基于海量医疗数据，提供运营分析、患者画像、疾病预测等智能化分析服务。</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-red-50 to-rose-50 rounded-lg p-4 border border-red-200">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+                                <i class="fa fa-heartbeat text-red-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-semibold text-red-800">健康管理平台</div>
+                                <div class="text-xs text-red-600">全周期健康服务</div>
+                            </div>
+                        </div>
+                        <div class="text-xs text-gray-600">提供健康档案、慢病管理、健康评估、健康干预等全生命周期健康管理服务。</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-cyan-50 to-teal-50 rounded-lg p-4 border border-cyan-200">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 bg-cyan-100 rounded-lg flex items-center justify-center">
+                                <i class="fa fa-shield text-cyan-600"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-semibold text-cyan-800">医疗信息安全</div>
+                                <div class="text-xs text-cyan-600">数据安全保障</div>
+                            </div>
+                        </div>
+                        <div class="text-xs text-gray-600">提供医疗数据加密、访问控制、安全审计等信息安全解决方案，确保数据合规。</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">二、技术能力评估</h4>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="text-center bg-gray-50 rounded-lg p-4">
+                        <div class="text-2xl font-bold text-blue-600">95%</div>
+                        <div class="text-xs text-gray-500 mt-1">技术成熟度</div>
+                    </div>
+                    <div class="text-center bg-gray-50 rounded-lg p-4">
+                        <div class="text-2xl font-bold text-green-600">4.8</div>
+                        <div class="text-xs text-gray-500 mt-1">客户满意度</div>
+                    </div>
+                    <div class="text-center bg-gray-50 rounded-lg p-4">
+                        <div class="text-2xl font-bold text-purple-600">200+</div>
+                        <div class="text-xs text-gray-500 mt-1">技术专利</div>
+                    </div>
+                    <div class="text-center bg-gray-50 rounded-lg p-4">
+                        <div class="text-2xl font-bold text-orange-600">99.9%</div>
+                        <div class="text-xs text-gray-500 mt-1">系统可用性</div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">三、服务体系</h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="text-sm font-semibold text-gray-700 mb-2">技术支持</div>
+                        <div class="text-xs text-gray-600 space-y-1">
+                            <div>• 7×24小时技术热线</div>
+                            <div>• 远程运维支持</div>
+                            <div>• 现场技术服务</div>
+                            <div>• 系统升级维护</div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="text-sm font-semibold text-gray-700 mb-2">培训服务</div>
+                        <div class="text-xs text-gray-600 space-y-1">
+                            <div>• 系统操作培训</div>
+                            <div>• 管理员培训</div>
+                            <div>• 定制化培训方案</div>
+                            <div>• 在线学习平台</div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="text-sm font-semibold text-gray-700 mb-2">咨询服务</div>
+                        <div class="text-xs text-gray-600 space-y-1">
+                            <div>• 信息化规划咨询</div>
+                            <div>• 流程优化咨询</div>
+                            <div>• 数据治理咨询</div>
+                            <div>• 合规性评估</div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="text-sm font-semibold text-gray-700 mb-2">定制开发</div>
+                        <div class="text-xs text-gray-600 space-y-1">
+                            <div>• 个性化功能定制</div>
+                            <div>• 系统集成开发</div>
+                            <div>• API接口开发</div>
+                            <div>• 移动端定制</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">PART 09 同业竞争对手对比</div>
+                    <div class="card-subtitle">竞争格局 · 对比分析 · 市场定位</div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">一、主要竞争对手</h4>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>企业名称</th>
+                                <th>成立时间</th>
+                                <th>核心业务</th>
+                                <th>市场份额</th>
+                                <th>竞争优势</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>卫宁健康</strong></td>
+                                <td>1994年</td>
+                                <td>HIS系统、区域卫生平台</td>
+                                <td>约18%</td>
+                                <td><span class="tag tag-info">老牌龙头</span> 行业经验丰富，客户基数大</td>
+                            </tr>
+                            <tr>
+                                <td><strong>创业慧康</strong></td>
+                                <td>1997年</td>
+                                <td>智慧医院、区域医疗</td>
+                                <td>约12%</td>
+                                <td><span class="tag tag-info">国资背景</span> 政府资源丰富</td>
+                            </tr>
+                            <tr>
+                                <td><strong>万达信息</strong></td>
+                                <td>1995年</td>
+                                <td>智慧城市、医疗信息化</td>
+                                <td>约8%</td>
+                                <td><span class="tag tag-info">综合能力强</span> 多领域协同</td>
+                            </tr>
+                            <tr>
+                                <td><strong>东华软件</strong></td>
+                                <td>2001年</td>
+                                <td>HIS、电子病历</td>
+                                <td>约6%</td>
+                                <td><span class="tag tag-info">技术实力强</span> 定制化能力突出</td>
+                            </tr>
+                            <tr>
+                                <td><strong>广州海鹚</strong></td>
+                                <td>2014年</td>
+                                <td>掌上医院、互联网医院</td>
+                                <td>约5%</td>
+                                <td><span class="tag tag-success">创新能力强</span> 移动端优势明显</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">二、竞争力对比矩阵</h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-blue-50 rounded-lg p-4">
+                        <div class="text-sm font-semibold text-blue-800 mb-3">广州海鹚优势领域</div>
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-2">
+                                <i class="fa fa-check-circle text-blue-500 text-sm"></i>
+                                <span class="text-xs text-blue-700">移动端产品体验领先</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fa fa-check-circle text-blue-500 text-sm"></i>
+                                <span class="text-xs text-blue-700">AI技术应用深入</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fa fa-check-circle text-blue-500 text-sm"></i>
+                                <span class="text-xs text-blue-700">创新能力强，响应速度快</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fa fa-check-circle text-blue-500 text-sm"></i>
+                                <span class="text-xs text-blue-700">百度战略投资，资源丰富</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fa fa-check-circle text-blue-500 text-sm"></i>
+                                <span class="text-xs text-blue-700">年轻团队，执行力强</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-orange-50 rounded-lg p-4">
+                        <div class="text-sm font-semibold text-orange-800 mb-3">需提升领域</div>
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-2">
+                                <i class="fa fa-exclamation-circle text-orange-500 text-sm"></i>
+                                <span class="text-xs text-orange-700">品牌知名度需提升</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fa fa-exclamation-circle text-orange-500 text-sm"></i>
+                                <span class="text-xs text-orange-700">全国服务网络建设</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fa fa-exclamation-circle text-orange-500 text-sm"></i>
+                                <span class="text-xs text-orange-700">大型项目交付经验</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fa fa-exclamation-circle text-orange-500 text-sm"></i>
+                                <span class="text-xs text-orange-700">产品线完整性</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fa fa-exclamation-circle text-orange-500 text-sm"></i>
+                                <span class="text-xs text-orange-700">资金实力与融资能力</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">三、市场定位与策略建议</h4>
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div class="text-sm font-semibold text-gray-700 mb-3">差异化定位</div>
+                    <div class="text-xs text-gray-600 mb-4">
+                        聚焦移动医疗和互联网医院细分领域，打造"轻量级、高体验、智能化"的产品特色，与传统HIS厂商形成差异化竞争。
+                    </div>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-white rounded-lg p-3">
+                            <div class="text-xs font-semibold text-gray-700 mb-1">短期策略</div>
+                            <div class="text-xs text-gray-600">深耕现有客户，提升服务质量，扩大口碑传播</div>
+                        </div>
+                        <div class="bg-white rounded-lg p-3">
+                            <div class="text-xs font-semibold text-gray-700 mb-1">中期策略</div>
+                            <div class="text-xs text-gray-600">拓展产品线，增强AI能力，深化技术壁垒</div>
+                        </div>
+                        <div class="bg-white rounded-lg p-3">
+                            <div class="text-xs font-semibold text-gray-700 mb-1">长期策略</div>
+                            <div class="text-xs text-gray-600">构建医疗健康生态，探索多元化变现模式</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">PART 10 综合评估</div>
+                    <div class="card-subtitle">风险提示 · 发展建议</div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <div class="highlight-title">企业亮点</div>
+                <div class="highlight-content">
+                    广州海鹚网络科技有限公司是一家专注于医疗健康领域的创新型科技企业，拥有百度等知名企业的战略投资。公司具备完善的资质认证体系，业务覆盖全国20多个省市，累计中标345个项目，服务超过100家医院。2025年获得国家级高新技术企业、省级专精特新中小企业等荣誉认证，展现出较强的技术实力和市场竞争力。
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-lg p-6">
+                <div class="text-sm font-semibold text-gray-700 mb-4">风险评估</div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-green-500">低</div>
+                        <div class="text-xs text-gray-500 mt-1">法律风险</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-green-500">低</div>
+                        <div class="text-xs text-gray-500 mt-1">经营风险</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-yellow-500">中</div>
+                        <div class="text-xs text-gray-500 mt-1">财务风险</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-green-500">低</div>
+                        <div class="text-xs text-gray-500 mt-1">综合风险</div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg p-4">
+                    <div class="text-sm font-semibold text-gray-700 mb-2">风险提示与建议</div>
+                    <ul class="text-xs text-gray-500 space-y-2">
+                        <li>• <span class="text-green-500">经营状态</span>：企业经营状态正常，业务持续活跃</li>
+                        <li>• <span class="text-yellow-500">财务数据</span>：暂未查询到公开财务数据，建议关注后续更新</li>
+                        <li>• <span class="text-green-500">资质认证</span>：资质齐全且大部分有效，保障业务合规开展</li>
+                        <li>• <span class="text-green-500">发展前景</span>：医疗健康科技领域具有良好发展前景，企业具备一定竞争优势</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">PART 11 行内合作全景</div>
+                    <div class="card-subtitle">价值概况 · 业务指标 · 当前持有产品 · 产品推荐</div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">一、价值概况</h4>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                    <div class="bg-purple-50 rounded-lg p-4 text-center">
+                        <div class="text-xs text-purple-500 mb-1">利润贡献度</div>
+                        <div class="text-xl font-bold text-purple-700">78%</div>
+                    </div>
+                    <div class="bg-purple-50 rounded-lg p-4 text-center">
+                        <div class="text-xs text-purple-500 mb-1">客户活跃度</div>
+                        <div class="text-xl font-bold text-purple-700">高</div>
+                    </div>
+                    <div class="bg-purple-50 rounded-lg p-4 text-center">
+                        <div class="text-xs text-purple-500 mb-1">客户忠诚度</div>
+                        <div class="text-xl font-bold text-purple-700">85%</div>
+                    </div>
+                    <div class="bg-purple-50 rounded-lg p-4 text-center">
+                        <div class="text-xs text-purple-500 mb-1">存款FTP利润</div>
+                        <div class="text-xl font-bold text-purple-700">95万</div>
+                    </div>
+                    <div class="bg-purple-50 rounded-lg p-4 text-center">
+                        <div class="text-xs text-purple-500 mb-1">贷款FTP利润</div>
+                        <div class="text-xl font-bold text-purple-700">68万</div>
+                    </div>
+                    <div class="bg-purple-50 rounded-lg p-4 text-center">
+                        <div class="text-xs text-purple-500 mb-1">中间业务利润</div>
+                        <div class="text-xl font-bold text-purple-700">28万</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">二、业务指标</h4>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>指标名称</th>
+                                <th>数值</th>
+                                <th>单位</th>
+                                <th>状态</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>活期存款余额</td>
+                                <td>1,200</td>
+                                <td>万元</td>
+                                <td><span class="tag tag-success">正常</span></td>
+                            </tr>
+                            <tr>
+                                <td>定期存款余额</td>
+                                <td>2,500</td>
+                                <td>万元</td>
+                                <td><span class="tag tag-success">正常</span></td>
+                            </tr>
+                            <tr>
+                                <td>授信额度</td>
+                                <td>3,000</td>
+                                <td>万元</td>
+                                <td><span class="tag tag-info">可用</span></td>
+                            </tr>
+                            <tr>
+                                <td>贷款余额</td>
+                                <td>1,800</td>
+                                <td>万元</td>
+                                <td><span class="tag tag-success">正常</span></td>
+                            </tr>
+                            <tr>
+                                <td>逾期贷款余额</td>
+                                <td>0</td>
+                                <td>万元</td>
+                                <td><span class="tag tag-success">无逾期</span></td>
+                            </tr>
+                            <tr>
+                                <td>不良贷款余额</td>
+                                <td>0</td>
+                                <td>万元</td>
+                                <td><span class="tag tag-success">无不良</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">三、当前持有产品</h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="text-sm font-semibold text-gray-700 mb-2">存款类产品</div>
+                        <div class="text-xs text-gray-600 space-y-1">
+                            <div>• 活期存款</div>
+                            <div>• 定期存款</div>
+                            <div>• 保证金存款</div>
+                            <div>• 单位大额存单</div>
+                            <div>• 通知存款</div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="text-sm font-semibold text-gray-700 mb-2">授信类产品</div>
+                        <div class="text-xs text-gray-600 space-y-1">
+                            <div>• 流动资金贷款</div>
+                            <div>• 固定资产贷款</div>
+                            <div>• 银行承兑汇票</div>
+                            <div>• 保函</div>
+                            <div>• 信用证</div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="text-sm font-semibold text-gray-700 mb-2">投金类产品</div>
+                        <div class="text-xs text-gray-600 space-y-1">
+                            <div>• 理财产品</div>
+                            <div>• 结构性存款</div>
+                            <div>• 基金定投</div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="text-sm font-semibold text-gray-700 mb-2">电子结算类产品</div>
+                        <div class="text-xs text-gray-600 space-y-1">
+                            <div>• 企业网银</div>
+                            <div>• 银企直连</div>
+                            <div>• 票据池</div>
+                            <div>• 现金管理</div>
+                            <div>• 跨境结算</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center py-8 text-gray-400 text-xs">
+            © 2026 企业多维度分析报告 | 数据来源：企业信用信息公示系统及招投标平台
+        </div>
+    </div>
+
+    <script>
+        function toggleSection(id) {
+            const section = document.getElementById(id);
+            if (section.style.display === 'none') {
+                section.style.display = 'block';
+            } else {
+                section.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>公司智汇营</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #1a1a1a;
+            margin: 0;
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .phone-frame {
+            width: 480px;
+            height: calc(100vh - 40px);
+            background-color: white;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .app-container {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-bottom: 60px;
+            -webkit-overflow-scrolling: touch;
+        }
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #ffffff;
+            border-top: 1px solid #e0e0e0;
+            padding: 8px 16px;
+            z-index: 100;
+            flex-shrink: 0;
+        }
+        .realtime-reminder {
+            position: absolute;
+            bottom: 70px;
+            right: 16px;
+            width: 50px;
+            height: 50px;
+            background-color: #1890ff;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 2px 8px rgba(24, 144, 255, 0.4);
+            z-index: 50;
+        }
+        .status-bar {
+            height: 44px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .app-header {
+            height: 44px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .workbench-card {
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .tab-active {
+            color: #1890ff;
+            border-bottom: 2px solid #1890ff;
+        }
+        .vconsole {
+            position: absolute;
+            top: 100px;
+            right: 10px;
+            background-color: #409eff;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        .network-error {
+            background-color: #fff2e8;
+            color: #fa8c16;
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin: 12px;
+            font-size: 12px;
+        }
+        .report-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .report-content {
+            background-color: white;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .report-header {
+            padding: 16px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .report-body {
+            padding: 16px;
+        }
+        .report-actions {
+            padding: 16px;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+        }
+        .btn-primary {
+            background-color: #1890ff;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+        }
+        .btn-secondary {
+            background-color: #f0f0f0;
+            color: #333;
+            padding: 8px 16px;
+            border-radius: 4px;
+        }
+        .visit-report-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .visit-report-content {
+            background-color: white;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 400px;
+        }
+        .visit-report-header {
+            background: linear-gradient(135deg, #b91c1c 0%, #ef4444 100%);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .visit-report-body {
+            padding: 16px;
+        }
+        .customer-search-results {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            margin-top: 8px;
+        }
+        .customer-item {
+            padding: 10px 12px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+        }
+        .customer-item:hover {
+            background-color: #f5f5f5;
+        }
+        .customer-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-frame">
+        <div class="app-container min-h-screen bg-gray-100">
+            <!-- 应用头部 -->
+        <div class="app-header flex items-center justify-between px-4">
+            <div class="flex items-center">
+                <button class="mr-4"><i class="fa fa-angle-left"></i></button>
+                <button class="mr-4"><i class="fa fa-home"></i></button>
+                <h1 class="text-lg font-medium">公司智汇营</h1>
+            </div>
+            <button><i class="fa fa-cog"></i></button>
+        </div>
+
+        <!-- 主内容区 -->
+        <div class="bg-gradient-to-b from-blue-500 to-blue-600 text-white px-4 py-6">
+            <div class="flex items-center mb-4">
+                <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center mr-3">
+                    <i class="fa fa-user text-blue-500"></i>
+                </div>
+                <div>
+                    <p class="text-sm">Hi,</p>
+                    <p class="font-medium">客户经理</p>
+                </div>
+            </div>
+            <div class="flex justify-between items-center mb-4">
+                <div>
+                    <p class="text-xs">数据说明</p>
+                    <p class="text-xs">数据更新时间：2026-04-21</p>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-20 h-20 relative">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i class="fa fa-line-chart text-white text-3xl"></i>
+                        </div>
+                        <div class="absolute bottom-0 right-0 w-10 h-10 bg-white rounded-full flex items-center justify-center">
+                            <i class="fa fa-arrow-up text-blue-500"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 工作台 -->
+        <div class="px-4 py-4">
+            <h2 class="text-lg font-medium mb-3">工作台</h2>
+            <div class="grid grid-cols-2 gap-3">
+                <div class="workbench-card bg-white p-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-medium text-red-500">拓客魔方</h3>
+                            <p class="text-xs text-gray-500 mt-1">查看拓客商机</p>
+                        </div>
+                        <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+                            <i class="fa fa-magic text-red-500"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="workbench-card bg-white p-4 cursor-pointer" id="visitReportCard">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-medium text-purple-500">访前一页纸</h3>
+                            <p class="text-xs text-gray-500 mt-1">生成访前报告</p>
+                        </div>
+                        <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                            <i class="fa fa-file-text-o text-purple-500"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="workbench-card bg-white p-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-medium text-blue-500">拜访打卡</h3>
+                            <p class="text-xs text-gray-500 mt-1">查看拜访记录</p>
+                        </div>
+                        <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                            <i class="fa fa-check-square-o text-blue-500"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="workbench-card bg-white p-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-medium text-blue-400">数据统计</h3>
+                            <p class="text-xs text-gray-500 mt-1">查看数据统计</p>
+                        </div>
+                        <div class="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
+                            <i class="fa fa-bar-chart text-blue-400"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="workbench-card bg-white p-4">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-medium text-orange-500">消息提醒</h3>
+                            <p class="text-xs text-gray-500 mt-1">查看消息提醒</p>
+                        </div>
+                        <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                            <i class="fa fa-bell-o text-orange-500"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 指标业绩 -->
+        <div class="px-4 py-4">
+            <h2 class="text-lg font-medium mb-3">指标业绩</h2>
+            <div class="bg-white rounded-lg shadow-card p-4">
+                <div class="flex border-b border-gray-200 mb-4">
+                    <button class="px-4 py-2 text-sm font-medium text-blue-600 border-b-2 border-blue-600">指标业绩</button>
+                    <button class="px-4 py-2 text-sm font-medium text-gray-500">业绩趋势</button>
+                </div>
+                <div class="flex border-b border-gray-200 mb-4 overflow-x-auto">
+                    <button class="px-4 py-2 text-sm font-medium text-blue-600 border-b-2 border-blue-600 whitespace-nowrap">存款指标</button>
+                    <button class="px-4 py-2 text-sm font-medium text-gray-500 whitespace-nowrap">贷款指标</button>
+                    <button class="px-4 py-2 text-sm font-medium text-gray-500 whitespace-nowrap">客户指标</button>
+                    <button class="px-4 py-2 text-sm font-medium text-gray-500 whitespace-nowrap">其他指标</button>
+                </div>
+                <div class="py-4">
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                            <div>
+                                <p class="text-sm font-medium">对公存款</p>
+                                <p class="text-xs text-gray-500">本月目标: 1000万元</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-medium text-green-600">850万元</p>
+                                <p class="text-xs text-gray-500">完成率: 85%</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                            <div>
+                                <p class="text-sm font-medium">对公贷款</p>
+                                <p class="text-xs text-gray-500">本月目标: 2000万元</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-medium text-green-600">1650万元</p>
+                                <p class="text-xs text-gray-500">完成率: 82.5%</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                            <div>
+                                <p class="text-sm font-medium">客户新增</p>
+                                <p class="text-xs text-gray-500">本月目标: 20户</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-medium text-green-600">18户</p>
+                                <p class="text-xs text-gray-500">完成率: 90%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 实时提醒 -->
+        <div class="realtime-reminder">
+            <i class="fa fa-bell"></i>
+            <span class="text-xs">实时</span>
+            <span class="text-xs">提醒</span>
+        </div>
+
+        <!-- 访前一页纸模态框 -->
+        <div id="visitReportModal" class="visit-report-modal" style="display: none;">
+            <div class="visit-report-content">
+                <div class="visit-report-header">
+                    <h3 class="font-medium">访前一页纸</h3>
+                    <button id="closeVisitReportModal"><i class="fa fa-times"></i></button>
+                </div>
+                <div class="visit-report-body">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">客户名称</label>
+                        <input type="text" id="customerSearchInput" placeholder="请输入客户名称进行搜索" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        <div id="customerSearchResults" class="customer-search-results" style="display: none;"></div>
+                    </div>
+                    <button id="generateReportBtn" class="w-full py-2 bg-gradient-to-r from-purple-600 to-purple-500 text-white rounded-lg font-medium hover:from-purple-700 hover:to-purple-600 transition" disabled>
+                        生成报告
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- 报告模态框 -->
+        <div id="reportModal" class="report-modal" style="display: none;">
+            <div class="report-content">
+                <div class="report-header">
+                    <h3 class="font-medium" id="reportTitle">越秀集团访前一页纸</h3>
+                    <button id="closeReport"><i class="fa fa-times"></i></button>
+                </div>
+                
+                <!-- 报告页签 -->
+                <div class="border-b border-gray-200 overflow-x-auto">
+                    <div class="flex min-w-max">
+                        <button class="report-tab px-4 py-3 font-medium text-red-600 border-b-2 border-red-600" data-tab="basic">
+                            <i class="fa fa-building-o mr-2"></i>基本信息
+                        </button>
+                        <button class="report-tab px-4 py-3 font-medium text-gray-500 hover:text-red-600" data-tab="risk">
+                            <i class="fa fa-exclamation-triangle mr-2"></i>风险舆情
+                        </button>
+                        <button class="report-tab px-4 py-3 font-medium text-gray-500 hover:text-red-600" data-tab="finance">
+                            <i class="fa fa-line-chart mr-2"></i>财务指标
+                        </button>
+                        <button class="report-tab px-4 py-3 font-medium text-gray-500 hover:text-red-600" data-tab="cooperation">
+                            <i class="fa fa-handshake-o mr-2"></i>合作情况
+                        </button>
+                        <button class="report-tab px-4 py-3 font-medium text-gray-500 hover:text-red-600" data-tab="recommendation">
+                            <i class="fa fa-lightbulb-o mr-2"></i>产品推荐
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="report-body">
+                    <!-- 企业基本信息 -->
+                    <div id="basic" class="report-tab-content">
+                        <h4 class="font-medium mb-3 text-red-700 flex items-center">
+                            <i class="fa fa-building-o mr-2 text-red-600"></i>企业基本信息
+                        </h4>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <p class="text-xs text-gray-600 mb-1">企业名称</p>
+                                <p class="text-sm font-medium" id="companyName">越秀集团</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-600 mb-1">成立时间</p>
+                                <p class="text-sm">1985年</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-600 mb-1">注册资本</p>
+                                <p class="text-sm">100亿元</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-600 mb-1">法定代表人</p>
+                                <p class="text-sm">张招兴</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-600 mb-1">所属行业</p>
+                                <p class="text-sm">房地产开发</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-600 mb-1">企业规模</p>
+                                <p class="text-sm">大型企业</p>
+                            </div>
+                            <div class="col-span-2">
+                                <p class="text-xs text-gray-600 mb-1">地址</p>
+                                <p class="text-sm">广州市天河区珠江新城珠江西路5号广州国际金融中心</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 外部风险舆情 -->
+                    <div id="risk" class="report-tab-content hidden">
+                        <h4 class="font-medium mb-3 text-red-700 flex items-center">
+                            <i class="fa fa-exclamation-triangle mr-2 text-red-600"></i>外部风险舆情
+                        </h4>
+                        <div class="space-y-3">
+                            <div class="flex items-start">
+                                <span class="inline-block w-3 h-3 rounded-full bg-green-500 mt-1.5 mr-3"></span>
+                                <div>
+                                    <p class="text-sm font-medium">涉诉信息</p>
+                                    <p class="text-xs text-gray-600">近3年无重大民事诉讼记录</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="inline-block w-3 h-3 rounded-full bg-green-500 mt-1.5 mr-3"></span>
+                                <div>
+                                    <p class="text-sm font-medium">失信记录</p>
+                                    <p class="text-xs text-gray-600">未被列入失信被执行人名单</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="inline-block w-3 h-3 rounded-full bg-green-500 mt-1.5 mr-3"></span>
+                                <div>
+                                    <p class="text-sm font-medium">处罚信息</p>
+                                    <p class="text-xs text-gray-600">无重大行政处罚记录</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="inline-block w-3 h-3 rounded-full bg-yellow-500 mt-1.5 mr-3"></span>
+                                <div>
+                                    <p class="text-sm font-medium">经营风险</p>
+                                    <p class="text-xs text-gray-600">房地产行业调控政策影响，需关注市场变化</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="inline-block w-3 h-3 rounded-full bg-green-500 mt-1.5 mr-3"></span>
+                                <div>
+                                    <p class="text-sm font-medium">金融风险</p>
+                                    <p class="text-xs text-gray-600">信用评级良好，无不良信贷记录</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="inline-block w-3 h-3 rounded-full bg-green-500 mt-1.5 mr-3"></span>
+                                <div>
+                                    <p class="text-sm font-medium">舆情信息</p>
+                                    <p class="text-xs text-gray-600">近期无负面新闻报道，企业形象良好</p>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-gray-100">
+                                <p class="text-sm font-medium text-gray-700 mb-2">风险评估结果:</p>
+                                <div class="flex items-center">
+                                    <div class="w-full bg-gray-200 rounded-full h-3">
+                                        <div class="bg-green-500 h-3 rounded-full" style="width: 88%"></div>
+                                    </div>
+                                    <span class="ml-2 text-sm font-medium text-green-600">低风险</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 财务指标 -->
+                    <div id="finance" class="report-tab-content hidden">
+                        <h4 class="font-medium mb-3 text-red-700 flex items-center">
+                            <i class="fa fa-line-chart mr-2 text-red-600"></i>财务指标
+                        </h4>
+                        
+                        <!-- 关键财务指标 -->
+                        <div class="mb-4">
+                            <h5 class="text-sm font-medium text-gray-700 mb-2 flex items-center">
+                                <i class="fa fa-dashboard mr-2 text-red-600"></i>关键财务指标
+                            </h5>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="bg-gray-50 rounded-lg p-3 text-center">
+                                    <p class="text-xs text-gray-600">净资产收益率</p>
+                                    <p class="text-base font-semibold text-red-600">15.2%</p>
+                                    <p class="text-xs text-green-600"><i class="fa fa-arrow-up"></i> 2.1%</p>
+                                </div>
+                                <div class="bg-gray-50 rounded-lg p-3 text-center">
+                                    <p class="text-xs text-gray-600">总资产收益率</p>
+                                    <p class="text-base font-semibold text-red-600">10.0%</p>
+                                    <p class="text-xs text-green-600"><i class="fa fa-arrow-up"></i> 1.5%</p>
+                                </div>
+                                <div class="bg-gray-50 rounded-lg p-3 text-center">
+                                    <p class="text-xs text-gray-600">经营利润率</p>
+                                    <p class="text-base font-semibold text-red-600">14.1%</p>
+                                    <p class="text-xs text-green-600"><i class="fa fa-arrow-up"></i> 1.8%</p>
+                                </div>
+                                <div class="bg-gray-50 rounded-lg p-3 text-center">
+                                    <p class="text-xs text-gray-600">净利润增长率</p>
+                                    <p class="text-base font-semibold text-red-600">15.2%</p>
+                                    <p class="text-xs text-green-600"><i class="fa fa-arrow-up"></i> 3.5%</p>
+                                </div>
+                                <div class="bg-gray-50 rounded-lg p-3 text-center">
+                                    <p class="text-xs text-gray-600">资产负债率</p>
+                                    <p class="text-base font-semibold text-red-600">54.2%</p>
+                                    <p class="text-xs text-green-600"><i class="fa fa-arrow-down"></i> 2.3%</p>
+                                </div>
+                                <div class="bg-gray-50 rounded-lg p-3 text-center">
+                                    <p class="text-xs text-gray-600">应收账款周转率</p>
+                                    <p class="text-base font-semibold text-red-600">5.2次</p>
+                                    <p class="text-xs text-green-600"><i class="fa fa-arrow-up"></i> 0.3次</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 资产负债表 -->
+                        <div class="mb-4">
+                            <h5 class="text-sm font-medium text-gray-700 mb-2 flex items-center">
+                                <i class="fa fa-balance-scale mr-2 text-red-600"></i>资产负债表
+                            </h5>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="px-3 py-2 text-left text-xs font-medium text-gray-500">项目</th>
+                                            <th class="px-3 py-2 text-right text-xs font-medium text-gray-500">2024年</th>
+                                            <th class="px-3 py-2 text-right text-xs font-medium text-gray-500">同比变化</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="bg-white divide-y divide-gray-200">
+                                        <tr>
+                                            <td class="px-3 py-2 text-xs text-gray-900">资产总额</td>
+                                            <td class="px-3 py-2 text-xs text-right">12,000万元</td>
+                                            <td class="px-3 py-2 text-xs text-right text-green-600">+8.5%</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-3 py-2 text-xs text-gray-900">负债总额</td>
+                                            <td class="px-3 py-2 text-xs text-right">6,500万元</td>
+                                            <td class="px-3 py-2 text-xs text-right text-green-600">-2.3%</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-3 py-2 text-xs text-gray-900">所有者权益</td>
+                                            <td class="px-3 py-2 text-xs text-right">5,500万元</td>
+                                            <td class="px-3 py-2 text-xs text-right text-green-600">+24.7%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 行内合作情况 -->
+                    <div id="cooperation" class="report-tab-content hidden">
+                        <h4 class="font-medium mb-3 text-red-700 flex items-center">
+                            <i class="fa fa-handshake-o mr-2 text-red-600"></i>行内合作情况
+                        </h4>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center bg-gray-50 p-3 rounded-lg">
+                                <span class="text-sm text-gray-600">贷款余额</span>
+                                <span class="text-sm font-medium text-red-600">50亿元</span>
+                            </div>
+                            <div class="flex justify-between items-center bg-gray-50 p-3 rounded-lg">
+                                <span class="text-sm text-gray-600">存款余额</span>
+                                <span class="text-sm font-medium text-red-600">30亿元</span>
+                            </div>
+                            <div class="flex justify-between items-center bg-gray-50 p-3 rounded-lg">
+                                <span class="text-sm text-gray-600">合作评级</span>
+                                <span class="text-sm font-medium text-green-600">AAA</span>
+                            </div>
+                            <div class="flex justify-between items-center bg-gray-50 p-3 rounded-lg">
+                                <span class="text-sm text-gray-600">授信额度</span>
+                                <span class="text-sm font-medium text-red-600">80亿元</span>
+                            </div>
+                            <div class="flex justify-between items-center bg-gray-50 p-3 rounded-lg">
+                                <span class="text-sm text-gray-600">授信余额</span>
+                                <span class="text-sm font-medium text-red-600">50亿元</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 产品推荐 -->
+                    <div id="recommendation" class="report-tab-content hidden">
+                        <h4 class="font-medium mb-3 text-red-700 flex items-center">
+                            <i class="fa fa-lightbulb-o mr-2 text-red-600"></i>产品推荐
+                        </h4>
+                        <div class="space-y-3">
+                            <div class="border border-gray-200 rounded-lg p-3">
+                                <div class="flex items-center mb-2">
+                                    <i class="fa fa-money text-red-600 mr-2"></i>
+                                    <span class="text-sm font-medium">流动资金贷款</span>
+                                </div>
+                                <p class="text-xs text-gray-600">支持企业日常经营周转，额度灵活，利率优惠</p>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-3">
+                                <div class="flex items-center mb-2">
+                                    <i class="fa fa-building text-red-600 mr-2"></i>
+                                    <span class="text-sm font-medium">固定资产贷款</span>
+                                </div>
+                                <p class="text-xs text-gray-600">支持企业项目建设，期限长，还款方式灵活</p>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-3">
+                                <div class="flex items-center mb-2">
+                                    <i class="fa fa-file-text-o text-red-600 mr-2"></i>
+                                    <span class="text-sm font-medium">票据贴现</span>
+                                </div>
+                                <p class="text-xs text-gray-600">快速变现应收票据，降低资金占用成本</p>
+                            </div>
+                            <div class="border border-gray-200 rounded-lg p-3">
+                                <div class="flex items-center mb-2">
+                                    <i class="fa fa-shield text-red-600 mr-2"></i>
+                                    <span class="text-sm font-medium">保理业务</span>
+                                </div>
+                                <p class="text-xs text-gray-600">应收账款融资，改善现金流，降低坏账风险</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="report-actions">
+                    <button class="btn-primary" id="viewReport">查看报告</button>
+                    <button class="btn-secondary" id="sendEmail">转内网邮箱</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 模拟客户数据
+        const customers = [
+            { id: 1, name: '广州越秀集团股份有限公司', isManaged: false },
+            { id: 2, name: '越秀地产股份有限公司', isManaged: false },
+            { id: 3, name: '越秀金控集团股份有限公司', isManaged: true },
+            { id: 4, name: '广州白云山医药集团股份有限公司', isManaged: true },
+            { id: 5, name: '广州发展集团股份有限公司', isManaged: true },
+            { id: 6, name: '广州汽车集团股份有限公司', isManaged: false },
+            { id: 7, name: '中国南方电网有限责任公司', isManaged: true },
+            { id: 8, name: '广州地铁集团有限公司', isManaged: false },
+            { id: 9, name: '广州市城市建设投资集团有限公司', isManaged: true },
+            { id: 10, name: '广州港集团有限公司', isManaged: false },
+            { id: 11, name: '广州工业投资控股集团有限公司', isManaged: true },
+            { id: 12, name: '广州交通投资集团有限公司', isManaged: false },
+            { id: 13, name: '越秀金融控股集团', isManaged: true },
+            { id: 14, name: '越秀投资有限公司', isManaged: false }
+        ];
+
+        let selectedCustomer = null;
+
+        // 打开访前一页纸页面
+        document.getElementById('visitReportCard').addEventListener('click', function() {
+            window.location.href = 'index1.html';
+        });
+
+        // 关闭访前一页纸模态框
+        document.getElementById('closeVisitReportModal').addEventListener('click', function() {
+            document.getElementById('visitReportModal').style.display = 'none';
+            resetSearch();
+        });
+
+        // 客户搜索功能
+        document.getElementById('customerSearchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.trim().toLowerCase();
+            const resultsDiv = document.getElementById('customerSearchResults');
+            const generateBtn = document.getElementById('generateReportBtn');
+            
+            if (searchTerm.length === 0) {
+                resultsDiv.style.display = 'none';
+                resultsDiv.innerHTML = '';
+                generateBtn.disabled = true;
+                selectedCustomer = null;
+                return;
+            }
+
+            const filteredCustomers = customers.filter(customer => 
+                customer.name.toLowerCase().includes(searchTerm)
+            );
+
+            if (filteredCustomers.length === 0) {
+                resultsDiv.style.display = 'block';
+                resultsDiv.innerHTML = '<div class="customer-item text-gray-500 text-center">未找到匹配的客户</div>';
+                generateBtn.disabled = true;
+                selectedCustomer = null;
+            } else {
+                resultsDiv.style.display = 'block';
+                resultsDiv.innerHTML = filteredCustomers.map(customer => `
+                    <div class="customer-item" data-id="${customer.id}" data-name="${customer.name}" data-managed="${customer.isManaged}">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm font-medium">${customer.name}</span>
+                            ${customer.isManaged ? '<span class="text-xs text-green-600 bg-green-100 px-2 py-1 rounded">管户客户</span>' : '<span class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">非管户</span>'}
+                        </div>
+                    </div>
+                `).join('');
+
+                // 添加点击事件
+                resultsDiv.querySelectorAll('.customer-item').forEach(item => {
+                    item.addEventListener('click', function() {
+                        const customerId = this.getAttribute('data-id');
+                        const customerName = this.getAttribute('data-name');
+                        const isManaged = this.getAttribute('data-managed') === 'true';
+
+                        selectedCustomer = {
+                            id: parseInt(customerId),
+                            name: customerName,
+                            isManaged: isManaged
+                        };
+
+                        document.getElementById('customerSearchInput').value = customerName;
+                        resultsDiv.style.display = 'none';
+                        generateBtn.disabled = false;
+                    });
+                });
+            }
+        });
+
+        // 生成报告按钮点击事件
+        document.getElementById('generateReportBtn').addEventListener('click', function() {
+            if (!selectedCustomer) {
+                alert('请先选择客户');
+                return;
+            }
+
+            // 直接生成报告，无论是否为管户客户
+            generateReport();
+        });
+
+        // 生成报告
+        function generateReport() {
+            if (selectedCustomer) {
+                // 更新报告标题
+                document.getElementById('reportTitle').textContent = `${selectedCustomer.name}访前一页纸`;
+                document.getElementById('companyName').textContent = selectedCustomer.name;
+                
+                // 显示报告模态框
+                document.getElementById('reportModal').style.display = 'flex';
+                
+                // 生成报告文件并预览
+                generateReportFile();
+                
+                // 重置搜索
+                resetSearch();
+            }
+        }
+
+        // 生成报告文件并预览
+        function generateReportFile() {
+            // 创建报告内容
+            const reportContent = `
+                <!DOCTYPE html>
+                <html lang="zh-CN">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>${selectedCustomer.name}访前一页纸</title>
+                    <style>
+                        body {
+                            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                            line-height: 1.6;
+                            color: #333;
+                            max-width: 800px;
+                            margin: 0 auto;
+                            padding: 20px;
+                        }
+                        h1 {
+                            color: #b91c1c;
+                            text-align: center;
+                            margin-bottom: 30px;
+                        }
+                        .section {
+                            margin-bottom: 30px;
+                            padding: 20px;
+                            border: 1px solid #e0e0e0;
+                            border-radius: 8px;
+                        }
+                        h2 {
+                            color: #b91c1c;
+                            margin-bottom: 15px;
+                        }
+                        table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin-top: 10px;
+                        }
+                        th, td {
+                            padding: 8px;
+                            text-align: left;
+                            border-bottom: 1px solid #e0e0e0;
+                        }
+                        th {
+                            background-color: #f5f5f5;
+                        }
+                        .risk-item {
+                            display: flex;
+                            margin-bottom: 10px;
+                        }
+                        .risk-level {
+                            width: 12px;
+                            height: 12px;
+                            border-radius: 50%;
+                            margin-right: 10px;
+                            margin-top: 5px;
+                        }
+                        .risk-level.green {
+                            background-color: #10b981;
+                        }
+                        .risk-level.yellow {
+                            background-color: #f59e0b;
+                        }
+                        .risk-level.red {
+                            background-color: #ef4444;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h1>${selectedCustomer.name}访前一页纸</h1>
+                    
+                    <div class="section">
+                        <h2>企业基本信息</h2>
+                        <table>
+                            <tr>
+                                <th>项目</th>
+                                <th>内容</th>
+                            </tr>
+                            <tr>
+                                <td>企业名称</td>
+                                <td>${selectedCustomer.name}</td>
+                            </tr>
+                            <tr>
+                                <td>成立时间</td>
+                                <td>1985年</td>
+                            </tr>
+                            <tr>
+                                <td>注册资本</td>
+                                <td>100亿元</td>
+                            </tr>
+                            <tr>
+                                <td>法定代表人</td>
+                                <td>张招兴</td>
+                            </tr>
+                            <tr>
+                                <td>所属行业</td>
+                                <td>房地产开发</td>
+                            </tr>
+                            <tr>
+                                <td>企业规模</td>
+                                <td>大型企业</td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div class="section">
+                        <h2>外部风险舆情</h2>
+                        <div class="risk-item">
+                            <div class="risk-level green"></div>
+                            <div>
+                                <strong>涉诉信息</strong>: 近3年无重大民事诉讼记录
+                            </div>
+                        </div>
+                        <div class="risk-item">
+                            <div class="risk-level green"></div>
+                            <div>
+                                <strong>失信记录</strong>: 未被列入失信被执行人名单
+                            </div>
+                        </div>
+                        <div class="risk-item">
+                            <div class="risk-level green"></div>
+                            <div>
+                                <strong>处罚信息</strong>: 无重大行政处罚记录
+                            </div>
+                        </div>
+                        <div class="risk-item">
+                            <div class="risk-level yellow"></div>
+                            <div>
+                                <strong>经营风险</strong>: 房地产行业调控政策影响，需关注市场变化
+                            </div>
+                        </div>
+                        <div class="risk-item">
+                            <div class="risk-level green"></div>
+                            <div>
+                                <strong>金融风险</strong>: 信用评级良好，无不良信贷记录
+                            </div>
+                        </div>
+                        <div class="risk-item">
+                            <div class="risk-level green"></div>
+                            <div>
+                                <strong>舆情信息</strong>: 近期无负面新闻报道，企业形象良好
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <h2>财务指标</h2>
+                        <h3>关键财务指标</h3>
+                        <table>
+                            <tr>
+                                <th>指标</th>
+                                <th>数值</th>
+                                <th>变化</th>
+                            </tr>
+                            <tr>
+                                <td>净资产收益率</td>
+                                <td>15.2%</td>
+                                <td>↑ 2.1%</td>
+                            </tr>
+                            <tr>
+                                <td>总资产收益率</td>
+                                <td>10.0%</td>
+                                <td>↑ 1.5%</td>
+                            </tr>
+                            <tr>
+                                <td>经营利润率</td>
+                                <td>14.1%</td>
+                                <td>↑ 1.8%</td>
+                            </tr>
+                            <tr>
+                                <td>净利润增长率</td>
+                                <td>15.2%</td>
+                                <td>↑ 3.5%</td>
+                            </tr>
+                            <tr>
+                                <td>资产负债率</td>
+                                <td>54.2%</td>
+                                <td>↓ 2.3%</td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div class="section">
+                        <h2>行内合作情况</h2>
+                        <table>
+                            <tr>
+                                <th>项目</th>
+                                <th>数值</th>
+                            </tr>
+                            <tr>
+                                <td>贷款余额</td>
+                                <td>50亿元</td>
+                            </tr>
+                            <tr>
+                                <td>存款余额</td>
+                                <td>30亿元</td>
+                            </tr>
+                            <tr>
+                                <td>合作评级</td>
+                                <td>AAA</td>
+                            </tr>
+                            <tr>
+                                <td>授信额度</td>
+                                <td>80亿元</td>
+                            </tr>
+                            <tr>
+                                <td>授信余额</td>
+                                <td>50亿元</td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div class="section">
+                        <h2>产品推荐</h2>
+                        <ul>
+                            <li><strong>流动资金贷款</strong>: 支持企业日常经营周转，额度灵活，利率优惠</li>
+                            <li><strong>固定资产贷款</strong>: 支持企业项目建设，期限长，还款方式灵活</li>
+                            <li><strong>票据贴现</strong>: 快速变现应收票据，降低资金占用成本</li>
+                            <li><strong>保理业务</strong>: 应收账款融资，改善现金流，降低坏账风险</li>
+                        </ul>
+                    </div>
+                </body>
+                </html>
+            `;
+            
+            // 创建Blob对象
+            const blob = new Blob([reportContent], { type: 'text/html' });
+            
+            // 创建下载链接
+            const url = URL.createObjectURL(blob);
+            
+            // 打开新窗口预览报告
+            window.open(url, '_blank');
+        }
+
+        // 重置搜索
+        function resetSearch() {
+            document.getElementById('customerSearchInput').value = '';
+            document.getElementById('customerSearchResults').style.display = 'none';
+            document.getElementById('customerSearchResults').innerHTML = '';
+            document.getElementById('generateReportBtn').disabled = true;
+            selectedCustomer = null;
+        }
+
+        // 关闭报告模态框
+        document.getElementById('closeReport').addEventListener('click', function() {
+            document.getElementById('reportModal').style.display = 'none';
+        });
+
+        // 查看报告
+        document.getElementById('viewReport').addEventListener('click', function() {
+            alert('报告查看功能已触发');
+        });
+
+        // 转内网邮箱
+        document.getElementById('sendEmail').addEventListener('click', function() {
+            alert('报告已发送至内网邮箱');
+        });
+
+        // 页签切换功能
+        document.querySelectorAll('.report-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // 移除所有页签的活动状态
+                document.querySelectorAll('.report-tab').forEach(t => {
+                    t.classList.remove('text-red-600', 'border-b-2', 'border-red-600');
+                    t.classList.add('text-gray-500');
+                });
+                
+                // 添加当前页签的活动状态
+                this.classList.remove('text-gray-500');
+                this.classList.add('text-red-600', 'border-b-2', 'border-red-600');
+                
+                // 隐藏所有内容
+                document.querySelectorAll('.report-tab-content').forEach(content => {
+                    content.classList.add('hidden');
+                });
+                
+                // 显示当前页签对应的内容
+                const tabId = this.getAttribute('data-tab');
+                document.getElementById(tabId).classList.remove('hidden');
+            });
+        });
+    </script>
+
+        <!-- 底部导航 -->
+        <div class="bottom-nav">
+            <div class="flex justify-around">
+                <a href="#" class="flex flex-col items-center">
+                    <i class="fa fa-th-large text-blue-500"></i>
+                    <span class="text-xs mt-1 text-blue-500">首页</span>
+                </a>
+                <a href="#" class="flex flex-col items-center">
+                    <i class="fa fa-bullhorn text-gray-500"></i>
+                    <span class="text-xs mt-1">营销</span>
+                </a>
+                <a href="#" class="flex flex-col items-center">
+                    <i class="fa fa-users text-gray-500"></i>
+                    <span class="text-xs mt-1">客户</span>
+                </a>
+                <a href="#" class="flex flex-col items-center">
+                    <i class="fa fa-user text-gray-500"></i>
+                    <span class="text-xs mt-1">我的</span>
+                </a>
+            </div>
+        </div>
+
+        </div>
+    </div>
+</body>
+</html>
