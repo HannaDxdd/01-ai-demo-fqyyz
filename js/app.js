@@ -689,7 +689,9 @@ function getAIResponse(question) {
     } else if (question.includes('经营情况')) {
         response = '根据财报数据，该企业2025年营收为12000万元，同比增长12%，净利润为258万元，同比下降8%。整体经营状况良好，但净利润有所下降，建议关注成本控制和收入结构。';
     } else {
-        response = '感谢您的提问。根据我们的分析，广州XX机械设备有限公司是一家成立于2018年的制造业企业，注册资本5000万元。公司经营状况良好，近期营收增长12%，但净利润有所下降。我们建议关注其偿债能力和成本控制。';
+        const currentReport = AppData.reports.find(r => r.id === AppData.currentReport);
+        const companyName = currentReport && currentReport.data ? currentReport.data.basicInfo.companyName : '该企业';
+        response = `感谢您的提问。根据我们的分析，${companyName}是一家成立于2018年的制造业企业，注册资本5000万元。公司经营状况良好，近期营收增长12%，但净利润有所下降。我们建议关注其偿债能力和成本控制。`;
     }
     
     addAIMessage(response);
@@ -703,6 +705,7 @@ function loadReportDetail(reportId) {
     const data = report.data;
     
     const detailCompanyName = document.getElementById('detail-companyName');
+    const detailCompanyNameFull = document.getElementById('detail-companyNameFull');
     const detailEstablishTime = document.getElementById('detail-establishTime');
     const detailRegisteredCapital = document.getElementById('detail-registeredCapital');
     const detailLegalPerson = document.getElementById('detail-legalPerson');
@@ -710,6 +713,7 @@ function loadReportDetail(reportId) {
     const detailCustomerLevel = document.getElementById('detail-customerLevel');
     
     if (detailCompanyName) detailCompanyName.textContent = data.basicInfo.companyName;
+    if (detailCompanyNameFull) detailCompanyNameFull.textContent = data.basicInfo.companyName;
     if (detailEstablishTime) detailEstablishTime.textContent = data.basicInfo.establishTime;
     if (detailRegisteredCapital) detailRegisteredCapital.textContent = data.basicInfo.registeredCapital;
     if (detailLegalPerson) detailLegalPerson.textContent = data.basicInfo.legalPerson;
