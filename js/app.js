@@ -9,6 +9,7 @@ const AppData = {
             data: {
                 basicInfo: {
                     companyName: '广州XX机械设备有限公司',
+                    creditCode: '91440101MA5AXY1234',
                     establishTime: '2018-06-15',
                     registeredCapital: '5000万',
                     legalPerson: '张三',
@@ -536,6 +537,7 @@ function generateReport() {
             data: {
                 basicInfo: {
                     companyName: companyName,
+                    creditCode: creditCode || '91440101MA5AXYXXXXX',
                     establishTime: '2018-06-15',
                     registeredCapital: '5000万',
                     legalPerson: '张三',
@@ -706,6 +708,7 @@ function loadReportDetail(reportId) {
     
     const detailCompanyName = document.getElementById('detail-companyName');
     const detailCompanyNameFull = document.getElementById('detail-companyNameFull');
+    const detailCreditCode = document.getElementById('detail-creditCode');
     const detailEstablishTime = document.getElementById('detail-establishTime');
     const detailRegisteredCapital = document.getElementById('detail-registeredCapital');
     const detailLegalPerson = document.getElementById('detail-legalPerson');
@@ -714,6 +717,7 @@ function loadReportDetail(reportId) {
     
     if (detailCompanyName) detailCompanyName.textContent = data.basicInfo.companyName;
     if (detailCompanyNameFull) detailCompanyNameFull.textContent = data.basicInfo.companyName;
+    if (detailCreditCode) detailCreditCode.textContent = data.basicInfo.creditCode;
     if (detailEstablishTime) detailEstablishTime.textContent = data.basicInfo.establishTime;
     if (detailRegisteredCapital) detailRegisteredCapital.textContent = data.basicInfo.registeredCapital;
     if (detailLegalPerson) detailLegalPerson.textContent = data.basicInfo.legalPerson;
