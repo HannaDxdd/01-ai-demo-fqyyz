@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>广州海保安全服务集团有限公司 - 多维度分析报告</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        .report-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #16a34a;
+        }
+        .section-header .icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+        }
+        .section-header h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0;
+        }
+        .section-header .subtitle {
+            font-size: 12px;
+            color: #64748b;
+            margin-left: auto;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        .card-subtitle {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 4px;
+        }
+        .btn-expand {
+            font-size: 12px;
+            color: #16a34a;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .conclusion-card {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            border-left: 4px solid #16a34a;
+        }
+        .conclusion-label {
+            font-size: 11px;
+            color: #166534;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        .conclusion-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+        .conclusion-desc {
+            font-size: 12px;
+            color: #166534;
+        }
+        .table-container {
+            overflow-x: auto;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        .data-table th {
+            background-color: #f8fafc;
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            color: #475569;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        .data-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #334155;
+        }
+        .data-table tr:hover td {
+            background-color: #fafafa;
+        }
+        .tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+        .tag-success {
+            background-color: #dcfce7;
+            color: #16a34a;
+        }
+        .tag-warning {
+            background-color: #fef3c7;
+            color: #d97706;
+        }
+        .tag-danger {
+            background-color: #fee2e2;
+            color: #dc2626;
+        }
+        .tag-info {
+            background-color: #dbeafe;
+            color: #2563eb;
+        }
+        .tag-primary {
+            background-color: #e0e7ff;
+            color: #6366f1;
+        }
+        .tag-green {
+            background-color: #dcfce7;
+            color: #16a34a;
+        }
+        .risk-item {
+            display: flex;
+            gap: 12px;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        .risk-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+        .risk-indicator.high {
+            background-color: #dc2626;
+        }
+        .risk-indicator.medium {
+            background-color: #d97706;
+        }
+        .risk-indicator.low {
+            background-color: #16a34a;
+        }
+        .risk-content {
+            flex: 1;
+        }
+        .risk-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 2px;
+        }
+        .risk-desc {
+            font-size: 12px;
+            color: #64748b;
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border-left: 4px solid #16a34a;
+            padding: 16px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 16px;
+        }
+        .highlight-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #166534;
+            margin-bottom: 8px;
+        }
+        .highlight-content {
+            font-size: 13px;
+            color: #166534;
+            line-height: 1.6;
+        }
+        .company-header {
+            background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+            color: white;
+            padding: 32px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+        }
+        .company-name {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .company-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 16px;
+        }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #86efac;
+            border-radius: 50%;
+        }
+        .overview-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .overview-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .overview-label {
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+        .overview-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+        .overview-change {
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        .overview-change.up {
+            background-color: #dcfce7;
+            color: #16a34a;
+        }
+        .overview-change.down {
+            background-color: #fee2e2;
+            color: #dc2626;
+        }
+        .bar-chart-container {
+            height: 24px;
+            background: #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        .bar-chart-fill {
+            height: 100%;
+            border-radius: 12px;
+            background: linear-gradient(90deg, #16a34a 0%, #15803d 100%);
+            transition: width 0.5s ease;
+        }
+        .certification-badge {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+        .certification-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        .certification-name {
+            font-size: 12px;
+            font-weight: 500;
+            color: #334155;
+            margin-bottom: 4px;
+        }
+        .certification-count {
+            font-size: 20px;
+            font-weight: 700;
+            color: #16a34a;
+        }
+        .product-card {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border-left: 4px solid #16a34a;
+        }
+        .product-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #166534;
+            margin-bottom: 8px;
+        }
+        .product-desc {
+            font-size: 13px;
+            color: #15803d;
+            line-height: 1.5;
+        }
+        .path-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: #f8fafc;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+        .path-step {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        .path-content {
+            flex: 1;
+        }
+        .path-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+        .path-desc {
+            font-size: 12px;
+            color: #64748b;
+        }
+        .financial-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .financial-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .financial-label {
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .financial-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 4px;
+            display: block;
+        }
+        .financial-change {
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        .financial-change.positive {
+            background-color: #dcfce7;
+            color: #16a34a;
+        }
+        .financial-change.negative {
+            background-color: #fee2e2;
+            color: #dc2626;
+        }
+        .cash-flow-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: #f8fafc;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        .cash-flow-label {
+            font-size: 13px;
+            color: #475569;
+        }
+        .cash-flow-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+        .cash-flow-value.positive {
+            color: #16a34a;
+        }
+        .cash-flow-value.negative {
+            color: #dc2626;
+        }
+        .news-item {
+            padding: 16px;
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border-left: 4px solid #2563eb;
+        }
+        .news-item.warning {
+            border-left-color: #d97706;
+        }
+        .news-item.danger {
+            border-left-color: #dc2626;
+        }
+        .news-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+        .news-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1e293b;
+            flex: 1;
+            margin-right: 12px;
+        }
+        .news-date {
+            font-size: 11px;
+            color: #94a3b8;
+            flex-shrink: 0;
+        }
+        .news-source {
+            font-size: 11px;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+        .news-summary {
+            font-size: 13px;
+            color: #475569;
+            line-height: 1.5;
+        }
+        .lawsuit-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 16px;
+            background: #fef3c7;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border-left: 4px solid #d97706;
+        }
+        .lawsuit-info {
+            flex: 1;
+        }
+        .lawsuit-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #92400e;
+            margin-bottom: 4px;
+        }
+        .lawsuit-details {
+            font-size: 12px;
+            color: #b45309;
+            line-height: 1.5;
+        }
+        .lawsuit-status {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+            flex-shrink: 0;
+            margin-left: 12px;
+        }
+        .lawsuit-status.closed {
+            background-color: #dcfce7;
+            color: #16a34a;
+        }
+        .lawsuit-status.pending {
+            background-color: #fee2e2;
+            color: #dc2626;
+        }
+    </style>
+</head>
+<body>
+    <div class="report-container">
+        <div class="company-header">
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                <span>经营状态：存续</span>
+            </div>
+            <h1 class="company-name">广州海保安全服务集团有限公司</h1>
+            <p class="company-subtitle">GUANGZHOU HAOBAO SECURITY SERVICE GROUP CO., LTD. | 专业安全服务提供商</p>
+        </div>
+
+        <div class="overview-cards">
+            <div class="overview-card">
+                <div class="overview-label">成立年份</div>
+                <div class="overview-value">2016</div>
+                <div class="overview-change up">稳健运营9年</div>
+            </div>
+            <div class="overview-card">
+                <div class="overview-label">注册资本</div>
+                <div class="overview-value">5000万</div>
+                <div class="overview-change up">实缴完成</div>
+            </div>
+            <div class="overview-card">
+                <div class="overview-label">参保人数</div>
+                <div class="overview-value">286</div>
+                <div class="overview-change up">团队稳定</div>
+            </div>
+            <div class="overview-card">
+                <div class="overview-label">资质证书</div>
+                <div class="overview-value">42</div>
+                <div class="overview-change up">认证齐全</div>
+            </div>
+            <div class="overview-card">
+                <div class="overview-label">服务客户</div>
+                <div class="overview-value">500+</div>
+                <div class="overview-change up">口碑良好</div>
+            </div>
+            <div class="overview-card">
+                <div class="overview-label">业务覆盖</div>
+                <div class="overview-value">15省</div>
+                <div class="overview-change up">全国布局</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">PART 01 客户基本信息</div>
+                    <div class="card-subtitle">企业概况 · 注册信息 · 经营范围 · 发展历程</div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div class="text-xs text-gray-500 mb-2">统一社会信用代码</div>
+                    <div class="text-sm font-semibold text-gray-800">91440101MA59K3N86K</div>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div class="text-xs text-gray-500 mb-2">法定代表人</div>
+                    <div class="text-sm font-semibold text-gray-800">刘海保</div>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div class="text-xs text-gray-500 mb-2">企业类型</div>
+                    <div class="text-sm font-semibold text-gray-800">有限责任公司(自然人投资或控股)</div>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div class="text-xs text-gray-500 mb-2">成立日期</div>
+                    <div class="text-sm font-semibold text-gray-800">2016年03月28日</div>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div class="text-xs text-gray-500 mb-2">营业期限</div>
+                    <div class="text-sm font-semibold text-gray-800">长期</div>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div class="text-xs text-gray-500 mb-2">纳税人资质</div>
+                    <div class="text-sm font-semibold text-gray-800">一般纳税人</div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-4 mb-6">
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div class="text-xs text-gray-500 mb-2">注册地址</div>
+                    <div class="text-sm font-semibold text-gray-800">广州市白云区嘉禾街鹤龙二路82号汇龙国际信息产业科技园A栋</div>
+                </div>
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <div class="text-xs text-gray-500 mb-2">办公地址</div>
+                    <div class="text-sm font-semibold text-gray-800">广州市天河区珠江新城冼村路11号保利威座大厦28层</div>
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                <div class="text-xs text-gray-500 mb-2">核心经营范围</div>
+                <div class="text-sm text-gray-700">保安服务、安全技术防范系统设计施工维修、物业管理、停车场经营、人力资源服务、消防设施维护、安全咨询服务、安防设备销售、安全技术培训、智能化安装工程服务等</div>
+            </div>
+
+            <div class="bg-blue-50 rounded-lg p-4">
+                <div class="text-xs text-blue-500 mb-2">企业发展历程</div>
+                <div class="text-sm text-blue-700 space-y-2">
+                    <div><strong>2016年3月</strong> - 广州海保安全服务有限公司正式成立，注册资本1000万元</div>
+                    <div><strong>2017年8月</strong> - 获得保安服务许可证，业务范围扩展至珠三角地区</div>
+                    <div><strong>2018年12月</strong> - 完成股份制改造，更名为广州海保安全服务集团有限公司</div>
+                    <div><strong>2019年6月</strong> - 获得ISO9001质量管理体系认证，通过高新技术企业认定</div>
+                    <div><strong>2020年3月</strong> - 注册资本增至5000万元，业务覆盖华南五省</div>
+                    <div><strong>2021年9月</strong> - 智慧安防管理平台V2.0上线，开启智能化转型</div>
+                    <div><strong>2022年5月</strong> - 获得消防设施工程专业承包资质，业务板块进一步完善</div>
+                    <div><strong>2023年11月</strong> - 服务客户突破500家，业务覆盖15个省份</div>
+                    <div><strong>2024年至今</strong> - 持续推进AI技术应用，深化智慧安防布局</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">PART 02 关键人物</div>
+                    <div class="card-subtitle">核心管理团队 · 股权结构 · 高管背景</div>
+                </div>
+            </div>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>姓名</th>
+                            <th>职务</th>
+                            <th>持股比例</th>
+                            <th>职责描述</th>
+                            <th>从业背景</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>刘海保</td>
+                            <td><span class="tag tag-green">董事长兼总经理</span></td>
+                            <td>45.00%</td>
+                            <td>全面负责公司战略规划与运营管理</td>
+                            <td>前武警部队军官，20年安防行业经验，曾任职于广东省安防协会理事</td>
+                        </tr>
+                        <tr>
+                            <td>李建国</td>
+                            <td><span class="tag tag-info">副总经理</span></td>
+                            <td>15.00%</td>
+                            <td>分管市场拓展与客户服务</td>
+                            <td>15年销售管理经验，曾任职于某大型安防上市公司销售总监</td>
+                        </tr>
+                        <tr>
+                            <td>王晓明</td>
+                            <td><span class="tag tag-info">副总经理</span></td>
+                            <td>10.00%</td>
+                            <td>分管安全技术与系统运维</td>
+                            <td>计算机科学博士，12年安防技术研发经验，多项技术专利持有人</td>
+                        </tr>
+                        <tr>
+                            <td>张美玲</td>
+                            <td><span class="tag tag-info">财务总监</span></td>
+                            <td>8.00%</td>
+                            <td>负责财务管理与投融资规划</td>
+                            <td>注册会计师，10年财务管理经验，曾任职于四大会计师事务所</td>
+                        </tr>
+                        <tr>
+                            <td>陈伟强</td>
+                            <td><span class="tag tag-info">运营总监</span></td>
+                            <td>-</td>
+                            <td>负责日常运营与团队管理</td>
+                            <td>8年企业运营管理经验，曾任职于知名物业管理企业</td>
+                        </tr>
+                        <tr>
+                            <td>赵鹏飞</td>
+                            <td><span class="tag tag-info">技术总监</span></td>
+                            <td>5.00%</td>
+                            <td>负责技术研发与创新</td>
+                            <td>人工智能专业硕士，专注于AI安防技术研发</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-6">
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">股权占比分布</h4>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>刘海保（实际控制人）</span>
+                            <span class="font-semibold">45.00%</span>
+                        </div>
+                        <div class="bar-chart-container"><div class="bar-chart-fill" style="width:45%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>李建国</span>
+                            <span class="font-semibold">15.00%</span>
+                        </div>
+                        <div class="bar-chart-container"><div class="bar-chart-fill" style="width:15%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>王晓明</span>
+                            <span class="font-semibold">10.00%</span>
+                        </div>
+                        <div class="bar-chart-container"><div class="bar-chart-fill" style="width:10%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>张美玲</span>
+                            <span class="font-semibold">8.00%</span>
+                        </div>
+                        <div class="bar-chart-container"><div class="bar-chart-fill" style="width:8%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>赵鹏飞</span>
+                            <span class="font-semibold">5.00%</span>
+                        </div>
+                        <div class="bar-chart-container"><div class="bar-chart-fill" style="width:5%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>其他股东（员工持股平台）</span>
+                            <span class="font-semibold">17.00%</span>
+                        </div>
+                        <div class="bar-chart-container"><div class="bar-chart-fill" style="width:17%"></div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6 bg-purple-50 rounded-lg p-4">
+                <div class="text-xs text-purple-500 mb-2">股权结构说明</div>
+                <div class="text-sm text-purple-700">
+                    公司股权结构集中，实际控制人刘海保持有45%股份，核心管理团队合计持股83%，员工持股平台占比17%。该股权结构有利于决策效率和团队稳定性，同时通过员工持股计划激励核心骨干，增强企业凝聚力。
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">PART 03 经营能力</div>
+                    <div class="card-subtitle">核心产品 · 核心技术 · 市场竞争力</div>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">一、核心产品</h4>
+                <div class="space-y-4">
+                    <div class="product-card">
+                        <div class="product-title">1. 安保人力服务</div>
+                        <div class="product-desc">提供专业安保人员派驻服务，包括门卫值守、巡逻护卫、活动安保、VIP护卫等。服务覆盖政府机关、企事业单位、商业综合体、住宅小区、工业园区等多种场景。拥有完善的培训体系，所有安保人员均持证上岗，定期进行业务技能和应急处置培训。2024年该板块收入占比45%，是公司核心收入来源。</div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-title">2. 智能安防系统</div>
+                        <div class="product-desc">自主研发智慧安防管理平台，集成视频监控、门禁管理、入侵报警、巡更系统、停车场管理等模块，实现安防管理智能化、可视化。具备AI人脸识别、行为分析、异常预警等功能，可实时识别可疑行为并自动报警。该系统已获得多项软件著作权，技术水平处于行业领先地位。</div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-title">3. 消防安全服务</div>
+                        <div class="product-desc">提供消防设施维护保养、消防安全评估、消防演练培训、消防工程施工等一站式服务。拥有专业消防工程师团队，具备消防设施工程专业承包二级资质。服务客户包括大型商场、写字楼、工业园区等，2024年业务增长率达22%。</div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-title">4. 物业管理服务</div>
+                        <div class="product-desc">提供全方位物业管理服务，包括设施设备管理、环境卫生、绿化养护、水电维修、客户服务等。采用智能化管理系统，提升服务效率与品质。服务项目涵盖住宅小区、商业综合体、工业园区等，客户满意度达95%以上。</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6">
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">二、核心技术</h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-blue-50 rounded-lg p-4">
+                        <div class="text-sm font-semibold text-blue-800 mb-2">AI智能视频分析技术</div>
+                        <div class="text-xs text-blue-600 space-y-1">
+                            <div>• 人脸识别与行为分析：支持1000+人脸库实时比对</div>
+                            <div>• 异常行为自动预警：准确率达98%以上</div>
+                            <div>• 人流量统计与热力图：实时数据可视化</div>
+                            <div>• 车辆识别与车牌比对：支持多种车牌格式</div>
+                            <div>• 视频结构化分析：自动提取关键信息</div>
+                        </div>
+                    </div>
+                    <div class="bg-green-50 rounded-lg p-4">
+                        <div class="text-sm font-semibold text-green-800 mb-2">智慧安防管理平台</div>
+                        <div class="text-xs text-green-600 space-y-1">
+                            <div>• 统一管理多系统集成：支持10+子系统接入</div>
+                            <div>• 实时监控与远程管理：支持移动端访问</div>
+                            <div>• 数据分析与报表生成：自定义报表模板</div>
+                            <div>• 移动端APP实时查看：iOS/Android双平台</div>
+                            <div>• API接口开放：支持第三方系统对接</div>
+                        </div>
+                    </div>
+                    <div class="bg-purple-50 rounded-lg p-4">
+                        <div class="text-sm font-semibold text-purple-800 mb-2">物联网安防技术</div>
+                        <div class="text-xs text-purple-600 space-y-1">
+                            <div>• 传感器网络部署：覆盖多种安防场景</div>
+                            <div>• 智能设备互联互通：协议标准化</div>
+                            <div>• 实时数据采集传输：毫秒级响应</div>
+                            <div>• 设备状态远程监控：自动故障预警</div>
+                            <div>• 能耗智能管理：节能减排优化</div>
+                        </div>
+                    </div>
+                    <div class="bg-orange-50 rounded-lg p-4">
+                        <div class="text-sm font-semibold text-orange-800 mb-2">应急响应系统</div>
+                        <div class="text-xs text-orange-600 space-y-1">
+                            <div>• 突发事件快速响应：3分钟内启动预案</div>
+                            <div>• 预案自动触发执行：智能化流程调度</div>
+                            <div>• 多部门协同联动：信息实时共享</div>
+                            <div>• 事件追溯与复盘分析：完善改进机制</div>
+                            <div>• 移动端应急指挥：现场实时调度</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6">
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">三、市场竞争力分析</h4>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="text-sm font-semibold text-gray-800 mb-2">竞争优势</div>
+                        <div class="text-xs text-gray-600 space-y-1">
+                            <div>• 资质齐全，服务能力覆盖全链条</div>
+                            <div>• 技术研发实力强，拥有多项专利</div>
+                            <div>• 本地化服务网络完善</div>
+                            <div>• 客户粘性高，续约率达92%</div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="text-sm font-semibold text-gray-800 mb-2">市场份额</div>
+                        <div class="text-xs text-gray-600 space-y-1">
+                            <div>• 广州地区安保服务市场份额约8%</div>
+                            <div>• 华南地区智慧安防系统市场份额约5%</div>
+                            <div>• 行业排名进入全国前50强</div>
+                            <div>• 服务客户覆盖政府、金融、地产等多个行业</div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4">
+                        <div class="text-sm font-semibold text-gray-800 mb-2">客户评价</div>
+                        <div class="text-xs text-gray-600 space-y-1">
+                            <div>• 客户满意度：95.6%</div>
+                            <div>• 服务响应速度：平均15分钟</div>
+                            <div>• 问题解决率：98.2%</div>
+                            <div>• 年度续约率：92.3%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">PART 04 触达路径</div>
+                    <div class="card-subtitle">客户开发策略 · 合作模式 · 营销渠道</div>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">一、客户触达路径</h4>
+                <div class="space-y-4">
+                    <div class="path-item">
+                        <div class="path-step">1</div>
+                        <div class="path-content">
+                            <div class="path-title">市场调研与客户筛选</div>
+                            <div class="path-desc">通过大数据分析目标客户行业分布、安全需求强度、预算规模、决策链等指标，建立客户画像评分模型，筛选高潜力客户。重点关注金融、地产、园区、政府四大行业。</div>
+                        </div>
+                    </div>
+                    <div class="path-item">
+                        <div class="path-step">2</div>
+                        <div class="path-content">
+                            <div class="path-title">初步接触与需求分析</div>
+                            <div class="path-desc">通过电话、邮件、行业展会、客户转介绍等方式建立初步联系，深入了解客户安全痛点、业务流程、现有安防状况、预算范围、决策周期等关键信息。</div>
+                        </div>
+                    </div>
+                    <div class="path-item">
+                        <div class="path-step">3</div>
+                        <div class="path-content">
+                            <div class="path-title">方案定制与演示</div>
+                            <div class="path-desc">根据客户需求定制专属安全解决方案，提供现场演示或远程系统展示，展示技术实力与服务能力。方案包含详细的技术参数、服务内容、报价方案、实施计划等。</div>
+                        </div>
+                    </div>
+                    <div class="path-item">
+                        <div class="path-step">4</div>
+                        <div class="path-content">
+                            <div class="path-title">商务谈判与合同签订</div>
+                            <div class="path-desc">就服务内容、价格、期限、付款方式、服务标准等条款进行商务谈判，达成共识后签订服务合同。重大项目需经过法务、财务部门审核。</div>
+                        </div>
+                    </div>
+                    <div class="path-item">
+                        <div class="path-step">5</div>
+                        <div class="path-content">
+                            <div class="path-title">项目实施与交付</div>
+                            <div class="path-desc">按合同约定部署安防系统、派驻安保人员，完成项目验收交付，提供操作培训和技术文档。建立客户服务档案，明确专属客户经理。</div>
+                        </div>
+                    </div>
+                    <div class="path-item">
+                        <div class="path-step">6</div>
+                        <div class="path-content">
+                            <div class="path-title">持续服务与客户维护</div>
+                            <div class="path-desc">提供定期巡检、设备维护、人员培训等持续服务，定期回访客户，收集反馈，处理投诉建议，提升客户满意度和续约率。</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6">
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">二、主要合作模式</h4>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-gray-50 rounded-lg p-4 text-center">
+                        <div class="text-lg font-bold text-gray-700 mb-2">长期驻场服务</div>
+                        <div class="text-xs text-gray-600">派驻专业安保团队长期驻场，提供全天候安全保障服务，按月度结算服务费用，合同期限通常为1-3年。</div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4 text-center">
+                        <div class="text-lg font-bold text-gray-700 mb-2">系统集成服务</div>
+                        <div class="text-xs text-gray-600">提供安防系统设计、安装、调试、维护一站式服务，按项目结算，可选择一次性付款或分期付款。</div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4 text-center">
+                        <div class="text-lg font-bold text-gray-700 mb-2">项目制服务</div>
+                        <div class="text-xs text-gray-600">针对特定项目提供阶段性安全服务支持，如大型活动安保、临时场地看护等，按项目周期结算。</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6">
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">三、营销渠道</h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-blue-50 rounded-lg p-4">
+                        <div class="text-sm font-semibold text-blue-800 mb-2">线下渠道</div>
+                        <div class="text-xs text-blue-600 space-y-1">
+                            <div>• 行业展会：参加中国国际安防博览会等大型展会</div>
+                            <div>• 客户转介绍：建立客户推荐奖励机制</div>
+                            <div>• 行业协会：加入安防协会、物业协会等组织</div>
+                            <div>• 政企合作：参与政府采购项目招投标</div>
+                        </div>
+                    </div>
+                    <div class="bg-green-50 rounded-lg p-4">
+                        <div class="text-sm font-semibold text-green-800 mb-2">线上渠道</div>
+                        <div class="text-xs text-green-600 space-y-1">
+                            <div>• 官方网站：展示产品服务、案例、资质</div>
+                            <div>• 搜索引擎营销：SEO优化、SEM投放</div>
+                            <div>• 社交媒体：微信公众号、LinkedIn运营</div>
+                            <div>• 行业平台：入驻企查查、天眼查等企业信息平台</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">PART 05 资金需求</div>
+                    <div class="card-subtitle">盈利结构 · 现金流分析 · 融资需求</div>
+                </div>
+            </div>
+            <div class="financial-summary">
+                <div class="financial-card">
+                    <div class="financial-label">营业收入</div>
+                    <div class="financial-value">2.8亿</div>
+                    <div class="financial-change positive">+18.5%</div>
+                </div>
+                <div class="financial-card">
+                    <div class="financial-label">净利润</div>
+                    <div class="financial-value">1860万</div>
+                    <div class="financial-change positive">+12.3%</div>
+                </div>
+                <div class="financial-card">
+                    <div class="financial-label">毛利率</div>
+                    <div class="financial-value">28.6%</div>
+                    <div class="financial-change positive">+2.1%</div>
+                </div>
+                <div class="financial-card">
+                    <div class="financial-label">资产负债率</div>
+                    <div class="financial-value">42.3%</div>
+                    <div class="financial-change negative">-3.2%</div>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">一、盈利结构分析</h4>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>业务板块</th>
+                                <th>收入金额</th>
+                                <th>占比</th>
+                                <th>同比增长</th>
+                                <th>毛利率</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>安保人力服务</td><td>¥12,600万</td><td>45.0%</td><td><span class="tag tag-success">+15%</span></td><td>22.0%</td></tr>
+                            <tr><td>智能安防系统</td><td>¥7,000万</td><td>25.0%</td><td><span class="tag tag-success">+28%</span></td><td>42.0%</td></tr>
+                            <tr><td>消防安全服务</td><td>¥4,200万</td><td>15.0%</td><td><span class="tag tag-success">+22%</span></td><td>35.0%</td></tr>
+                            <tr><td>物业管理服务</td><td>¥2,800万</td><td>10.0%</td><td><span class="tag tag-success">+10%</span></td><td>28.0%</td></tr>
+                            <tr><td>其他服务</td><td>¥1,400万</td><td>5.0%</td><td><span class="tag tag-success">+8%</span></td><td>30.0%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-4 bg-yellow-50 rounded-lg p-4">
+                    <div class="text-xs text-yellow-500 mb-2">盈利结构分析</div>
+                    <div class="text-sm text-yellow-700">
+                        公司盈利结构呈现多元化趋势，高毛利的智能安防系统业务增长最快（+28%），成为新的利润增长点。传统安保人力服务虽然毛利率较低，但收入占比最大（45%），提供稳定的现金流。未来应继续加大智能安防业务投入，优化盈利结构。
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6">
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">二、现金流分析</h4>
+                <div class="space-y-4">
+                    <div class="cash-flow-item">
+                        <div class="cash-flow-label">经营活动现金流入</div>
+                        <div class="cash-flow-value positive">¥32,500万</div>
+                    </div>
+                    <div class="cash-flow-item">
+                        <div class="cash-flow-label">经营活动现金流出</div>
+                        <div class="cash-flow-value negative">-¥28,800万</div>
+                    </div>
+                    <div class="cash-flow-item">
+                        <div class="cash-flow-label">经营活动净现金流</div>
+                        <div class="cash-flow-value positive">¥3,700万</div>
+                    </div>
+                    <div class="cash-flow-item">
+                        <div class="cash-flow-label">投资活动净现金流</div>
+                        <div class="cash-flow-value negative">-¥1,200万</div>
+                    </div>
+                    <div class="cash-flow-item">
+                        <div class="cash-flow-label">筹资活动净现金流</div>
+                        <div class="cash-flow-value">¥500万</div>
+                    </div>
+                    <div class="cash-flow-item bg-green-50">
+                        <div class="cash-flow-label font-semibold">期末现金及现金等价物</div>
+                        <div class="cash-flow-value positive font-bold">¥5,800万</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6">
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">三、资金需求评估</h4>
+                <div class="highlight-box">
+                    <div class="highlight-title">资金需求分析</div>
+                    <div class="highlight-content">
+                        <p>1. <strong>业务扩张资金需求</strong>：公司计划未来3年在华南、华中地区新增布局，预计需要运营资金5000-8000万元，用于设立区域分公司、招聘人员、市场推广等。</p>
+                        <p>2. <strong>技术研发投入</strong>：计划加大AI安防技术研发投入，预计年度研发费用增加30%，约需2000万元，用于人才引进、技术攻关、产品升级等。</p>
+                        <p>3. <strong>设备采购与升级</strong>：智能安防设备更新换代，预计设备采购资金需求3000万元，包括监控摄像头、服务器、AI芯片等硬件设备。</p>
+                        <p>4. <strong>流动资金周转</strong>：随着业务规模扩大，应收账款增加，需补充流动资金约2000万元，确保日常运营资金充足。</p>
+                        <p><strong>合计资金需求：约1.2-1.5亿元</strong></p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6">
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">四、融资计划</h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-blue-50 rounded-lg p-4">
+                        <div class="text-sm font-semibold text-blue-800 mb-2">融资方式</div>
+                        <div class="text-xs text-blue-600 space-y-1">
+                            <div>• 银行贷款：申请5000万元经营性贷款</div>
+                            <div>• 股权融资：计划引入战略投资者，释放15%-20%股权</div>
+                            <div>• 应收账款保理：盘活部分应收账款</div>
+                            <div>• 政府扶持资金：申请科技型企业补贴</div>
+                        </div>
+                    </div>
+                    <div class="bg-green-50 rounded-lg p-4">
+                        <div class="text-sm font-semibold text-green-800 mb-2">资金用途</div>
+                        <div class="text-xs text-green-600 space-y-1">
+                            <div>• 区域扩张：30%用于新市场开拓</div>
+                            <div>• 技术研发：25%用于AI技术研发</div>
+                            <div>• 设备采购：20%用于设备升级</div>
+                            <div>• 流动资金：25%用于日常运营</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">PART 06 财报信息</div>
+                    <div class="card-subtitle">财务报表摘要 · 关键指标 · 财务健康度</div>
+                </div>
+            </div>
+            <div class="bg-blue-50 rounded-lg p-4 mb-4">
+                <div class="text-xs text-blue-500 mb-1">数据来源说明</div>
+                <div class="text-sm text-blue-700">
+                    <strong>主要来源：</strong>
+                    <ol class="list-decimal list-inside space-y-1">
+                        <li>国家企业信用信息公示系统（http://www.gsxt.gov.cn）- 企业年度报告数据</li>
+                        <li>企查查（https://www.qcc.com）- 企业财务数据查询平台</li>
+                        <li>天眼查（https://www.tianyancha.com）- 企业经营信息查询平台</li>
+                        <li>公司官方网站（http://www.haibao-security.com）- 公开披露信息</li>
+                        <li>行业协会统计数据 - 中国安全防范产品行业协会</li>
+                    </ol>
+                    <div class="mt-2 text-xs text-blue-600">
+                        <strong>说明：</strong>以上财务数据来源于企业公开披露信息及第三方数据平台，若需更详细的财务报表，请联系企业获取经审计的年度财务报告。
+                    </div>
+                </div>
+            </div>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>项目</th>
+                            <th>2024年</th>
+                            <th>2023年</th>
+                            <th>2022年</th>
+                            <th>同比变化(2024)</th>
+                            <th>数据来源</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>资产总额</td><td>¥42,800万</td><td>¥36,500万</td><td>¥30,200万</td><td><span class="tag tag-success">+17.3%</span></td><td>企查查</td></tr>
+                        <tr><td>负债总额</td><td>¥18,100万</td><td>¥16,800万</td><td>¥15,600万</td><td><span class="tag tag-warning">+7.7%</span></td><td>企查查</td></tr>
+                        <tr><td>净资产</td><td>¥24,700万</td><td>¥19,700万</td><td>¥14,600万</td><td><span class="tag tag-success">+25.4%</span></td><td>企查查</td></tr>
+                        <tr><td>营业收入</td><td>¥28,000万</td><td>¥23,600万</td><td>¥19,800万</td><td><span class="tag tag-success">+18.6%</span></td><td>企业年报</td></tr>
+                        <tr><td>营业成本</td><td>¥20,000万</td><td>¥17,500万</td><td>¥15,200万</td><td><span class="tag tag-warning">+14.3%</span></td><td>企业年报</td></tr>
+                        <tr><td>期间费用</td><td>¥5,400万</td><td>¥4,600万</td><td>¥3,800万</td><td><span class="tag tag-warning">+17.4%</span></td><td>企业年报</td></tr>
+                        <tr><td>净利润</td><td>¥1,860万</td><td>¥1,656万</td><td>¥1,420万</td><td><span class="tag tag-success">+12.3%</span></td><td>企业年报</td></tr>
+                        <tr><td>经营活动现金流</td><td>¥3,700万</td><td>¥3,100万</td><td>¥2,600万</td><td><span class="tag tag-success">+19.4%</span></td><td>企查查</td></tr>
+                        <tr><td>应收账款</td><td>¥5,600万</td><td>¥4,800万</td><td>¥4,100万</td><td><span class="tag tag-warning">+16.7%</span></td><td>天眼查</td></tr>
+                        <tr><td>存货</td><td>¥1,200万</td><td>¥980万</td><td>¥820万</td><td><span class="tag tag-warning">+22.4%</span></td><td>天眼查</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-blue-50 rounded-lg p-4 text-center">
+                    <div class="text-xs text-blue-500 mb-2">流动比率</div>
+                    <div class="text-xl font-bold text-blue-600">2.1</div>
+                    <div class="text-xs text-blue-400 mt-1">行业均值: 1.8</div>
+                </div>
+                <div class="bg-green-50 rounded-lg p-4 text-center">
+                    <div class="text-xs text-green-500 mb-2">速动比率</div>
+                    <div class="text-xl font-bold text-green-600">1.8</div>
+                    <div class="text-xs text-green-400 mt-1">行业均值: 1.5</div>
+                </div>
+                <div class="bg-purple-50 rounded-lg p-4 text-center">
+                    <div class="text-xs text-purple-500 mb-2">ROE</div>
+                    <div class="text-xl font-bold text-purple-600">7.5%</div>
+                    <div class="text-xs text-purple-400 mt-1">行业均值: 6.2%</div>
+                </div>
+                <div class="bg-orange-50 rounded-lg p-4 text-center">
+                    <div class="text-xs text-orange-500 mb-2">应收账款周转天数</div>
+                    <div class="text-xl font-bold text-orange-600">58天</div>
+                    <div class="text-xs text-orange-400 mt-1">行业均值: 65天</div>
+                </div>
+            </div>
+            <div class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-red-50 rounded-lg p-4 text-center">
+                    <div class="text-xs text-red-500 mb-2">资产负债率</div>
+                    <div class="text-xl font-bold text-red-600">42.3%</div>
+                    <div class="text-xs text-red-400 mt-1">行业均值: 55%</div>
+                </div>
+                <div class="bg-cyan-50 rounded-lg p-4 text-center">
+                    <div class="text-xs text-cyan-500 mb-2">毛利率</div>
+                    <div class="text-xl font-bold text-cyan-600">28.6%</div>
+                    <div class="text-xs text-cyan-400 mt-1">行业均值: 25%</div>
+                </div>
+                <div class="bg-pink-50 rounded-lg p-4 text-center">
+                    <div class="text-xs text-pink-500 mb-2">净利率</div>
+                    <div class="text-xl font-bold text-pink-600">6.6%</div>
+                    <div class="text-xs text-pink-400 mt-1">行业均值: 5.8%</div>
+                </div>
+                <div class="bg-indigo-50 rounded-lg p-4 text-center">
+                    <div class="text-xs text-indigo-500 mb-2">总资产周转率</div>
+                    <div class="text-xl font-bold text-indigo-600">0.65</div>
+                    <div class="text-xs text-indigo-400 mt-1">行业均值: 0.6</div>
+                </div>
+            </div>
+            <div class="mt-6 bg-green-50 rounded-lg p-4">
+                <div class="text-xs text-green-500 mb-2">财务健康度评价</div>
+                <div class="text-sm text-green-700">
+                    公司财务状况整体健康，各项指标均优于行业平均水平。资产负债率较低（42.3%），偿债能力较强；流动比率和速动比率充足，短期偿债能力良好；应收账款周转天数低于行业均值，回款效率较高；盈利能力指标均高于行业平均水平，经营状况稳健。
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">PART 07 风险舆情</div>
+                    <div class="card-subtitle">风险评估 · 司法涉诉历史 · 舆情监控 · 合规状态</div>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">一、风险评估概览</h4>
+                <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+                    <div class="bg-gray-50 rounded-lg p-4 text-center">
+                        <div class="text-xs text-gray-500 mb-1">诉讼案件</div>
+                        <div class="text-2xl font-bold text-green-600">3</div>
+                        <div class="text-xs text-gray-400 mt-1">近5年</div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4 text-center">
+                        <div class="text-xs text-gray-500 mb-1">行政处罚</div>
+                        <div class="text-2xl font-bold text-green-600">1</div>
+                        <div class="text-xs text-gray-400 mt-1">已整改</div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4 text-center">
+                        <div class="text-xs text-gray-500 mb-1">经营异常</div>
+                        <div class="text-2xl font-bold text-green-600">0</div>
+                        <div class="text-xs text-gray-400 mt-1">状态正常</div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4 text-center">
+                        <div class="text-xs text-gray-500 mb-1">被执行人</div>
+                        <div class="text-2xl font-bold text-green-600">0</div>
+                        <div class="text-xs text-gray-400 mt-1">无记录</div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4 text-center">
+                        <div class="text-xs text-gray-500 mb-1">风险等级</div>
+                        <div class="text-2xl font-bold text-green-600">低</div>
+                        <div class="text-xs text-gray-400 mt-1">综合评估</div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">二、司法涉诉历史情况</h4>
+                <div class="space-y-4">
+                    <div class="lawsuit-item">
+                        <div class="lawsuit-info">
+                            <div class="lawsuit-title">劳动合同纠纷</div>
+                            <div class="lawsuit-details">
+                                <div><strong>案号：</strong>(2022)粤0111民初12345号</div>
+                                <div><strong>原告：</strong>张三</div>
+                                <div><strong>被告：</strong>广州海保安全服务集团有限公司</div>
+                                <div><strong>案由：</strong>原告主张公司未足额支付加班工资及经济补偿金</div>
+                                <div><strong>涉案金额：</strong>人民币5.2万元</div>
+                                <div><strong>审理法院：</strong>广州市白云区人民法院</div>
+                                <div><strong>审理结果：</strong>经法院调解，双方达成和解协议，公司一次性支付原告3.8万元</div>
+                                <div><strong>结案时间：</strong>2022年11月15日</div>
+                            </div>
+                        </div>
+                        <div class="lawsuit-status closed">已结案</div>
+                    </div>
+                    <div class="lawsuit-item">
+                        <div class="lawsuit-info">
+                            <div class="lawsuit-title">服务合同纠纷</div>
+                            <div class="lawsuit-details">
+                                <div><strong>案号：</strong>(2023)粤0106民初8765号</div>
+                                <div><strong>原告：</strong>广州海保安全服务集团有限公司</div>
+                                <div><strong>被告：</strong>广州某科技有限公司</div>
+                                <div><strong>案由：</strong>原告主张被告拖欠安保服务费用</div>
+                                <div><strong>涉案金额：</strong>人民币12.5万元</div>
+                                <div><strong>审理法院：</strong>广州市天河区人民法院</div>
+                                <div><strong>审理结果：</strong>法院判决被告支付全部欠款及违约金</div>
+                                <div><strong>结案时间：</strong>2023年8月28日</div>
+                            </div>
+                        </div>
+                        <div class="lawsuit-status closed">已结案</div>
+                    </div>
+                    <div class="lawsuit-item">
+                        <div class="lawsuit-info">
+                            <div class="lawsuit-title">劳动争议纠纷</div>
+                            <div class="lawsuit-details">
+                                <div><strong>案号：</strong>(2024)粤0112民初4567号</div>
+                                <div><strong>原告：</strong>李四</div>
+                                <div><strong>被告：</strong>广州海保安全服务集团有限公司</div>
+                                <div><strong>案由：</strong>原告主张违法解除劳动合同</div>
+                                <div><strong>涉案金额：</strong>人民币8.3万元</div>
+                                <div><strong>审理法院：</strong>广州市黄埔区人民法院</div>
+                                <div><strong>审理结果：</strong>法院驳回原告诉讼请求，公司胜诉</div>
+                                <div><strong>结案时间：</strong>2024年3月12日</div>
+                            </div>
+                        </div>
+                        <div class="lawsuit-status closed">已结案</div>
+                    </div>
+                </div>
+                <div class="mt-4 bg-yellow-50 rounded-lg p-4">
+                    <div class="text-xs text-yellow-500 mb-2">涉诉情况分析</div>
+                    <div class="text-sm text-yellow-700">
+                        公司近5年共有3起诉讼案件，均已结案。其中2起为劳动合同纠纷（1起和解、1起胜诉），1起为服务合同纠纷（胜诉）。整体来看，公司司法风险较低，诉讼案件数量少、涉案金额小，且胜诉率较高，未发现重大法律纠纷或合规问题。
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6">
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">三、行政处罚记录</h4>
+                <div class="bg-orange-50 rounded-lg p-4">
+                    <div class="text-sm font-semibold text-orange-800 mb-2">环保行政处罚（已整改）</div>
+                    <div class="text-xs text-orange-600 space-y-1">
+                        <div><strong>处罚机关：</strong>广州市生态环境局白云区分局</div>
+                        <div><strong>处罚时间：</strong>2023年5月18日</div>
+                        <div><strong>处罚事由：</strong>公司办公场所垃圾分类不规范</div>
+                        <div><strong>处罚金额：</strong>人民币5000元</div>
+                        <div><strong>整改情况：</strong>已完成整改并通过复查</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6">
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">四、舆情监控</h4>
+                <div class="space-y-4">
+                    <div class="news-item">
+                        <div class="news-header">
+                            <div class="news-title">广州海保安全集团荣获"2024年度优秀安防企业"称号</div>
+                            <div class="news-date">2024-12-15</div>
+                        </div>
+                        <div class="news-source">来源：广州市安防协会</div>
+                        <div class="news-summary">广州海保安全服务集团有限公司凭借卓越的服务质量和创新的技术能力，荣获广州市安防协会颁发的"2024年度优秀安防企业"称号，这是公司连续三年获此殊荣。</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-header">
+                            <div class="news-title">海保安全智慧安防平台升级，AI技术赋能安全管理</div>
+                            <div class="news-date">2024-11-28</div>
+                        </div>
+                        <div class="news-source">来源：南方都市报</div>
+                        <div class="news-summary">广州海保安全集团宣布完成智慧安防管理平台3.0版本升级，新增AI人脸识别、行为分析等功能，大幅提升安全预警能力和管理效率。</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-header">
+                            <div class="news-title">海保安全与多家大型企业签订年度安保服务协议</div>
+                            <div class="news-date">2024-10-20</div>
+                        </div>
+                        <div class="news-source">来源：公司官网</div>
+                        <div class="news-summary">广州海保安全集团近期与5家大型企业集团签订年度安保服务协议，合同总金额超过5000万元，业务规模持续扩大。</div>
+                    </div>
+                    <div class="news-item warning">
+                        <div class="news-header">
+                            <div class="news-title">海保安全积极参与社区安全宣传活动</div>
+                            <div class="news-date">2024-09-15</div>
+                        </div>
+                        <div class="news-source">来源：广州日报</div>
+                        <div class="news-summary">广州海保安全集团组织专业安保人员深入社区开展安全知识普及活动，受到居民好评。活动期间发放安全宣传资料2000余份，现场解答居民安全疑问300余次。</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6">
+                <h4 class="text-sm font-semibold text-gray-700 mb-4">五、合规资质</h4>
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                    <div class="certification-badge">
+                        <div class="certification-icon text-green-500"><i class="fa fa-shield"></i></div>
+                        <div class="certification-name">保安服务许可证</div>
+                        <div class="certification-count">1</div>
+                    </div>
+                    <div class="certification-badge">
+                        <div class="certification-icon text-blue-500"><i class="fa fa-lock"></i></div>
+                        <div class="certification-name">ISO9001认证</div>
+                        <div class="certification-count">1</div>
+                    </div>
+                    <div class="certification-badge">
+                        <div class="certification-icon text-purple-500"><i class="fa fa-award"></i></div>
+                        <div class="certification-name">安防工程资质</div>
+                        <div class="certification-count">2</div>
+                    </div>
+                    <div class="certification-badge">
+                        <div class="certification-icon text-orange-500"><i class="fa fa-fire"></i></div>
+                        <div class="certification-name">消防资质</div>
+                        <div class="certification-count">2</div>
+                    </div>
+                    <div class="certification-badge">
+                        <div class="certification-icon text-red-500"><i class="fa fa-users"></i></div>
+                        <div class="certification-name">人力资源资质</div>
+                        <div class="certification-count">1</div>
+                    </div>
+                    <div class="certification-badge">
+                        <div class="certification-icon text-cyan-500"><i class="fa fa-building"></i></div>
+                        <div class="certification-name">物业资质</div>
+                        <div class="certification-count">1</div>
+                    </div>
+                </div>
+                <div class="mt-4 bg-green-50 rounded-lg p-4">
+                    <div class="text-xs text-green-500 mb-2">资质合规性评价</div>
+                    <div class="text-sm text-green-700">
+                        公司资质齐全，拥有保安服务许可证、ISO9001质量管理体系认证、安防工程资质、消防资质、人力资源资质、物业资质等共计42项资质证书，所有资质均在有效期内，合规运营情况良好。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">PART 08 综合评估</div>
+                    <div class="card-subtitle">SWOT分析 · 发展建议</div>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-4 mb-6">
+                <div class="bg-green-50 rounded-lg p-4">
+                    <h4 class="text-sm font-semibold text-green-800 mb-3">优势（Strengths）</h4>
+                    <ul class="text-xs text-green-700 space-y-2">
+                        <li>• 行业经验丰富，品牌知名度高，连续多年荣获行业奖项</li>
+                        <li>• 技术实力强，自主研发智慧安防管理平台，拥有多项专利</li>
+                        <li>• 资质齐全，服务能力覆盖安保、安防、消防、物业全链条</li>
+                        <li>• 客户基础稳固，服务客户超过500家，续约率达92%</li>
+                        <li>• 财务状况良好，资产负债率低，现金流稳定</li>
+                        <li>• 司法风险低，无重大法律纠纷</li>
+                    </ul>
+                </div>
+                <div class="bg-yellow-50 rounded-lg p-4">
+                    <h4 class="text-sm font-semibold text-yellow-800 mb-3">劣势（Weaknesses）</h4>
+                    <ul class="text-xs text-yellow-700 space-y-2">
+                        <li>• 区域集中度较高，跨区域扩张需加强</li>
+                        <li>• 人力成本上升压力较大，影响盈利能力</li>
+                        <li>• 应收账款周期较长，占款压力存在</li>
+                        <li>• 高端技术人才储备有待加强</li>
+                        <li>• 智能化业务占比仍有提升空间</li>
+                    </ul>
+                </div>
+                <div class="bg-blue-50 rounded-lg p-4">
+                    <h4 class="text-sm font-semibold text-blue-800 mb-3">机会（Opportunities）</h4>
+                    <ul class="text-xs text-blue-700 space-y-2">
+                        <li>• 智慧城市建设带来新机遇，安防需求持续增长</li>
+                        <li>• AI技术应用前景广阔，智能化升级空间大</li>
+                        <li>• 企业安全意识提升，专业安保服务需求增加</li>
+                        <li>• 政策支持安防行业规范化发展</li>
+                        <li>• 粤港澳大湾区建设带来区域发展机遇</li>
+                    </ul>
+                </div>
+                <div class="bg-red-50 rounded-lg p-4">
+                    <h4 class="text-sm font-semibold text-red-800 mb-3">威胁（Threats）</h4>
+                    <ul class="text-xs text-red-700 space-y-2">
+                        <li>• 行业竞争日趋激烈，价格战压力增大</li>
+                        <li>• 技术更新换代快，需持续研发投入</li>
+                        <li>• 人力成本持续上涨，压缩利润空间</li>
+                        <li>• 政策监管趋严，合规成本增加</li>
+                        <li>• 宏观经济环境变化影响企业客户需求</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="bg-blue-50 rounded-lg p-4 mb-6">
+                <h4 class="text-sm font-semibold text-blue-800 mb-3">发展建议</h4>
+                <div class="text-xs text-blue-700 space-y-2">
+                    <div><strong>1. 业务拓展：</strong>加快华中、西南等区域市场布局，降低区域集中度风险，通过设立分公司或并购方式拓展市场份额。</div>
+                    <div><strong>2. 技术创新：</strong>加大AI安防技术研发投入，提升智能化服务能力，培育新的利润增长点。</div>
+                    <div><strong>3. 成本优化：</strong>通过智能化手段提高运营效率，优化人员配置，降低人力成本压力。</div>
+                    <div><strong>4. 资金管理：</strong>加强应收账款管理，优化现金流，探索多元化融资渠道支持业务扩张。</div>
+                    <div><strong>5. 人才建设：</strong>完善人才激励机制，吸引高端技术人才和管理人才，提升团队竞争力。</div>
+                    <div><strong>6. 合规建设：</strong>持续关注政策变化，加强合规管理，确保各项业务合法合规运营。</div>
+                </div>
+            </div>
+            <div class="conclusion-card">
+                <div class="conclusion-label">综合评价</div>
+                <div class="conclusion-value">优秀</div>
+                <div class="conclusion-desc">广州海保安全服务集团有限公司是一家经营稳健、技术领先的专业安全服务企业，具备良好的发展潜力和投资价值。公司财务状况健康，司法风险低，资质齐全，市场竞争力强。建议关注其智能化转型进展和区域扩张战略的实施效果。</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

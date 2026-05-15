@@ -149,7 +149,7 @@ body {
 
 /* ==================== 头部样式 ==================== */
 .header {
-    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    background: linear-gradient(135deg, #b91c1c 0%, #ef4444 100%);
     color: white;
     padding: 12px 16px;
     display: flex;
@@ -187,9 +187,9 @@ body {
     padding: 4px;
 }
 
-/* ==================== 搜索栏样�?==================== */
+/* ==================== 搜索栏样式 ==================== */
 .search-bar {
-    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    background: linear-gradient(135deg, #b91c1c 0%, #ef4444 100%);
     padding: 16px;
     display: flex;
     gap: 8px;
@@ -273,7 +273,7 @@ body {
 
 .view-all {
     font-size: 14px;
-    color: #1e40af;
+    color: #b91c1c;
     cursor: pointer;
 }
 
@@ -366,7 +366,7 @@ body {
 }
 
 .input:focus {
-    border-color: #1e40af;
+    border-color: #b91c1c;
 }
 
 /* ==================== 搜索结果样式 ==================== */
@@ -430,7 +430,7 @@ body {
 }
 
 .highlight {
-    color: #1e40af;
+    color: #b91c1c;
     font-weight: 600;
 }
 
@@ -451,7 +451,7 @@ body {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    background: linear-gradient(135deg, #b91c1c 0%, #ef4444 100%);
     color: white;
 }
 
@@ -505,7 +505,7 @@ body {
 }
 
 .delete-btn {
-    background: #3b82f6;
+    background: #ff4d4f;
     color: white;
     border: none;
     padding: 4px 12px;
@@ -535,7 +535,7 @@ body {
 
 .progress {
     height: 100%;
-    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    background: linear-gradient(135deg, #b91c1c 0%, #ef4444 100%);
     transition: width 0.3s;
 }
 
@@ -556,7 +556,7 @@ body {
     color: #52c41a;
 }
 
-/* ==================== 报告详情页样�?==================== */
+/* ==================== 报告详情页样式 ==================== */
 .report-content {
     padding: 16px;
 }
@@ -630,7 +630,7 @@ body {
 .opportunity-title {
     font-size: 14px;
     font-weight: 600;
-    color: #1e40af;
+    color: #b91c1c;
     display: block;
     margin-bottom: 8px;
 }
@@ -674,7 +674,7 @@ body {
 
 .high-risk {
     background: #fff1f0;
-    color: #3b82f6;
+    color: #ff4d4f;
 }
 
 .medium-risk {
@@ -742,7 +742,7 @@ body {
 
 .data-change.negative {
     background: #fff1f0;
-    color: #3b82f6;
+    color: #ff4d4f;
 }
 
 /* 建议样式 */
@@ -756,7 +756,7 @@ body {
 .suggestion-title {
     font-size: 14px;
     font-weight: 600;
-    color: #1e40af;
+    color: #b91c1c;
     display: block;
     margin-bottom: 8px;
 }
@@ -783,7 +783,7 @@ body {
     display: block;
 }
 
-/* ==================== 新增样式：关键人�?==================== */
+/* ==================== 新增样式：关键人物 ==================== */
 .key-personnel {
     margin-bottom: 16px;
 }
@@ -796,7 +796,7 @@ body {
     display: block;
 }
 
-/* ==================== 新增样式：表�?==================== */
+/* ==================== 新增样式：表格 ==================== */
 .personnel-table,
 .financial-table,
 .risk-table {
@@ -845,7 +845,7 @@ body {
     white-space: nowrap;
 }
 
-/* ==================== 新增样式：财务部�?==================== */
+/* ==================== 新增样式：财务部分 ==================== */
 .financial-section {
     margin-bottom: 20px;
 }
@@ -883,10 +883,10 @@ body {
 }
 
 .grid-value.negative {
-    color: #3b82f6;
+    color: #ff4d4f;
 }
 
-/* ==================== 新增样式：风险部�?==================== */
+/* ==================== 新增样式：风险部分 ==================== */
 .risk-section {
     margin-bottom: 20px;
 }
@@ -903,7 +903,7 @@ body {
     display: block;
 }
 
-/* ==================== 新增样式：行内合作全�?==================== */
+/* ==================== 新增样式：行内合作全景 ==================== */
 .cooperation-section {
     margin-bottom: 20px;
 }
@@ -948,7 +948,7 @@ body {
     line-height: 1.5;
 }
 
-/* ==================== 报告详情页样式（multi_report模板�?==================== */
+/* ==================== 报告详情页样式（multi_report模板） ==================== */
 .report-content {
     padding: 20px;
     background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
@@ -1038,37 +1038,46 @@ body {
 /* 概览卡片 */
 .overview-cards {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 12px;
     margin-bottom: 20px;
 }
 
 .overview-card {
     background: white;
-    padding: 20px 16px;
+    padding: 18px 12px;
     border-radius: 14px;
     text-align: center;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    transition: all 0.3s ease;
     border: 1px solid #f1f5f9;
 }
 
-.overview-label {
-    font-size: 12px;
-    color: #94a3b8;
-    margin-bottom: 10px;
-    display: block;
-    font-weight: 500;
+.overview-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
 }
 
-.overview-content {
+.overview-label {
+    font-size: 11px;
+    color: #64748b;
+    margin-bottom: 8px;
+    display: block;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.overview-value-wrap {
     display: inline-flex;
     align-items: baseline;
     justify-content: center;
-    gap: 4px;
+    gap: 2px;
+    margin-bottom: 8px;
 }
 
 .overview-number {
-    font-size: 36px;
+    font-size: 32px;
     font-weight: 700;
     background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
     -webkit-background-clip: text;
@@ -1079,25 +1088,27 @@ body {
 
 .overview-unit {
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     color: #94a3b8;
+    margin-left: 2px;
 }
 
 .overview-change {
     font-size: 11px;
-    padding: 3px 10px;
-    border-radius: 10px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    display: inline-block;
     font-weight: 500;
 }
 
 .overview-change.up {
-    background: #dcfce7;
-    color: #16a34a;
+    background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+    color: #166534;
 }
 
 .overview-change.down {
-    background: #fee2e2;
-    color: #dc2626;
+    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+    color: #991b1b;
 }
 
 /* 卡片样式 */
@@ -1223,7 +1234,7 @@ body {
     border: 1px solid #fca5a5;
 }
 
-/* 风险指示�?*/
+/* 风险指示器 */
 .risk-item {
     display: flex;
     align-items: flex-start;
@@ -1250,7 +1261,7 @@ body {
 }
 
 .risk-indicator.high {
-    background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+    background: linear-gradient(180deg, #ef4444 0%, #dc2626 100%);
 }
 
 .risk-indicator.medium {
@@ -1314,7 +1325,7 @@ body {
     opacity: 0.9;
 }
 
-/* 高亮�?*/
+/* 高亮框 */
 .highlight-box {
     background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
     padding: 16px;
@@ -1339,7 +1350,7 @@ body {
     line-height: 1.6;
 }
 
-/* 市场机会/挑战�?*/
+/* 市场机会/挑战框 */
 .market-opp-box {
     background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
     padding: 16px;
@@ -1358,7 +1369,7 @@ body {
     background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
     padding: 16px;
     border-radius: 12px;
-    border-left: 5px solid #3b82f6;
+    border-left: 5px solid #ef4444;
     margin-bottom: 12px;
     box-shadow: 0 2px 12px rgba(239, 68, 68, 0.1);
     transition: all 0.2s ease;
@@ -1395,7 +1406,7 @@ body {
 }
 
 .market-challenge-box .box-content {
-    color: #1e40af;
+    color: #b91c1c;
 }
 
 /* 产品标签 */
@@ -1468,7 +1479,7 @@ body {
 
 .summary-trend.up {
     background: #fee2e2;
-    color: #2563eb;
+    color: #dc2626;
 }
 
 .summary-trend.down {
@@ -1487,7 +1498,7 @@ body {
 }
 
 .summary-card-danger .summary-value {
-    color: #2563eb;
+    color: #dc2626;
 }
 
 .summary-card-warning {
@@ -1615,7 +1626,7 @@ body {
 }
 
 .risk-detail-card.risk-high {
-    border-left: 4px solid #3b82f6;
+    border-left: 4px solid #ef4444;
 }
 
 .risk-detail-card.risk-medium {
@@ -1643,7 +1654,7 @@ body {
 
 .risk-badge.high {
     background: #fee2e2;
-    color: #2563eb;
+    color: #dc2626;
 }
 
 .risk-badge.medium {
@@ -1696,7 +1707,7 @@ body {
 }
 
 .info-value.danger {
-    color: #2563eb;
+    color: #dc2626;
     font-weight: 500;
 }
 
@@ -1918,7 +1929,7 @@ body {
 }
 
 .assessment-card.warning .assessment-fill {
-    background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%);
+    background: linear-gradient(90deg, #ef4444 0%, #dc2626 100%);
 }
 
 .assessment-desc {
@@ -2062,7 +2073,7 @@ body {
 }
 
 .swot-list li::before {
-    content: "�?;
+    content: "•";
     position: absolute;
     left: 0;
     color: #6366f1;
@@ -2358,7 +2369,7 @@ body {
 }
 
 .finance-table .negative {
-    color: #2563eb;
+    color: #dc2626;
     font-weight: 600;
 }
 
@@ -2426,7 +2437,7 @@ body {
     line-height: 1.4;
 }
 
-/* 响应式设�?*/
+/* 响应式设计 */
 @media (max-width: 480px) {
     .overview-cards {
         grid-template-columns: repeat(2, 1fr);
@@ -2441,7 +2452,7 @@ body {
     }
 }
 
-/* ==================== 新增样式：产品推�?==================== */
+/* ==================== 新增样式：产品推荐 ==================== */
 .recommendation-section {
     margin-bottom: 20px;
 }
@@ -2460,7 +2471,7 @@ body {
 .recommendation-title {
     font-size: 14px;
     font-weight: 600;
-    color: #1e40af;
+    color: #b91c1c;
     display: block;
     margin-bottom: 8px;
 }
@@ -2497,7 +2508,7 @@ body {
 }
 
 .user-message .message-content {
-    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    background: linear-gradient(135deg, #b91c1c 0%, #ef4444 100%);
     color: white;
     border-bottom-right-radius: 4px;
 }
@@ -2543,7 +2554,7 @@ body {
 .quick-btn {
     padding: 8px 16px;
     background: #fff0f0;
-    color: #1e40af;
+    color: #b91c1c;
     border: 1px solid #ffd7d7;
     border-radius: 16px;
     font-size: 12px;
@@ -2573,7 +2584,7 @@ body {
 }
 
 .send-btn {
-    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    background: linear-gradient(135deg, #b91c1c 0%, #ef4444 100%);
     color: white;
     border: none;
     padding: 10px 20px;
@@ -2582,7 +2593,7 @@ body {
     cursor: pointer;
 }
 
-/* ==================== 邮件发送弹窗样�?==================== */
+/* ==================== 邮件发送弹窗样式 ==================== */
 .email-modal {
     max-width: 90%;
     width: 400px;
@@ -2638,7 +2649,7 @@ body {
 }
 
 .email-modal .modal-buttons .btn-primary {
-    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    background: linear-gradient(135deg, #b91c1c 0%, #ef4444 100%);
     color: white;
     border: none;
 }
@@ -2649,7 +2660,7 @@ body {
     border: 1px solid #e0e0e0;
 }
 
-/* ==================== 报告列表页样�?==================== */
+/* ==================== 报告列表页样式 ==================== */
 .filter-bar {
     padding: 12px 16px;
     display: flex;
@@ -2736,7 +2747,7 @@ body {
 
 .action-btn.delete-btn {
     background: #fff1f0;
-    color: #3b82f6;
+    color: #ff4d4f;
 }
 
 /* ==================== 模态框样式 ==================== */
@@ -2799,7 +2810,7 @@ body {
     justify-content: center;
 }
 
-/* ==================== 底部导航栏样�?==================== */
+/* ==================== 底部导航栏样式 ==================== */
 .bottom-nav {
     position: absolute;
     bottom: 0;
@@ -2829,7 +2840,7 @@ body {
     z-index: 50;
 }
 
-/* ==================== 新增样式：股权结构图�?==================== */
+/* ==================== 新增样式：股权结构图表 ==================== */
 .equity-chart {
     margin-top: 12px;
 }
@@ -2853,7 +2864,7 @@ body {
     white-space: nowrap;
 }
 
-/* ==================== 新增样式：状态标�?==================== */
+/* ==================== 新增样式：状态标签 ==================== */
 .status-badge {
     padding: 2px 8px;
     border-radius: 4px;
@@ -2878,10 +2889,10 @@ body {
 
 .status-badge.danger {
     background: #fff1f0;
-    color: #3b82f6;
+    color: #ff4d4f;
 }
 
-/* ==================== 新增样式：产品标�?==================== */
+/* ==================== 新增样式：产品标签 ==================== */
 .category-items {
     display: flex;
     flex-wrap: wrap;
@@ -2896,7 +2907,7 @@ body {
     font-size: 11px;
 }
 
-/* ==================== 新增样式：合作历�?==================== */
+/* ==================== 新增样式：合作历史 ==================== */
 .cooperation-history {
     margin-top: 12px;
     background: #f9f9f9;
@@ -2917,7 +2928,7 @@ body {
 
 .history-date {
     font-size: 12px;
-    color: #1e40af;
+    color: #b91c1c;
     font-weight: 500;
     min-width: 70px;
 }
@@ -2927,7 +2938,7 @@ body {
     color: #666;
 }
 
-/* ==================== 新增样式：客户评�?==================== */
+/* ==================== 新增样式：客户评价 ==================== */
 .customer-feedback {
     margin-top: 12px;
 }
@@ -2961,6 +2972,6 @@ body {
 
 .feedback-fill {
     height: 100%;
-    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    background: linear-gradient(135deg, #b91c1c 0%, #ef4444 100%);
     border-radius: 4px;
 }
