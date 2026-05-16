@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>访前助手</title>
+    <title>访客助手</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -14,7 +14,7 @@
         <div id="page-home" class="page active">
             <header class="header">
                 <span class="back-btn" onclick="goBack()">←</span>
-                <h1 class="header-title">访前助手</h1>
+                <h1 class="header-title">访客助手</h1>
             </header>
             
             <!-- 功能入口卡片 -->
@@ -22,7 +22,7 @@
                 <div class="card-row">
                     <div class="function-card" onclick="navigateTo('company-info')">
                         <div class="card-icon">📊</div>
-                        <div class="card-title">生成访前报告</div>
+                        <div class="card-title">生成访客报告</div>
                     </div>
                     <div class="function-card" onclick="navigateTo('report-list')">
                         <div class="card-icon">📋</div>
@@ -97,7 +97,7 @@
                     </div>
                 </div>
                 
-                <button class="btn btn-primary" onclick="generateReport()">生成访前报告</button>
+                <button class="btn btn-primary" onclick="generateReport()">生成访客报告</button>
             </div>
         </div>
         
@@ -105,7 +105,7 @@
         <div id="page-report-detail" class="page">
             <header class="header">
                 <span class="back-btn" onclick="navigateTo('company-info')">←</span>
-                <h1 class="header-title">访前报告</h1>
+                <h1 class="header-title">访客报告</h1>
                 <div class="header-actions">
                     <button class="header-btn" onclick="showEmailModal()">✉️</button>
                     <button class="header-btn" onclick="navigateTo('home')">✕</button>
