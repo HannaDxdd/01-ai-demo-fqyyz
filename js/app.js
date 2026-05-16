@@ -759,7 +759,7 @@ function showEmailModal() {
     const month = String(today.getMonth() + 1).padStart(2, '0');
     const day = String(today.getDate()).padStart(2, '0');
     const dateStr = `${year}${month}${day}`;
-    const subject = `${companyName}访前一页纸（${dateStr}）`;
+    const subject = `${companyName}访前助手（${dateStr}）`;
     
     const emailSubject = document.getElementById('emailSubject');
     if (emailSubject) emailSubject.value = subject;
