@@ -29,6 +29,16 @@
                         <div class="card-title">我的报告</div>
                     </div>
                 </div>
+                <div class="card-row">
+                    <div class="function-card" onclick="navigateTo('marketing')">
+                        <div class="card-icon">📣</div>
+                        <div class="card-title">营销活动</div>
+                    </div>
+                    <div class="function-card" onclick="navigateTo('profile')">
+                        <div class="card-icon">👤</div>
+                        <div class="card-title">我的</div>
+                    </div>
+                </div>
             </div>
             
             <!-- 最近报告列表 -->
@@ -1346,6 +1356,172 @@
                     <button class="btn btn-secondary" onclick="selectFromGallery()">📱 从相册选择</button>
                 </div>
             </div>
+        </div>
+
+        <!-- ==================== 营销活动页面 ==================== -->
+        <div id="page-marketing" class="page">
+            <header class="header marketing-header">
+                <span class="back-btn" onclick="navigateTo('home')">←</span>
+                <h1 class="header-title">公司智汇营</h1>
+                <span class="refresh-btn">🔄</span>
+            </header>
+            
+            <!-- 标签切换 -->
+            <div class="tabs-container">
+                <div class="tab active" onclick="switchTab('marketing')">营销活动</div>
+                <div class="tab" onclick="switchTab('business')">拓客商机</div>
+            </div>
+            
+            <!-- 搜索栏 -->
+            <div class="search-bar-container">
+                <input type="text" class="search-input" placeholder="请输入活动名称">
+            </div>
+            
+            <!-- 筛选栏 -->
+            <div class="filter-bar">
+                <select class="filter-select">
+                    <option>活动大类</option>
+                    <option>存量经营</option>
+                    <option>产品营销</option>
+                    <option>跨境客户营销</option>
+                </select>
+                <select class="filter-select">
+                    <option>活动小类</option>
+                    <option>全部</option>
+                    <option>存款类</option>
+                    <option>贷款类</option>
+                </select>
+                <select class="filter-select">
+                    <option>活动状态</option>
+                    <option>全部</option>
+                    <option>进行中</option>
+                    <option>已结束</option>
+                    <option>提前终止</option>
+                </select>
+            </div>
+            
+            <!-- 统计信息 -->
+            <div class="stats-bar">
+                <span class="stats-text">共 <span class="stats-highlight">159</span> 条营销活动数据</span>
+            </div>
+            
+            <!-- 活动列表 -->
+            <div class="marketing-list" id="marketingList">
+                <div class="marketing-card">
+                    <div class="card-header-row">
+                        <div class="activity-badge">活动</div>
+                        <div class="activity-title">LX20260122非新-1</div>
+                        <span class="status-tag status-terminated">提前终止</span>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag tag-orange">存量经营</span>
+                        <span class="tag tag-info">产品营销</span>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-row">
+                            <span class="info-label">活动日期</span>
+                            <span class="info-value">2026-01-22 ~ 2026-01-31</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">反馈结束日期</span>
+                            <span class="info-value">2026-01-31</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">创建机构</span>
+                            <span class="info-value">广州银行</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">创建人</span>
+                            <span class="info-value">系统管理员</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="marketing-card">
+                    <div class="card-header-row">
+                        <div class="activity-badge">活动</div>
+                        <div class="activity-title">LX20260121存-1</div>
+                        <span class="status-tag status-terminated">提前终止</span>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag tag-orange">跨境客户营销</span>
+                        <span class="tag tag-info">(存客)</span>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-row">
+                            <span class="info-label">活动日期</span>
+                            <span class="info-value">2026-01-21 ~ 2026-01-31</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">反馈结束日期</span>
+                            <span class="info-value">2026-01-31</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">创建机构</span>
+                            <span class="info-value">广州银行</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">创建人</span>
+                            <span class="info-value">系统管理员</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="marketing-card">
+                    <div class="card-header-row">
+                        <div class="activity-badge">活动</div>
+                        <div class="activity-title">20260120</div>
+                        <span class="status-tag status-terminated">提前终止</span>
+                    </div>
+                    <div class="card-tags">
+                        <span class="tag tag-success">产品营销</span>
+                    </div>
+                    <div class="card-info">
+                        <div class="info-row">
+                            <span class="info-label">活动日期</span>
+                            <span class="info-value">2026-01-20 ~ 2026-01-30</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">反馈结束日期</span>
+                            <span class="info-value">2026-01-30</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">创建机构</span>
+                            <span class="info-value">广州银行</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">创建人</span>
+                            <span class="info-value">系统管理员</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 实时提醒按钮 -->
+            <div class="float-btn" onclick="showReminder()">
+                <span class="float-icon">🔔</span>
+                <span class="float-text">实时提醒</span>
+            </div>
+            
+            <!-- 底部导航 -->
+            <nav class="bottom-nav">
+                <div class="nav-item" onclick="navigateTo('home')">
+                    <span class="nav-icon">🏠</span>
+                    <span class="nav-text">首页</span>
+                </div>
+                <div class="nav-item active" onclick="navigateTo('marketing')">
+                    <span class="nav-icon">📣</span>
+                    <span class="nav-text">营销</span>
+                </div>
+                <div class="nav-item" onclick="navigateTo('client')">
+                    <span class="nav-icon">👥</span>
+                    <span class="nav-text">客户</span>
+                </div>
+                <div class="nav-item" onclick="navigateTo('profile')">
+                    <span class="nav-icon">👤</span>
+                    <span class="nav-text">我的</span>
+                </div>
+            </nav>
         </div>
 
         </div>
