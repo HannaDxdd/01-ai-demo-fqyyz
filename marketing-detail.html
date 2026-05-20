@@ -235,6 +235,107 @@
             color: #6b7280;
         }
 
+        /* 客户名单卡片 */
+        .customer-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .customer-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .customer-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .customer-badge {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 6px 8px;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.2;
+        }
+
+        .customer-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .customer-id {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-top: 2px;
+        }
+
+        .status-tag {
+            font-size: 12px;
+            font-weight: 500;
+            color: #dc2626;
+            padding: 2px 8px;
+            background-color: #fee2e2;
+            border-radius: 4px;
+        }
+
+        .customer-meta {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            padding: 12px;
+            background-color: #f9fafb;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        .meta-item {
+            text-align: center;
+        }
+
+        .meta-label {
+            font-size: 11px;
+            color: #9ca3af;
+            margin-bottom: 4px;
+        }
+
+        .meta-value {
+            font-size: 12px;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .view-record-btn {
+            width: 100%;
+            padding: 8px;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .empty-text {
+            text-align: center;
+            color: #9ca3af;
+            font-size: 14px;
+            padding: 30px 0;
+        }
+
         /* 悬浮按钮 */
         .realtime-reminder {
             position: absolute;
@@ -292,8 +393,8 @@
                 <div class="tab" onclick="switchTab('customers')">客户名单</div>
             </div>
 
-            <!-- 内容区域 -->
-            <div class="content-section">
+            <!-- 基本信息内容 -->
+            <div id="basic-content" class="content-section">
                 <!-- 活动标题 -->
                 <div class="activity-title">
                     <span class="title-text">LX20260122非新-1</span>
@@ -355,6 +456,84 @@
                     </div>
                 </div>
             </div>
+
+            <!-- 客户名单内容 -->
+            <div id="customers-content" class="content-section hidden">
+                <!-- 客户卡片1 -->
+                <div class="customer-card">
+                    <div class="customer-header">
+                        <div class="customer-info">
+                            <div class="customer-badge">
+                                <span>测试</span>
+                                <span>白名</span>
+                            </div>
+                            <div>
+                                <div class="customer-name">测试白名单八</div>
+                                <div class="customer-id">199KMT4QNNTH402Q02</div>
+                            </div>
+                        </div>
+                        <span class="status-tag">失败</span>
+                    </div>
+                    <div class="customer-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">归属机构</div>
+                            <div class="meta-value">广州银行</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">跟进机构</div>
+                            <div class="meta-value">--</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">跟进人</div>
+                            <div class="meta-value">陈木木</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">处理次数</div>
+                            <div class="meta-value">0</div>
+                        </div>
+                    </div>
+                    <button class="view-record-btn" onclick="viewRecord()">查看反馈记录</button>
+                </div>
+
+                <!-- 客户卡片2 -->
+                <div class="customer-card">
+                    <div class="customer-header">
+                        <div class="customer-info">
+                            <div class="customer-badge">
+                                <span>测试</span>
+                                <span>白名</span>
+                            </div>
+                            <div>
+                                <div class="customer-name">测试白名单七</div>
+                                <div class="customer-id">199KMT4QNNTH453Q01</div>
+                            </div>
+                        </div>
+                        <span class="status-tag">失败</span>
+                    </div>
+                    <div class="customer-meta">
+                        <div class="meta-item">
+                            <div class="meta-label">归属机构</div>
+                            <div class="meta-value">广州银行</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">跟进机构</div>
+                            <div class="meta-value">--</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">跟进人</div>
+                            <div class="meta-value">陈木木</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-label">处理次数</div>
+                            <div class="meta-value">0</div>
+                        </div>
+                    </div>
+                    <button class="view-record-btn" onclick="viewRecord()">查看反馈记录</button>
+                </div>
+
+                <!-- 没有更多 -->
+                <div class="empty-text">没有更多了</div>
+            </div>
         </div>
 
         <!-- 悬浮按钮 -->
@@ -399,6 +578,14 @@
             const tabs = document.querySelectorAll('.tab');
             tabs.forEach(t => t.classList.remove('active'));
             event.target.classList.add('active');
+            
+            document.getElementById('basic-content').classList.add('hidden');
+            document.getElementById('customers-content').classList.add('hidden');
+            document.getElementById(tab + '-content').classList.remove('hidden');
+        }
+
+        function viewRecord() {
+            alert('查看反馈记录');
         }
 
         function showReminder() {
