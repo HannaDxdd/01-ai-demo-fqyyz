@@ -327,7 +327,7 @@
             <!-- 活动列表 -->
             <div class="activity-list">
                 <!-- 活动1 -->
-                <div class="activity-card">
+                <div class="activity-card" onclick="goToDetail()">
                     <div class="card-header">
                         <div class="activity-badge">活动</div>
                         <div class="activity-info">
@@ -360,7 +360,7 @@
                 </div>
 
                 <!-- 活动2 -->
-                <div class="activity-card">
+                <div class="activity-card" onclick="goToDetail()">
                     <div class="card-header">
                         <div class="activity-badge">活动</div>
                         <div class="activity-info">
@@ -393,7 +393,7 @@
                 </div>
 
                 <!-- 活动3 -->
-                <div class="activity-card">
+                <div class="activity-card" onclick="goToDetail()">
                     <div class="card-header">
                         <div class="activity-badge">活动</div>
                         <div class="activity-info">
@@ -468,6 +468,10 @@
             const tabs = document.querySelectorAll('.tab');
             tabs.forEach(t => t.classList.remove('active'));
             event.target.classList.add('active');
+        }
+
+        function goToDetail() {
+            window.location.href = 'marketing-detail.html';
         }
 
         function showReminder() {

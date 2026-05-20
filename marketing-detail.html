@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>公司智汇营 - 营销详情</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #1a1a1a;
+            margin: 0;
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .phone-frame {
+            width: 440px;
+            height: calc(100vh - 40px);
+            background-color: white;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .app-container {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-bottom: 60px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* 顶部导航 */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-back {
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .header-refresh {
+            font-size: 20px;
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+
+        /* 二级导航 */
+        .sub-header {
+            background-color: white;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .sub-back {
+            font-size: 18px;
+            color: #6b7280;
+            cursor: pointer;
+            margin-right: 12px;
+        }
+
+        .sub-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        /* 标签页 */
+        .tabs-container {
+            background-color: white;
+            padding: 0 16px;
+            display: flex;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 14px 0;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            color: #9ca3af;
+            position: relative;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .tab.active {
+            color: #667eea;
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+
+        /* 内容区域 */
+        .content-section {
+            padding: 16px;
+        }
+
+        /* 活动标题 */
+        .activity-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .title-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .hot-badge {
+            padding: 2px 8px;
+            background-color: #fee2e2;
+            color: #dc2626;
+            font-size: 11px;
+            font-weight: 500;
+            border-radius: 4px;
+        }
+
+        /* 信息列表 */
+        .info-list {
+            background-color: #f9fafb;
+            border-radius: 12px;
+            padding: 12px 16px;
+        }
+
+        .info-item {
+            display: flex;
+            padding: 10px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            width: 110px;
+            font-size: 14px;
+            color: #9ca3af;
+            flex-shrink: 0;
+        }
+
+        .info-value {
+            font-size: 14px;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        /* 区块 */
+        .section-block {
+            margin-top: 16px;
+        }
+
+        .section-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 12px;
+        }
+
+        .section-content {
+            background-color: #f9fafb;
+            border-radius: 12px;
+            padding: 14px 16px;
+            font-size: 14px;
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        /* 产品策略列表 */
+        .product-list {
+            background-color: #f9fafb;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .product-item {
+            padding: 14px 16px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .product-item:last-child {
+            border-bottom: none;
+        }
+
+        .product-name-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .product-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .product-reason {
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        /* 悬浮按钮 */
+        .realtime-reminder {
+            position: absolute;
+            bottom: 70px;
+            right: 16px;
+            width: 50px;
+            height: 50px;
+            background-color: #1890ff;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(24, 144, 255, 0.4);
+            cursor: pointer;
+            z-index: 99;
+        }
+
+        /* 底部导航 */
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #ffffff;
+            border-top: 1px solid #e0e0e0;
+            padding: 8px 16px;
+            z-index: 100;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-frame">
+        <div class="app-container">
+            <!-- 顶部导航 -->
+            <div class="header">
+                <span class="header-back" onclick="goBack()">←</span>
+                <span class="header-title">公司智汇营</span>
+                <span class="header-refresh" onclick="refreshPage()">↻</span>
+            </div>
+
+            <!-- 二级导航 -->
+            <div class="sub-header">
+                <span class="sub-back" onclick="goBack()">←</span>
+                <span class="sub-title">营销详情</span>
+            </div>
+
+            <!-- 标签页 -->
+            <div class="tabs-container">
+                <div class="tab active" onclick="switchTab('basic')">基本信息</div>
+                <div class="tab" onclick="switchTab('customers')">客户名单</div>
+            </div>
+
+            <!-- 内容区域 -->
+            <div class="content-section">
+                <!-- 活动标题 -->
+                <div class="activity-title">
+                    <span class="title-text">LX20260122非新-1</span>
+                    <span class="hot-badge">高</span>
+                </div>
+
+                <!-- 基本信息列表 -->
+                <div class="info-list">
+                    <div class="info-item">
+                        <span class="info-label">活动大类：</span>
+                        <span class="info-value">存量经营</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">活动小类：</span>
+                        <span class="info-value">产品营销</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">活动日期：</span>
+                        <span class="info-value">2026-01-22 ~ 2026-01-31</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">反馈结束日期：</span>
+                        <span class="info-value">2026-01-31</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">营销产品：</span>
+                        <span class="info-value">商E贷,银行承兑汇票贴现</span>
+                    </div>
+                </div>
+
+                <!-- 活动描述 -->
+                <div class="section-block">
+                    <div class="section-title">活动描述</div>
+                    <div class="section-content">--</div>
+                </div>
+
+                <!-- 客群策略 -->
+                <div class="section-block">
+                    <div class="section-title">客群策略</div>
+                    <div class="section-content">--</div>
+                </div>
+
+                <!-- 产品策略 -->
+                <div class="section-block">
+                    <div class="section-title">产品策略</div>
+                    <div class="product-list">
+                        <div class="product-item">
+                            <div class="product-name-row">
+                                <span class="product-name">银行承兑汇票贴现</span>
+                            </div>
+                            <div class="product-reason">推荐理由：--</div>
+                        </div>
+                        <div class="product-item">
+                            <div class="product-name-row">
+                                <span class="product-name">商E贷</span>
+                            </div>
+                            <div class="product-reason">推荐理由：--</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 悬浮按钮 -->
+        <div class="realtime-reminder" onclick="showReminder()">
+            <span>实时</span>
+            <span>提醒</span>
+        </div>
+
+        <!-- 底部导航 -->
+        <div class="bottom-nav">
+            <div class="flex justify-around">
+                <a href="index.html" class="flex flex-col items-center">
+                    <i class="fa fa-th-large text-blue-500"></i>
+                    <span class="text-xs mt-1 text-blue-500">首页</span>
+                </a>
+                <a href="marketing.html" class="flex flex-col items-center">
+                    <i class="fa fa-bullhorn text-gray-500"></i>
+                    <span class="text-xs mt-1">营销</span>
+                </a>
+                <a href="#" class="flex flex-col items-center">
+                    <i class="fa fa-users text-gray-500"></i>
+                    <span class="text-xs mt-1">客户</span>
+                </a>
+                <a href="#" class="flex flex-col items-center">
+                    <i class="fa fa-user text-gray-500"></i>
+                    <span class="text-xs mt-1">我的</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        function refreshPage() {
+            location.reload();
+        }
+
+        function switchTab(tab) {
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function showReminder() {
+            alert('实时提醒功能');
+        }
+    </script>
+</body>
+</html>
