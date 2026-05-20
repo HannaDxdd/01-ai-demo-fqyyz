@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>公司智汇营</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* 营销页面专属样式 */
+        .marketing-page {
+            min-height: 100vh;
+            background-color: #f5f7fa;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .marketing-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-back {
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .header-refresh {
+            font-size: 20px;
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+
+        .tabs-container {
+            background-color: white;
+            padding: 0 16px;
+            display: flex;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 16px 0;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 500;
+            color: #9ca3af;
+            position: relative;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .tab.active {
+            color: #667eea;
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+
+        .filter-section {
+            background-color: white;
+            padding: 12px 16px;
+            margin-top: 8px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 16px 10px 40px;
+            border: 1px solid #e5e7eb;
+            border-radius: 25px;
+            font-size: 14px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cpath d='m21 21-4.35-4.35'%3E%3C/path%3E%3C/svg%3E") no-repeat 12px center;
+            background-size: 16px;
+        }
+
+        .filter-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .filter-select {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #6b7280;
+            background: white;
+        }
+
+        .result-count {
+            padding: 12px 16px;
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        .result-count span {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .activity-list {
+            padding: 0 16px 80px;
+        }
+
+        .activity-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .activity-badge {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .activity-info {
+            flex: 1;
+            margin-left: 12px;
+        }
+
+        .activity-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+
+        .status-tag {
+            font-size: 12px;
+            color: #dc2626;
+            font-weight: 500;
+        }
+
+        .type-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        .type-tag {
+            padding: 4px 10px;
+            border-radius: 16px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .type-tag.orange {
+            background-color: #fff7ed;
+            color: #ea580c;
+        }
+
+        .type-tag.blue {
+            background-color: #eff6ff;
+            color: #2563eb;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .info-item {
+            font-size: 13px;
+        }
+
+        .info-label {
+            color: #9ca3af;
+            margin-bottom: 2px;
+        }
+
+        .info-value {
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .floating-btn {
+            position: fixed;
+            right: 20px;
+            bottom: 100px;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+            cursor: pointer;
+            z-index: 99;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            padding: 8px 0 16px;
+            z-index: 100;
+        }
+
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .nav-icon {
+            font-size: 22px;
+            color: #9ca3af;
+        }
+
+        .nav-label {
+            font-size: 11px;
+            color: #9ca3af;
+        }
+
+        .nav-item.active .nav-icon,
+        .nav-item.active .nav-label {
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="marketing-page">
+        <!-- 顶部导航 -->
+        <div class="marketing-header">
+            <span class="header-back" onclick="goBack()">←</span>
+            <span class="header-title">公司智汇营</span>
+            <span class="header-refresh" onclick="refreshPage()">↻</span>
+        </div>
+
+        <!-- 标签页 -->
+        <div class="tabs-container">
+            <div class="tab active" onclick="switchTab('marketing')">营销活动</div>
+            <div class="tab" onclick="switchTab('opportunity')">拓客商机</div>
+        </div>
+
+        <!-- 筛选区域 -->
+        <div class="filter-section">
+            <input type="text" class="search-input" placeholder="请输入活动名称">
+            <div class="filter-row">
+                <select class="filter-select">
+                    <option>活动大类</option>
+                    <option>存量经营</option>
+                    <option>跨境客户营销</option>
+                    <option>产品营销</option>
+                </select>
+                <select class="filter-select">
+                    <option>活动小类</option>
+                    <option>全部</option>
+                    <option>存款类</option>
+                    <option>贷款类</option>
+                </select>
+                <select class="filter-select">
+                    <option>活动状态</option>
+                    <option>全部</option>
+                    <option>进行中</option>
+                    <option>提前终止</option>
+                    <option>已结束</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- 结果统计 -->
+        <div class="result-count">
+            共 <span>159</span> 条营销活动数据
+        </div>
+
+        <!-- 活动列表 -->
+        <div class="activity-list">
+            <!-- 活动1 -->
+            <div class="activity-card">
+                <div class="card-header">
+                    <div class="activity-badge">活动</div>
+                    <div class="activity-info">
+                        <div class="activity-name">LX20260122非新-1</div>
+                        <div class="status-tag">提前终止</div>
+                    </div>
+                </div>
+                <div class="type-tags">
+                    <span class="type-tag orange">存量经营</span>
+                    <span class="type-tag blue">产品营销</span>
+                </div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-label">活动日期</div>
+                        <div class="info-value">2026-01-22 ~ 2026-01-31</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">反馈结束日期</div>
+                        <div class="info-value">2026-01-31</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">创建机构</div>
+                        <div class="info-value">广州银行</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">创建人</div>
+                        <div class="info-value">系统管理员</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 活动2 -->
+            <div class="activity-card">
+                <div class="card-header">
+                    <div class="activity-badge">活动</div>
+                    <div class="activity-info">
+                        <div class="activity-name">LX20260121存-1</div>
+                        <div class="status-tag">提前终止</div>
+                    </div>
+                </div>
+                <div class="type-tags">
+                    <span class="type-tag orange">跨境客户营销(存客)</span>
+                    <span class="type-tag blue">跨境客户营销(存客)</span>
+                </div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-label">活动日期</div>
+                        <div class="info-value">2026-01-21 ~ 2026-01-31</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">反馈结束日期</div>
+                        <div class="info-value">2026-01-31</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">创建机构</div>
+                        <div class="info-value">广州银行</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">创建人</div>
+                        <div class="info-value">系统管理员</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 活动3 -->
+            <div class="activity-card">
+                <div class="card-header">
+                    <div class="activity-badge">活动</div>
+                    <div class="activity-info">
+                        <div class="activity-name">20260120</div>
+                        <div class="status-tag">提前终止</div>
+                    </div>
+                </div>
+                <div class="type-tags">
+                    <span class="type-tag orange">存量经营</span>
+                </div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-label">活动日期</div>
+                        <div class="info-value">2026-01-20 ~ 2026-01-31</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">反馈结束日期</div>
+                        <div class="info-value">2026-01-31</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">创建机构</div>
+                        <div class="info-value">广州银行</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">创建人</div>
+                        <div class="info-value">系统管理员</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 悬浮按钮 -->
+        <div class="floating-btn" onclick="showReminder()">
+            实时<br>提醒
+        </div>
+
+        <!-- 底部导航 -->
+        <div class="bottom-nav">
+            <div class="nav-item">
+                <span class="nav-icon">🏠</span>
+                <span class="nav-label">首页</span>
+            </div>
+            <div class="nav-item active">
+                <span class="nav-icon">📣</span>
+                <span class="nav-label">营销</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon">👥</span>
+                <span class="nav-label">客户</span>
+            </div>
+            <div class="nav-item">
+                <span class="nav-icon">👤</span>
+                <span class="nav-label">我的</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        function refreshPage() {
+            location.reload();
+        }
+
+        function switchTab(tab) {
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function showReminder() {
+            alert('实时提醒功能');
+        }
+    </script>
+</body>
+</html>

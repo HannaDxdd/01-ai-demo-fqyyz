@@ -801,22 +801,3 @@ function showToast(message) {
         }, 2000);
     }
 }
-
-// ==================== 营销页面函数 ====================
-function switchTab(tabName) {
-    const tabs = document.querySelectorAll('.tab');
-    tabs.forEach(tab => tab.classList.remove('active'));
-    
-    const activeTab = document.querySelector(`.tab[onclick="switchTab('${tabName}')"]`);
-    if (activeTab) {
-        activeTab.classList.add('active');
-    }
-    
-    if (tabName === 'business') {
-        showToast('拓客商机功能开发中');
-    }
-}
-
-function showReminder() {
-    showToast('暂无新的实时提醒');
-}
