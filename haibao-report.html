@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>访客助手</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="phone-frame">
+        <div id="app">
+            <!-- ==================== 报告详情页（核心页面） ==================== -->
+            <div id="page-report-detail" class="page active">
+                <header class="header">
+                    <span class="back-btn" onclick="navigateTo('company-info')">←</span>
+                    <h1 class="header-title">访客报告</h1>
+                    <div class="header-actions">
+                        <button class="header-btn" onclick="showEmailModal()">✉️</button>
+                        <button class="header-btn" onclick="navigateTo('home')">✕</button>
+                    </div>
+                </header>
+                
+                <div class="report-content" id="reportContent">
+                    <!-- 企业头部 -->
+                    <div class="company-header">
+                        <div class="status-badge">
+                            <span class="status-dot"></span>
+                            <span>稳健经营</span>
+                        </div>
+                        <h1 class="company-name" id="detail-companyName">广州海保安全集团</h1>
+                        <p class="company-subtitle">「Z-AXIS 智能体 | 企业成长性多维分析报告」</p>
+                    </div>
+
+                    <!-- 核心指标概览 -->
+                    <div class="overview-cards">
+                        <div class="overview-card">
+                            <div class="overview-label">总资产</div>
+                            <div class="overview-content">
+                                <span class="overview-number">5.6</span>
+                                <span class="overview-unit">亿</span>
+                                <span class="overview-change up">↑ 12%</span>
+                            </div>
+                        </div>
+                        <div class="overview-card">
+                            <div class="overview-label">年营业额</div>
+                            <div class="overview-content">
+                                <span class="overview-number">4.8</span>
+                                <span class="overview-unit">亿</span>
+                                <span class="overview-change up">↑ 18%</span>
+                            </div>
+                        </div>
+                        <div class="overview-card">
+                            <div class="overview-label">净利润</div>
+                            <div class="overview-content">
+                                <span class="overview-number">4200</span>
+                                <span class="overview-unit">万</span>
+                                <span class="overview-change up">↑ 15%</span>
+                            </div>
+                        </div>
+                        <div class="overview-card">
+                            <div class="overview-label">资产负债率</div>
+                            <div class="overview-content">
+                                <span class="overview-number">42</span>
+                                <span class="overview-unit">%</span>
+                                <span class="overview-change down">↓ 2%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PART 01 客户全貌 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-title">PART 01 客户全貌</div>
+                                <div class="card-subtitle">企业基本情况与资质</div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-content">
+                            <div class="grid grid-cols-2 gap-3 mb-4">
+                                <div class="bg-gray-50 rounded-lg p-3">
+                                    <div class="text-xs text-gray-500 mb-1">企业全称</div>
+                                    <div class="text-sm font-semibold text-gray-800" id="detail-companyNameFull">广州海保安全集团有限公司</div>
+                                </div>
+                                <div class="bg-gray-50 rounded-lg p-3">
+                                    <div class="text-xs text-gray-500 mb-1">统一社会信用代码</div>
+                                    <div class="text-sm font-semibold text-gray-800" id="detail-creditCode">91440101MA5CXPR123</div>
+                                </div>
+                                <div class="bg-gray-50 rounded-lg p-3">
+                                    <div class="text-xs text-gray-500 mb-1">成立时间</div>
+                                    <div class="text-sm font-semibold text-gray-800">2010年06月15日</div>
+                                </div>
+                                <div class="bg-gray-50 rounded-lg p-3">
+                                    <div class="text-xs text-gray-500 mb-1">注册资本</div>
+                                    <div class="text-sm font-semibold text-gray-800">1亿元</div>
+                                </div>
+                                <div class="bg-gray-50 rounded-lg p-3">
+                                    <div class="text-xs text-gray-500 mb-1">法定代表人</div>
+                                    <div class="text-sm font-semibold text-gray-800">王海波</div>
+                                </div>
+                                <div class="bg-gray-50 rounded-lg p-3">
+                                    <div class="text-xs text-gray-500 mb-1">所属行业</div>
+                                    <div class="text-sm font-semibold text-gray-800" id="detail-industry">安保服务业</div>
+                                </div>
+                                <div class="bg-gray-50 rounded-lg p-3">
+                                    <div class="text-xs text-gray-500 mb-1">企业类型</div>
+                                    <div class="text-sm font-semibold text-gray-800">有限责任公司</div>
+                                </div>
+                                <div class="bg-gray-50 rounded-lg p-3">
+                                    <div class="text-xs text-gray-500 mb-1">企业规模</div>
+                                    <div class="text-sm font-semibold text-gray-800">大型企业</div>
+                                </div>
+                                <div class="bg-gray-50 rounded-lg p-3">
+                                    <div class="text-xs text-gray-500 mb-1">员工人数</div>
+                                    <div class="text-sm font-semibold text-gray-800">2800人</div>
+                                </div>
+                                <div class="bg-gray-50 rounded-lg p-3">
+                                    <div class="text-xs text-gray-500 mb-1">登记状态</div>
+                                    <div class="text-sm font-semibold text-green-600">存续（在营）</div>
+                                </div>
+                            </div>
+
+                            <div class="bg-gray-50 rounded-lg p-3 mb-4">
+                                <div class="text-xs text-gray-500 mb-1">注册地址</div>
+                                <div class="text-sm font-semibold text-gray-800">广州市天河区珠江新城花城大道68号环球都会广场58层</div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-gray-700 mb-3">企业资质与荣誉</h4>
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span class="tag tag-success">一级安保企业</span>
+                                    <span class="tag tag-success">AAA级信用企业</span>
+                                    <span class="tag tag-info">ISO9001认证</span>
+                                    <span class="tag tag-info">ISO14001认证</span>
+                                    <span class="tag tag-warning">武装押运资质</span>
+                                </div>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="bg-blue-50 rounded-lg p-3">
+                                        <div class="text-xs text-blue-600 mb-1">认定时间</div>
+                                        <div class="text-sm font-semibold text-blue-800">2023年03月</div>
+                                    </div>
+                                    <div class="bg-blue-50 rounded-lg p-3">
+                                        <div class="text-xs text-blue-600 mb-1">证书编号</div>
+                                        <div class="text-sm font-semibold text-blue-800">GA202301234567</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="text-sm font-semibold text-gray-700 mb-3">知识产权</h4>
+                                <div class="grid grid-cols-4 gap-3">
+                                    <div class="bg-purple-50 rounded-lg p-3 text-center">
+                                        <div class="text-lg font-bold text-purple-700">28</div>
+                                        <div class="text-xs text-purple-600">发明专利</div>
+                                    </div>
+                                    <div class="bg-purple-50 rounded-lg p-3 text-center">
+                                        <div class="text-lg font-bold text-purple-700">56</div>
+                                        <div class="text-xs text-purple-600">实用新型</div>
+                                    </div>
+                                    <div class="bg-purple-50 rounded-lg p-3 text-center">
+                                        <div class="text-lg font-bold text-purple-700">32</div>
+                                        <div class="text-xs text-purple-600">软件著作权</div>
+                                    </div>
+                                    <div class="bg-purple-50 rounded-lg p-3 text-center">
+                                        <div class="text-lg font-bold text-purple-700">15</div>
+                                        <div class="text-xs text-purple-600">注册商标</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PART 02 关键人 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-title">PART 02 关键人</div>
+                                <div class="card-subtitle">核心团队与创始人</div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-content">
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-gray-700 mb-4">创始人/实际控制人</h4>
+                                <div class="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 rounded-2xl p-5 border border-blue-100">
+                                    <div class="flex items-start gap-5">
+                                        <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white text-3xl font-bold shadow-lg ring-4 ring-blue-100">王</div>
+                                        <div class="flex-1 min-w-0">
+                                            <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                                                <div>
+                                                    <div class="text-xl font-bold text-gray-800">王海波</div>
+                                                    <div class="text-sm text-gray-600 mt-1">创始人 / 董事长 / CEO</div>
+                                                </div>
+                                                <span class="px-3 py-1.5 bg-green-100 text-green-700 text-xs font-semibold rounded-full">✓ 实际控制人</span>
+                                            </div>
+                                            <div class="grid grid-cols-3 gap-3 mb-4">
+                                                <div class="bg-white/80 backdrop-blur rounded-xl p-3 shadow-sm">
+                                                    <div class="text-xs text-gray-500 mb-1">📊 持股比例</div>
+                                                    <div class="text-lg font-bold text-blue-600">52%</div>
+                                                </div>
+                                                <div class="bg-white/80 backdrop-blur rounded-xl p-3 shadow-sm">
+                                                    <div class="text-xs text-gray-500 mb-1">📅 任职时间</div>
+                                                    <div class="text-lg font-bold text-blue-600">2010年至今</div>
+                                                </div>
+                                                <div class="bg-white/80 backdrop-blur rounded-xl p-3 shadow-sm">
+                                                    <div class="text-xs text-gray-500 mb-1">💼 行业经验</div>
+                                                    <div class="text-lg font-bold text-blue-600">30年</div>
+                                                </div>
+                                            </div>
+                                            <div class="bg-white/60 backdrop-blur rounded-xl p-4">
+                                                <p class="text-sm text-gray-700 leading-relaxed">
+                                                    曾在公安机关工作20年，后创办广州海保安全集团，在安保行业拥有极高声望和丰富的人脉资源。
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-gray-700 mb-4">核心管理团队</h4>
+                                <div class="space-y-4">
+                                    <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                        <div class="flex items-start gap-4">
+                                            <div class="w-14 h-14 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center text-white text-xl font-bold shadow-md">张</div>
+                                            <div class="flex-1 min-w-0">
+                                                <div class="flex flex-wrap items-center gap-2 mb-2">
+                                                    <span class="text-base font-bold text-gray-800">张建军</span>
+                                                    <span class="tag tag-info">总经理</span>
+                                                    <span class="tag tag-info">运营总监</span>
+                                                </div>
+                                                <div class="flex flex-wrap items-center gap-4 text-xs text-gray-500 mb-2">
+                                                    <span>📅 任职时间：2012年至今</span>
+                                                </div>
+                                                <p class="text-sm text-gray-600 leading-relaxed">军队转业干部，曾任某部警卫连连长，擅长团队管理和应急处置</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                        <div class="flex items-start gap-4">
+                                            <div class="w-14 h-14 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center text-white text-xl font-bold shadow-md">李</div>
+                                            <div class="flex-1 min-w-0">
+                                                <div class="flex flex-wrap items-center gap-2 mb-2">
+                                                    <span class="text-base font-bold text-gray-800">李文华</span>
+                                                    <span class="tag tag-purple">财务总监</span>
+                                                    <span class="tag tag-purple">CFO</span>
+                                                </div>
+                                                <div class="flex flex-wrap items-center gap-4 text-xs text-gray-500 mb-2">
+                                                    <span>📅 任职时间：2015年至今</span>
+                                                </div>
+                                                <p class="text-sm text-gray-600 leading-relaxed">注册会计师，曾任某上市公司财务总监，擅长企业财务规划和资金管理</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                        <div class="flex items-start gap-4">
+                                            <div class="w-14 h-14 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center text-white text-xl font-bold shadow-md">陈</div>
+                                            <div class="flex-1 min-w-0">
+                                                <div class="flex flex-wrap items-center gap-2 mb-2">
+                                                    <span class="text-base font-bold text-gray-800">陈志强</span>
+                                                    <span class="tag tag-orange">市场总监</span>
+                                                </div>
+                                                <div class="flex flex-wrap items-center gap-4 text-xs text-gray-500 mb-2">
+                                                    <span>📅 任职时间：2018年至今</span>
+                                                </div>
+                                                <p class="text-sm text-gray-600 leading-relaxed">拥有丰富的企业客户拓展经验，成功开发多家大型企业客户</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="text-sm font-semibold text-gray-700 mb-3">股权结构</h4>
+                                <div class="table-container">
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>股东名称</th>
+                                                <th>持股比例</th>
+                                                <th>认缴出资</th>
+                                                <th>股东性质</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>王海波</td>
+                                                <td>52%</td>
+                                                <td>5200万元</td>
+                                                <td>自然人</td>
+                                            </tr>
+                                            <tr>
+                                                <td>广州国安投资合伙企业</td>
+                                                <td>25%</td>
+                                                <td>2500万元</td>
+                                                <td>有限合伙</td>
+                                            </tr>
+                                            <tr>
+                                                <td>张建军</td>
+                                                <td>10%</td>
+                                                <td>1000万元</td>
+                                                <td>自然人</td>
+                                            </tr>
+                                            <tr>
+                                                <td>员工持股平台</td>
+                                                <td>8%</td>
+                                                <td>800万元</td>
+                                                <td>有限合伙</td>
+                                            </tr>
+                                            <tr>
+                                                <td>其他股东</td>
+                                                <td>5%</td>
+                                                <td>500万元</td>
+                                                <td>自然人</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PART 03 经营能力 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-title">PART 03 经营能力</div>
+                                <div class="card-subtitle">主营产品和核心技术</div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-content">
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-gray-700 mb-3">主营业务</h4>
+                                <div class="space-y-3">
+                                    <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-4 border-l-4 border-blue-500">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <div class="text-sm font-bold text-blue-800">人防安保服务</div>
+                                            <span class="tag tag-success">核心业务</span>
+                                        </div>
+                                        <div class="text-xs text-blue-600 mb-2">营收占比：50% | 毛利率：35%</div>
+                                        <div class="text-sm text-gray-700">为企业、商场、住宅小区提供专业保安服务，拥有2800名持证保安员。</div>
+                                    </div>
+
+                                    <div class="bg-gradient-to-r from-green-50 to-green-100 rounded-lg p-4 border-l-4 border-green-500">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <div class="text-sm font-bold text-green-800">武装押运服务</div>
+                                            <span class="tag tag-success">战略业务</span>
+                                        </div>
+                                        <div class="text-xs text-green-600 mb-2">营收占比：25% | 毛利率：42%</div>
+                                        <div class="text-sm text-gray-700">为银行、珠宝商、奢侈品商提供现金及贵重物品押运服务，拥有50台押运车辆。</div>
+                                    </div>
+
+                                    <div class="bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg p-4 border-l-4 border-purple-500">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <div class="text-sm font-bold text-purple-800">智能安防系统</div>
+                                            <span class="tag tag-info">增长业务</span>
+                                        </div>
+                                        <div class="text-xs text-purple-600 mb-2">营收占比：15% | 毛利率：55%</div>
+                                        <div class="text-sm text-gray-700">视频监控、门禁系统、报警系统等智能安防产品的研发、销售和安装。</div>
+                                    </div>
+
+                                    <div class="bg-gradient-to-r from-orange-50 to-orange-100 rounded-lg p-4 border-l-4 border-orange-500">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <div class="text-sm font-bold text-orange-800">安全咨询培训</div>
+                                            <span class="tag tag-warning">增值业务</span>
+                                        </div>
+                                        <div class="text-xs text-orange-600 mb-2">营收占比：10% | 毛利率：65%</div>
+                                        <div class="text-sm text-gray-700">企业安全风险评估、安保人员培训、应急预案编制等服务。</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-gray-700 mb-3">核心技术</h4>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="bg-gray-50 rounded-lg p-3">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <span class="text-blue-500">🔒</span>
+                                            <div class="text-sm font-bold text-gray-800">智能监控技术</div>
+                                        </div>
+                                        <div class="text-xs text-gray-600">AI行为分析、人脸识别、异常报警</div>
+                                    </div>
+                                    <div class="bg-gray-50 rounded-lg p-3">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <span class="text-green-500">🚗</span>
+                                            <div class="text-sm font-bold text-gray-800">押运调度系统</div>
+                                        </div>
+                                        <div class="text-xs text-gray-600">GPS实时定位、智能路线规划、应急响应</div>
+                                    </div>
+                                    <div class="bg-gray-50 rounded-lg p-3">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <span class="text-purple-500">📡</span>
+                                            <div class="text-sm font-bold text-gray-800">云端报警平台</div>
+                                        </div>
+                                        <div class="text-xs text-gray-600">24小时集中监控、远程报警、联动处置</div>
+                                    </div>
+                                    <div class="bg-gray-50 rounded-lg p-3">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <span class="text-orange-500">👥</span>
+                                            <div class="text-sm font-bold text-gray-800">人员管理系统</div>
+                                        </div>
+                                        <div class="text-xs text-gray-600">保安员排班、考勤、培训全流程管理</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-gray-700 mb-3">主要客户</h4>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="tag tag-success">中国银行</span>
+                                    <span class="tag tag-success">建设银行</span>
+                                    <span class="tag tag-info">招商银行</span>
+                                    <span class="tag tag-info">万科地产</span>
+                                    <span class="tag tag-info">保利物业</span>
+                                    <span class="tag tag-warning">广州地铁</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="text-sm font-semibold text-gray-700 mb-3">经营指标</h4>
+                                <div class="grid grid-cols-4 gap-3">
+                                    <div class="bg-blue-50 rounded-lg p-3 text-center">
+                                        <div class="text-xs text-blue-600 mb-1">市场占有率</div>
+                                        <div class="text-lg font-bold text-blue-700">18%</div>
+                                    </div>
+                                    <div class="bg-green-50 rounded-lg p-3 text-center">
+                                        <div class="text-xs text-green-600 mb-1">客户满意度</div>
+                                        <div class="text-lg font-bold text-green-700">95%</div>
+                                    </div>
+                                    <div class="bg-purple-50 rounded-lg p-3 text-center">
+                                        <div class="text-xs text-purple-600 mb-1">续约率</div>
+                                        <div class="text-lg font-bold text-purple-700">92%</div>
+                                    </div>
+                                    <div class="bg-orange-50 rounded-lg p-3 text-center">
+                                        <div class="text-xs text-orange-600 mb-1">人员持证率</div>
+                                        <div class="text-lg font-bold text-orange-700">100%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PART 04 触达路径 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-title">PART 04 触达路径</div>
+                                <div class="card-subtitle">企业上下游关系、资金方等</div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-content">
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-gray-700 mb-3">上游供应商</h4>
+                                <div class="space-y-3">
+                                    <div class="bg-blue-50 rounded-lg p-3">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <div class="text-sm font-bold text-blue-800">海康威视</div>
+                                            <span class="tag tag-success">战略供应商</span>
+                                        </div>
+                                        <div class="text-xs text-gray-600">供应监控设备、报警器等安防产品，合作年限8年，年采购额约1200万元</div>
+                                    </div>
+                                    <div class="bg-green-50 rounded-lg p-3">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <div class="text-sm font-bold text-green-800">大华股份</div>
+                                            <span class="tag tag-info">重要供应商</span>
+                                        </div>
+                                        <div class="text-xs text-gray-600">供应视频监控系统，合作年限6年，年采购额约800万元</div>
+                                    </div>
+                                    <div class="bg-purple-50 rounded-lg p-3">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <div class="text-sm font-bold text-purple-800">保安器材公司</div>
+                                            <span class="tag tag-info">常规供应商</span>
+                                        </div>
+                                        <div class="text-xs text-gray-600">供应制服、装备、防护器材，合作年限10年，年采购额约400万元</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-gray-700 mb-3">下游客户</h4>
+                                <div class="space-y-3">
+                                    <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-4 border-l-4 border-blue-500">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <div class="text-sm font-bold text-blue-800">各大银行</div>
+                                            <span class="tag tag-success">核心客户</span>
+                                        </div>
+                                        <div class="text-xs text-blue-600 mb-2">年营业额：1.8亿元 | 合作年限：10年</div>
+                                        <div class="text-sm text-gray-700">提供武装押运和人防安保服务，客户粘性强，合同周期3年</div>
+                                    </div>
+                                    <div class="bg-gradient-to-r from-green-50 to-green-100 rounded-lg p-4 border-l-4 border-green-500">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <div class="text-sm font-bold text-green-800">房地产开发商</div>
+                                            <span class="tag tag-success">战略客户</span>
+                                        </div>
+                                        <div class="text-xs text-green-600 mb-2">年营业额：1.2亿元 | 合作年限：8年</div>
+                                        <div class="text-sm text-gray-700">为万科、保利、碧桂园等提供住宅小区安保服务</div>
+                                    </div>
+                                    <div class="bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg p-4 border-l-4 border-purple-500">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <div class="text-sm font-bold text-purple-800">商场超市</div>
+                                            <span class="tag tag-info">重要客户</span>
+                                        </div>
+                                        <div class="text-xs text-purple-600 mb-2">年营业额：8000万元 | 合作年限：5年</div>
+                                        <div class="text-sm text-gray-700">为天河城、正佳广场等提供人防安保服务</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-gray-700 mb-3">资金方/金融机构合作</h4>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="bg-gray-50 rounded-lg p-3">
+                                        <div class="text-sm font-bold text-gray-800 mb-1">中国工商银行</div>
+                                        <div class="text-xs text-gray-600">主要结算银行，授信额度3000万元</div>
+                                    </div>
+                                    <div class="bg-gray-50 rounded-lg p-3">
+                                        <div class="text-sm font-bold text-gray-800 mb-1">中国建设银行</div>
+                                        <div class="text-xs text-gray-600">项目贷款合作，授信额度2000万元</div>
+                                    </div>
+                                    <div class="bg-gray-50 rounded-lg p-3">
+                                        <div class="text-sm font-bold text-gray-800 mb-1">广州银行</div>
+                                        <div class="text-xs text-gray-600">本地银行合作，供应链金融</div>
+                                    </div>
+                                    <div class="bg-gray-50 rounded-lg p-3">
+                                        <div class="text-sm font-bold text-gray-800 mb-1">广州国安投资</div>
+                                        <div class="text-xs text-gray-600">股权投资方，持股25%</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="text-sm font-semibold text-gray-700 mb-3">关联企业</h4>
+                                <div class="table-container">
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>企业名称</th>
+                                                <th>关系</th>
+                                                <th>主营业务</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>深圳海保安保有限公司</td>
+                                                <td>子公司</td>
+                                                <td>深圳地区安保服务</td>
+                                            </tr>
+                                            <tr>
+                                                <td>佛山海盾押运有限公司</td>
+                                                <td>控股子公司</td>
+                                                <td>佛山地区押运服务</td>
+                                            </tr>
+                                            <tr>
+                                                <td>海保安防科技公司</td>
+                                                <td>参股单位</td>
+                                                <td>安防产品研发</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PART 05 资金需求 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-title">PART 05 资金需求</div>
+                                <div class="card-subtitle">盈利结构与现金流</div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-content">
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-gray-700 mb-3">盈利结构分析</h4>
+                                <div class="grid grid-cols-2 gap-3 mb-4">
+                                    <div class="bg-blue-50 rounded-lg p-3 text-center">
+                                        <div class="text-xs text-blue-600 mb-1">营业收入</div>
+                                        <div class="text-lg font-bold text-blue-700">4.8亿元</div>
+                                        <div class="text-xs text-blue-500">同比 +18%</div>
+                                    </div>
+                                    <div class="bg-green-50 rounded-lg p-3 text-center">
+                                        <div class="text-xs text-green-600 mb-1">净利润</div>
+                                        <div class="text-lg font-bold text-green-700">4200万元</div>
+                                        <div class="text-xs text-green-500">同比 +15%</div>
+                                    </div>
+                                    <div class="bg-purple-50 rounded-lg p-3 text-center">
+                                        <div class="text-xs text-purple-600 mb-1">毛利率</div>
+                                        <div class="text-lg font-bold text-purple-700">38%</div>
+                                        <div class="text-xs text-purple-500">同比 +1.5%</div>
+                                    </div>
+                                    <div class="bg-orange-50 rounded-lg p-3 text-center">
+                                        <div class="text-xs text-orange-600 mb-1">净利率</div>
+                                        <div class="text-lg font-bold text-orange-700">8.75%</div>
+                                        <div class="text-xs text-orange-500">同比 -0.2%</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-gray-700 mb-3">现金流状况</h4>
+                                <div class="space-y-3">
+                                    <div class="bg-blue-50 rounded-lg p-3">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <div class="text-sm font-bold text-blue-800">经营活动现金流</div>
+                                            <div class="text-sm font-bold text-blue-700">+5800万元</div>
+                                        </div>
+                                        <div class="text-xs text-blue-600">客户回款及时，经营现金流健康</div>
+                                    </div>
+                                    <div class="bg-green-50 rounded-lg p-3">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <div class="text-sm font-bold text-green-800">投资活动现金流</div>
+                                            <div class="text-sm font-bold text-green-700">-2800万元</div>
+                                        </div>
+                                        <div class="text-xs text-green-600">主要用于智能安防系统研发和设备更新</div>
+                                    </div>
+                                    <div class="bg-purple-50 rounded-lg p-3">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <div class="text-sm font-bold text-purple-800">筹资活动现金流</div>
+                                            <div class="text-sm font-bold text-purple-700">+1200万元</div>
+                                        </div>
+                                        <div class="text-xs text-purple-600">银行借款增加，补充流动资金</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-gray-700 mb-3">资金需求分析</h4>
+                                <div class="space-y-3">
+                                    <div class="bg-yellow-50 rounded-lg p-3 border-l-4 border-yellow-400">
+                                        <div class="flex justify-between items-start">
+                                            <div>
+                                                <div class="text-sm font-bold text-yellow-800">短期资金需求（1年内）</div>
+                                                <div class="text-xs text-yellow-700 mt-1">人员工资、装备采购、车辆维护</div>
+                                            </div>
+                                            <div class="text-lg font-bold text-yellow-700">2000万元</div>
+                                        </div>
+                                    </div>
+                                    <div class="bg-blue-50 rounded-lg p-3 border-l-4 border-blue-400">
+                                        <div class="flex justify-between items-start">
+                                            <div>
+                                                <div class="text-sm font-bold text-blue-800">中期资金需求（1-3年）</div>
+                                                <div class="text-xs text-blue-700 mt-1">智能安防系统升级、市场拓展</div>
+                                            </div>
+                                            <div class="text-lg font-bold text-blue-700">3500万元</div>
+                                        </div>
+                                    </div>
+                                    <div class="bg-purple-50 rounded-lg p-3 border-l-4 border-purple-400">
+                                        <div class="flex justify-between items-start">
+                                            <div>
+                                                <div class="text-sm font-bold text-purple-800">长期资金需求（3-5年）</div>
+                                                <div class="text-xs text-purple-700 mt-1">外延式收购、省内业务扩张</div>
+                                            </div>
+                                            <div class="text-lg font-bold text-purple-700">6000万元</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="text-sm font-semibold text-gray-700 mb-3">融资用途规划</h4>
+                                <div class="table-container">
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>用途</th>
+                                                <th>金额</th>
+                                                <th>占比</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>智能系统研发</td>
+                                                <td>1500万元</td>
+                                                <td>30%</td>
+                                            </tr>
+                                            <tr>
+                                                <td>设备更新升级</td>
+                                                <td>1000万元</td>
+                                                <td>20%</td>
+                                            </tr>
+                                            <tr>
+                                                <td>市场拓展</td>
+                                                <td>1000万元</td>
+                                                <td>20%</td>
+                                            </tr>
+                                            <tr>
+                                                <td>人员培训</td>
+                                                <td>750万元</td>
+                                                <td>15%</td>
+                                            </tr>
+                                            <tr>
+                                                <td>流动资金补充</td>
+                                                <td>750万元</td>
+                                                <td>15%</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PART 06 访谈脚本 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-title">PART 06 访谈脚本</div>
+                                <div class="card-subtitle">推荐问题及答案</div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-content">
+                            <div class="space-y-4">
+                                <div class="bg-blue-50 rounded-lg p-4">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+                                        <div class="flex-1">
+                                            <div class="text-sm font-semibold text-blue-800 mb-2">问题：贵司目前的市场份额和竞争优势是什么？</div>
+                                            <div class="bg-white rounded-lg p-3">
+                                                <div class="text-xs text-gray-500 mb-1">建议答案参考：</div>
+                                                <div class="text-sm text-gray-700">"公司在广州安保市场占有率约18%，位居前三。我们的优势在于：一是拥有2800名持证保安员的专业团队；二是自主研发的智能安防系统；三是与各大银行、房地产商建立的长期合作关系。"</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-green-50 rounded-lg p-4">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+                                        <div class="flex-1">
+                                            <div class="text-sm font-semibold text-green-800 mb-2">问题：智能安防业务的发展规划是什么？</div>
+                                            <div class="bg-white rounded-lg p-3">
+                                                <div class="text-xs text-gray-500 mb-1">建议答案参考：</div>
+                                                <div class="text-sm text-gray-700">"我们计划未来三年投入1500万元用于智能安防系统研发，重点发展AI行为分析、人脸识别、异常报警等功能。目前已在天河区多个小区试点，计划明年推广到全市。"</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-purple-50 rounded-lg p-4">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+                                        <div class="flex-1">
+                                            <div class="text-sm font-semibold text-purple-800 mb-2">问题：贵司目前在银行有哪些金融业务合作？</div>
+                                            <div class="bg-white rounded-lg p-3">
+                                                <div class="text-xs text-gray-500 mb-1">建议答案参考：</div>
+                                                <div class="text-sm text-gray-700">"我们与工行、建行等有长期合作，主要结算户在工行，授信额度3000万元已使用1800万元。目前希望提升授信额度用于设备更新和系统升级，同时探讨供应链金融合作的可能性。"</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-orange-50 rounded-lg p-4">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white text-sm font-bold">4</div>
+                                        <div class="flex-1">
+                                            <div class="text-sm font-semibold text-orange-800 mb-2">问题：贵司的人才储备和培训体系如何？</div>
+                                            <div class="bg-white rounded-lg p-3">
+                                                <div class="text-xs text-gray-500 mb-1">建议答案参考：</div>
+                                                <div class="text-sm text-gray-700">"公司拥有完善的培训体系，与广州警察学院合作开设安保培训课程。所有保安员均持证上岗，每年培训投入约500万元。同时，我们建立了人才储备库，应对业务扩张需求。"</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-red-50 rounded-lg p-4">
+                                    <div class="flex items-start gap-3">
+                                        <div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center text-white text-sm font-bold">5</div>
+                                        <div class="flex-1">
+                                            <div class="text-sm font-semibold text-red-800 mb-2">问题：贵司未来的发展战略是什么？</div>
+                                            <div class="bg-white rounded-lg p-3">
+                                                <div class="text-xs text-gray-500 mb-1">建议答案参考：</div>
+                                                <div class="text-sm text-gray-700">"未来三年，我们一是深耕广州市场，提升市场占有率至25%；二是向佛山、东莞等周边城市拓展；三是加大智能安防投入，转型安保服务+科技的双轮驱动模式。"</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PART 07 营销方案 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-title">PART 07 营销方案</div>
+                                <div class="card-subtitle">推荐产品及话术</div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-content">
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-gray-700 mb-3">推荐产品组合</h4>
+                                <div class="space-y-3">
+                                    <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-4 border-l-4 border-blue-500">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <div class="text-sm font-bold text-blue-800">流动资金贷款</div>
+                                            <span class="tag tag-success">优先推荐</span>
+                                        </div>
+                                        <div class="text-xs text-blue-600 mb-2">额度：2000-3000万元 | 期限：1年 | 利率：LPR+50BP</div>
+                                        <div class="bg-white rounded p-2">
+                                            <div class="text-xs text-gray-500 mb-1">营销话术：</div>
+                                            <div class="text-xs text-gray-700">"根据贵司业务增长情况，我们可提供2000-3000万元流动资金贷款，支持人员工资发放和装备采购，审批快速，随借随还。"</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="bg-gradient-to-r from-green-50 to-green-100 rounded-lg p-4 border-l-4 border-green-500">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <div class="text-sm font-bold text-green-800">设备融资租赁</div>
+                                            <span class="tag tag-info">重点推荐</span>
+                                        </div>
+                                        <div class="text-xs text-green-600 mb-2">额度：1500-2500万元 | 期限：3年 | 首付：20%</div>
+                                        <div class="bg-white rounded p-2">
+                                            <div class="text-xs text-gray-500 mb-1">营销话术：</div>
+                                            <div class="text-xs text-gray-700">"针对贵司智能安防系统升级需求，我们提供设备融资租赁方案，分期支付减轻资金压力，加速设备更新换代。"</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg p-4 border-l-4 border-purple-500">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <div class="text-sm font-bold text-purple-800">代发工资</div>
+                                            <span class="tag tag-info">推荐</span>
+                                        </div>
+                                        <div class="text-xs text-purple-600 mb-2">人数：2800人 | 服务费：优惠</div>
+                                        <div class="bg-white rounded p-2">
+                                            <div class="text-xs text-gray-500 mb-1">营销话术：</div>
+                                            <div class="text-xs text-gray-700">"为贵司2800名员工提供专属代发工资服务，支持多卡种发放，实时到账，还有员工专属理财产品。"</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="bg-gradient-to-r from-orange-50 to-orange-100 rounded-lg p-4 border-l-4 border-orange-500">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <div class="text-sm font-bold text-orange-800">供应链金融</div>
+                                            <span class="tag tag-warning">长期规划</span>
+                                        </div>
+                                        <div class="text-xs text-orange-600 mb-2">额度：1000-2000万元 | 期限：6个月</div>
+                                        <div class="bg-white rounded p-2">
+                                            <div class="text-xs text-gray-500 mb-1">营销话术：</div>
+                                            <div class="text-xs text-gray-700">"基于贵司与银行的长期合作关系，可为核心客户提供供应链融资服务，增强客户粘性。"</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-gray-700 mb-3">增值服务</h4>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="bg-gray-50 rounded-lg p-3">
+                                        <div class="text-sm font-semibold text-gray-800 mb-1">现金管理</div>
+                                        <div class="text-xs text-gray-600">智能资金归集、理财增值服务</div>
+                                    </div>
+                                    <div class="bg-gray-50 rounded-lg p-3">
+                                        <div class="text-sm font-semibold text-gray-800 mb-1">企业年金</div>
+                                        <div class="text-xs text-gray-600">员工养老保障方案</div>
+                                    </div>
+                                    <div class="bg-gray-50 rounded-lg p-3">
+                                        <div class="text-sm font-semibold text-gray-800 mb-1">信用卡业务</div>
+                                        <div class="text-xs text-gray-600">员工专属信用卡</div>
+                                    </div>
+                                    <div class="bg-gray-50 rounded-lg p-3">
+                                        <div class="text-sm font-semibold text-gray-800 mb-1">投行业务</div>
+                                        <div class="text-xs text-gray-600">并购顾问、上市辅导</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="text-sm font-semibold text-gray-700 mb-3">营销策略建议</h4>
+                                <div class="space-y-2">
+                                    <div class="flex items-start gap-2">
+                                        <span class="text-green-500">✓</span>
+                                        <div class="text-sm text-gray-700">强调银行与企业多年合作关系，提供综合金融服务方案</div>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <span class="text-green-500">✓</span>
+                                        <div class="text-sm text-gray-700">针对2800名员工，提供代发工资+员工金融产品包</div>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <span class="text-green-500">✓</span>
+                                        <div class="text-sm text-gray-700">利用企业安保需求，拓展对公业务和员工个人业务</div>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <span class="text-green-500">✓</span>
+                                        <div class="text-sm text-gray-700">探索智能安防系统+银行监控联网的合作模式</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PART 08 风险提示 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-title">PART 08 风险提示</div>
+                                <div class="card-subtitle">业务风险点、涉诉、舆情信息</div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-content">
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-gray-700 mb-3">风险概览</h4>
+                                <div class="grid grid-cols-4 gap-3">
+                                    <div class="bg-green-50 rounded-lg p-3 text-center">
+                                        <div class="text-xs text-green-600 mb-1">综合风险评级</div>
+                                        <div class="text-lg font-bold text-green-700">低风险</div>
+                                        <div class="text-xs text-green-500">评分：85/100</div>
+                                    </div>
+                                    <div class="bg-blue-50 rounded-lg p-3 text-center">
+                                        <div class="text-xs text-blue-600 mb-1">涉诉案件</div>
+                                        <div class="text-lg font-bold text-blue-700">1件</div>
+                                        <div class="text-xs text-blue-500">已结案</div>
+                                    </div>
+                                    <div class="bg-purple-50 rounded-lg p-3 text-center">
+                                        <div class="text-xs text-purple-600 mb-1">行政处罚</div>
+                                        <div class="text-lg font-bold text-purple-700">0次</div>
+                                        <div class="text-xs text-purple-500">近3年无处罚</div>
+                                    </div>
+                                    <div class="bg-orange-50 rounded-lg p-3 text-center">
+                                        <div class="text-xs text-orange-600 mb-1">舆情监测</div>
+                                        <div class="text-lg font-bold text-orange-700">正常</div>
+                                        <div class="text-xs text-orange-500">无负面信息</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-gray-700 mb-3">业务风险点</h4>
+                                <div class="space-y-3">
+                                    <div class="bg-yellow-50 rounded-lg p-3 border-l-4 border-yellow-400">
+                                        <div class="flex justify-between items-start">
+                                            <div>
+                                                <div class="text-sm font-semibold text-yellow-800">人力成本风险</div>
+                                                <div class="text-xs text-yellow-700 mt-1">安保行业人工成本占比高，近年工资上涨压力较大</div>
+                                            </div>
+                                            <span class="tag tag-warning">中风险</span>
+                                        </div>
+                                    </div>
+                                    <div class="bg-yellow-50 rounded-lg p-3 border-l-4 border-yellow-400">
+                                        <div class="flex justify-between items-start">
+                                            <div>
+                                                <div class="text-sm font-semibold text-yellow-800">客户集中度风险</div>
+                                                <div class="text-xs text-yellow-700 mt-1">前五大客户销售占比达55%，依赖度较高</div>
+                                            </div>
+                                            <span class="tag tag-warning">中风险</span>
+                                        </div>
+                                    </div>
+                                    <div class="bg-blue-50 rounded-lg p-3 border-l-4 border-blue-400">
+                                        <div class="flex justify-between items-start">
+                                            <div>
+                                                <div class="text-sm font-semibold text-blue-800">市场竞争风险</div>
+                                                <div class="text-xs text-blue-700 mt-1">安保行业门槛较低，市场竞争加剧</div>
+                                            </div>
+                                            <span class="tag tag-info">低风险</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-gray-700 mb-3">涉诉情况</h4>
+                                <div class="bg-green-50 rounded-lg p-4">
+                                    <div class="flex items-start gap-3">
+                                        <div class="text-4xl">✅</div>
+                                        <div>
+                                            <div class="text-sm font-semibold text-green-800">涉诉记录良好</div>
+                                            <div class="text-xs text-green-600 mt-1">近5年仅1件劳动仲裁，已结案</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-gray-700 mb-3">舆情监测</h4>
+                                <div class="space-y-2">
+                                    <div class="bg-green-50 rounded-lg p-3">
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-green-500">📰</span>
+                                            <div class="text-sm text-gray-700">近期无负面新闻报道</div>
+                                        </div>
+                                    </div>
+                                    <div class="bg-green-50 rounded-lg p-3">
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-green-500">💬</span>
+                                            <div class="text-sm text-gray-700">社交媒体评价正面，客户满意度高</div>
+                                        </div>
+                                    </div>
+                                    <div class="bg-green-50 rounded-lg p-3">
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-green-500">🏆</span>
+                                            <div class="text-sm text-gray-700">多次获得"广东省先进安保企业"称号</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="text-sm font-semibold text-gray-700 mb-3">风险缓释措施</h4>
+                                <div class="space-y-2">
+                                    <div class="flex items-start gap-2">
+                                        <span class="text-blue-500">•</span>
+                                        <div class="text-sm text-gray-700">建议分散客户结构，拓展新行业客户</div>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <span class="text-blue-500">•</span>
+                                        <div class="text-sm text-gray-700">加大智能系统投入，降低人力成本依赖</div>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <span class="text-blue-500">•</span>
+                                        <div class="text-sm text-gray-700">加强员工培训，提升服务质量和效率</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PART 09 行内合作全景 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <div>
+                                <div class="card-title">PART 09 行内合作全景</div>
+                                <div class="card-subtitle">存款余额、贷款余额、授信余额、合作产品等</div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-content">
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-gray-700 mb-3">存款业务</h4>
+                                <div class="grid grid-cols-3 gap-3 mb-3">
+                                    <div class="bg-blue-50 rounded-lg p-3 text-center">
+                                        <div class="text-xs text-blue-600 mb-1">活期存款</div>
+                                        <div class="text-lg font-bold text-blue-700">2500万</div>
+                                    </div>
+                                    <div class="bg-green-50 rounded-lg p-3 text-center">
+                                        <div class="text-xs text-green-600 mb-1">定期存款</div>
+                                        <div class="text-lg font-bold text-green-700">3500万</div>
+                                    </div>
+                                    <div class="bg-purple-50 rounded-lg p-3 text-center">
+                                        <div class="text-xs text-purple-600 mb-1">保证金存款</div>
+                                        <div class="text-lg font-bold text-purple-700">800万</div>
+                                    </div>
+                                </div>
+                                <div class="bg-gray-50 rounded-lg p-3">
+                                    <div class="flex justify-between items-center">
+                                        <div class="text-sm text-gray-700">存款合计</div>
+                                        <div class="text-lg font-bold text-gray-800">6800万元</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-gray-700 mb-3">授信与贷款</h4>
+                                <div class="grid grid-cols-3 gap-3 mb-3">
+                                    <div class="bg-blue-50 rounded-lg p-3 text-center">
+                                        <div class="text-xs text-blue-600 mb-1">授信总额</div>
+                                        <div class="text-lg font-bold text-blue-700">5000万</div>
+                                    </div>
+                                    <div class="bg-green-50 rounded-lg p-3 text-center">
+                                        <div class="text-xs text-green-600 mb-1">贷款余额</div>
+                                        <div class="text-lg font-bold text-green-700">1800万</div>
+                                    </div>
+                                    <div class="bg-orange-50 rounded-lg p-3 text-center">
+                                        <div class="text-xs text-orange-600 mb-1">可用额度</div>
+                                        <div class="text-lg font-bold text-orange-700">3200万</div>
+                                    </div>
+                                </div>
+                                <div class="bg-gray-50 rounded-lg p-3 mb-3">
+                                    <div class="flex justify-between items-center">
+                                        <div class="text-sm text-gray-700">授信使用率</div>
+                                        <div class="text-lg font-bold text-gray-800">36%</div>
+                                    </div>
+                                    <div class="mt-2 bg-gray-200 rounded-full h-2">
+                                        <div class="bg-blue-500 h-2 rounded-full" style="width: 36%"></div>
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <div class="flex justify-between items-center text-sm">
+                                        <span class="text-gray-600">流动资金贷款</span>
+                                        <span class="font-semibold">1200万元</span>
+                                    </div>
+                                    <div class="flex justify-between items-center text-sm">
+                                        <span class="text-gray-600">银行承兑汇票</span>
+                                        <span class="font-semibold">600万元</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-gray-700 mb-3">合作产品明细</h4>
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-xs">
+                                        <thead class="bg-gray-50">
+                                            <tr>
+                                                <th class="p-2 text-left">产品类型</th>
+                                                <th class="p-2 text-right">额度/金额</th>
+                                                <th class="p-2 text-center">状态</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="border-b">
+                                                <td class="p-2">流动资金贷款</td>
+                                                <td class="p-2 text-right">1200万</td>
+                                                <td class="p-2 text-center"><span class="tag tag-success">在用</span></td>
+                                            </tr>
+                                            <tr class="border-b">
+                                                <td class="p-2">银行承兑汇票</td>
+                                                <td class="p-2 text-right">600万</td>
+                                                <td class="p-2 text-center"><span class="tag tag-success">在用</span></td>
+                                            </tr>
+                                            <tr class="border-b">
+                                                <td class="p-2">代发工资</td>
+                                                <td class="p-2 text-right">-</td>
+                                                <td class="p-2 text-center"><span class="tag tag-success">已开通</span></td>
+                                            </tr>
+                                            <tr class="border-b">
+                                                <td class="p-2">网上银行</td>
+                                                <td class="p-2 text-right">-</td>
+                                                <td class="p-2 text-center"><span class="tag tag-success">已开通</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p-2">信用卡</td>
+                                                <td class="p-2 text-right">50张</td>
+                                                <td class="p-2 text-center"><span class="tag tag-info">发展中</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h4 class="text-sm font-semibold text-gray-700 mb-3">合作历史</h4>
+                                <div class="space-y-2">
+                                    <div class="flex items-center gap-2 text-sm">
+                                        <span class="text-blue-500">📅</span>
+                                        <span class="text-gray-700">首次开户：2015年6月</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-sm">
+                                        <span class="text-green-500">🤝</span>
+                                        <span class="text-gray-700">建立授信：2016年8月（首笔1500万）</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-sm">
+                                        <span class="text-purple-500">📈</span>
+                                        <span class="text-gray-700">授信提升：2022年12月增至5000万</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-sm">
+                                        <span class="text-orange-500">⭐</span>
+                                        <span class="text-gray-700">客户评级：AA级优质客户</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="text-sm font-semibold text-gray-700 mb-3">拓展建议</h4>
+                                <div class="space-y-2">
+                                    <div class="flex items-start gap-2">
+                                        <span class="text-green-500">✓</span>
+                                        <div class="text-sm text-gray-700">提升授信额度至8000万元，满足企业扩张需求</div>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <span class="text-green-500">✓</span>
+                                        <div class="text-sm text-gray-700">推荐员工代发工资+信用卡组合营销</div>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <span class="text-green-500">✓</span>
+                                        <div class="text-sm text-gray-700">探索智能安防系统+银行监控联网合作</div>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <span class="text-green-500">✓</span>
+                                        <div class="text-sm text-gray-700">为子公司提供统一金融服务方案</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 报告底部 -->
+                    <div class="text-center text-xs text-gray-400 mt-4 pb-8">
+                        数据来源：企业官网、公开财报、行业研究报告 | 报告生成时间：2026年05月
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/app.js"></script>
+</body>
+</html>
