@@ -595,8 +595,8 @@ function generateReport() {
     
     parseFinancialReport();
     
-    // 从 marketingData 中查找真实企业数据
-    const matchedCompany = marketingData.find(item => 
+    // 从 AppData.reports 中查找真实企业数据
+    const matchedCompany = AppData.reports.find(item => 
         item.companyName === companyName || item.companyName.includes(companyName) || companyName.includes(item.companyName)
     );
     
