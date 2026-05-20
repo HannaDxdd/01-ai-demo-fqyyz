@@ -1223,6 +1223,18 @@ body {
     border: 1px solid #fca5a5;
 }
 
+.tag-purple {
+    background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+    color: #6b21a8;
+    border: 1px solid #c4b5fd;
+}
+
+.tag-orange {
+    background: linear-gradient(135deg, #ffedd5 0%, #fed7aa 100%);
+    color: #c2410c;
+    border: 1px solid #fdba74;
+}
+
 /* 风险指示�?*/
 .risk-item {
     display: flex;
