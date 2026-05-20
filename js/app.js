@@ -70,9 +70,75 @@ const AppData = {
         },
         {
             id: '2',
-            companyName: '深圳XX科技有限公司',
-            createTime: '2026-04-25 15:45',
-            status: '已发送'
+            companyName: '广州海保安全服务集团有限公司',
+            createTime: '2026-05-20 15:45',
+            status: '已完成',
+            data: {
+                basicInfo: {
+                    companyName: '广州海保安全服务集团有限公司',
+                    creditCode: '914401011908556318',
+                    establishTime: '1990-09-08',
+                    registeredCapital: '5000万元',
+                    legalPerson: '刘中辉',
+                    industry: '其他未列明商务服务业',
+                    companyType: '有限责任公司（法人独资）',
+                    employeeCount: '3000-3999人',
+                    businessScope: '软件服务;保安监控及防盗报警系统工程服务;服装零售;保安器材销售;物业管理;汽车租赁;代驾服务;计算机和辅助设备修理;消防设备、器材的批发;人力资源服务;停车场服务;保安服务;保安培训;劳务派遣服务;职业中介活动;通用航空服务',
+                    address: '广州市海珠区海联路100-136号二楼（仅限办公）',
+                    shareholder: '广州市海珠城市建设发展集团有限公司（持股100%）',
+                    customerLevel: 'A类'
+                },
+                businessOpportunities: [
+                    {
+                        title: '企业人员规模大，社保需求旺盛',
+                        data: '参保人数3747人，较上年减少163人',
+                        product: '代发工资'
+                    },
+                    {
+                        title: '停车场业务覆盖广，资金归集需求强',
+                        data: '经营场所遍布广州市海珠区多个路段停车场',
+                        product: '停车场收银系统'
+                    },
+                    {
+                        title: '国有控股企业，资质优良',
+                        data: '实际控制人为广州市海珠城市建设发展集团有限公司',
+                        product: '流动资金贷款'
+                    }
+                ],
+                riskWarnings: [
+                    {
+                        level: '低',
+                        content: '企业登记状态存续，经营正常',
+                        data: '2024年最新年报显示企业正常年报'
+                    },
+                    {
+                        level: '低',
+                        content: '2024年新增职业中介和通用航空服务范围',
+                        data: '经营范围进一步扩大，业务多元化'
+                    }
+                ],
+                financialData: {
+                    revenue: '企业选择不公示',
+                    revenueChange: '--',
+                    profit: '企业选择不公示',
+                    profitChange: '--',
+                    assetLiabilityRatio: '企业选择不公示',
+                    assetLiabilityRatioChange: '--',
+                    currentRatio: '--',
+                    currentRatioChange: '--'
+                },
+                cooperationHistory: {
+                    startDate: '2020-03-10',
+                    creditLimit: '未查询到银行授信记录',
+                    settlementAmount: '未查询到结算记录',
+                    usedProducts: ['保安服务', '劳务派遣']
+                },
+                communicationSuggestions: {
+                    opening: '您好，刘总，感谢您一直以来对我们银行的支持。广州海保安全服务集团作为海珠区国有控股的大型安保服务企业，在行业内具有重要地位。',
+                    business: '我们行为贵企业提供代发工资、停车场收银系统等综合金融服务，并可根据贵企业实际情况，提供流动资金贷款支持，满足业务发展需求。',
+                    objection: '关于合作细节，我们可以安排专人对接，提供定制化金融服务方案，确保满足贵企业多方面需求。'
+                }
+            }
         },
         {
             id: '3',

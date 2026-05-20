@@ -317,12 +317,18 @@
             font-weight: 500;
         }
 
-        .view-record-btn {
-            width: 100%;
+        .customer-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .customer-actions .action-btn {
+            flex: 1;
             padding: 8px;
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-            color: white;
-            border: none;
+            background-color: white;
+            color: #3b82f6;
+            border: 1px solid #3b82f6;
             border-radius: 6px;
             font-size: 13px;
             font-weight: 500;
@@ -464,12 +470,12 @@
                     <div class="customer-header">
                         <div class="customer-info">
                             <div class="customer-badge">
-                                <span>测试</span>
-                                <span>白名</span>
+                                <span>维形</span>
+                                <span>贸易</span>
                             </div>
                             <div>
-                                <div class="customer-name">测试白名单八</div>
-                                <div class="customer-id">199KMT4QNNTH402Q02</div>
+                                <div class="customer-name">广州海保安全服务集团有限公司</div>
+                                <div class="customer-id">914401011908556318</div>
                             </div>
                         </div>
                     </div>
@@ -491,7 +497,11 @@
                             <div class="meta-value">0</div>
                         </div>
                     </div>
-                    <button class="view-record-btn" onclick="event.stopPropagation(); viewRecord()">查看反馈记录</button>
+                    <div class="customer-actions">
+                        <button class="action-btn" onclick="event.stopPropagation(); handleTask()">处理任务</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); completeTask()">任务办结</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); viewRecord()">查看反馈记录</button>
+                    </div>
                 </div>
 
                 <!-- 客户卡片2 -->
@@ -526,7 +536,11 @@
                             <div class="meta-value">0</div>
                         </div>
                     </div>
-                    <button class="view-record-btn" onclick="event.stopPropagation(); viewRecord()">查看反馈记录</button>
+                    <div class="customer-actions">
+                        <button class="action-btn" onclick="event.stopPropagation(); handleTask()">处理任务</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); completeTask()">任务办结</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); viewRecord()">查看反馈记录</button>
+                    </div>
                 </div>
 
                 <!-- 没有更多 -->
@@ -588,6 +602,14 @@
 
         function viewRecord() {
             alert('查看反馈记录');
+        }
+
+        function handleTask() {
+            alert('处理任务');
+        }
+
+        function completeTask() {
+            alert('任务办结');
         }
 
         function showReminder() {
