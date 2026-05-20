@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>公司智汇营 - 反馈详情</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #1a1a1a;
+            margin: 0;
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .phone-frame {
+            width: 440px;
+            height: calc(100vh - 40px);
+            background-color: white;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .app-container {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-bottom: 60px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* 顶部导航 */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-back {
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .header-refresh {
+            font-size: 20px;
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+
+        /* 二级导航 */
+        .sub-header {
+            background-color: white;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .sub-back {
+            font-size: 18px;
+            color: #6b7280;
+            cursor: pointer;
+            margin-right: 12px;
+        }
+
+        .sub-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        /* 客户信息卡片 */
+        .customer-card {
+            margin: 16px;
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border-radius: 16px;
+            padding: 16px;
+        }
+
+        .customer-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .customer-badge {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 8px 10px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.3;
+        }
+
+        .customer-info {
+            flex: 1;
+        }
+
+        .customer-name {
+            font-size: 17px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .customer-id {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 2px;
+        }
+
+        /* 企业信息 */
+        .enterprise-info {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            padding: 12px;
+            background-color: rgba(255,255,255,0.8);
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+
+        .enterprise-item {
+            text-align: center;
+        }
+
+        .enterprise-label {
+            font-size: 11px;
+            color: #9ca3af;
+            margin-bottom: 4px;
+        }
+
+        .enterprise-value {
+            font-size: 12px;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        /* 标签列表 */
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+
+        .tag {
+            padding: 4px 10px;
+            background-color: rgba(255,255,255,0.7);
+            color: #3b82f6;
+            font-size: 11px;
+            font-weight: 500;
+            border-radius: 4px;
+        }
+
+        .tag-more {
+            color: #6b7280;
+            background-color: rgba(255,255,255,0.5);
+        }
+
+        /* 地址信息 */
+        .address-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #374151;
+            font-size: 13px;
+        }
+
+        .address-icon {
+            color: #3b82f6;
+            font-size: 14px;
+        }
+
+        .phone-icon {
+            color: #3b82f6;
+            font-size: 14px;
+            margin-left: 12px;
+            cursor: pointer;
+        }
+
+        /* 反馈记录 */
+        .feedback-section {
+            padding: 0 16px;
+        }
+
+        .feedback-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 16px;
+        }
+
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .empty-icon {
+            width: 60px;
+            height: 60px;
+            border: 2px dashed #d1d5db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .empty-icon i {
+            font-size: 24px;
+            color: #9ca3af;
+        }
+
+        .empty-text {
+            font-size: 14px;
+            color: #9ca3af;
+        }
+
+        /* 悬浮按钮 */
+        .realtime-reminder {
+            position: absolute;
+            bottom: 70px;
+            right: 16px;
+            width: 50px;
+            height: 50px;
+            background-color: #1890ff;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(24, 144, 255, 0.4);
+            cursor: pointer;
+            z-index: 99;
+        }
+
+        /* 底部导航 */
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #ffffff;
+            border-top: 1px solid #e0e0e0;
+            padding: 8px 16px;
+            z-index: 100;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-frame">
+        <div class="app-container">
+            <!-- 顶部导航 -->
+            <div class="header">
+                <span class="header-back" onclick="goBack()">←</span>
+                <span class="header-title">公司智汇营</span>
+                <span class="header-refresh" onclick="refreshPage()">↻</span>
+            </div>
+
+            <!-- 二级导航 -->
+            <div class="sub-header">
+                <span class="sub-back" onclick="goBack()">←</span>
+                <span class="sub-title">反馈详情</span>
+            </div>
+
+            <!-- 客户信息卡片 -->
+            <div class="customer-card">
+                <div class="customer-header">
+                    <div class="customer-badge">
+                        <span>测试</span>
+                        <span>白名</span>
+                    </div>
+                    <div class="customer-info">
+                        <div class="customer-name">测试白名单八</div>
+                        <div class="customer-id">199KMT4QNNTH402Q02</div>
+                    </div>
+                </div>
+
+                <!-- 企业基本信息 -->
+                <div class="enterprise-info">
+                    <div class="enterprise-item">
+                        <div class="enterprise-label">法定代表人</div>
+                        <div class="enterprise-value">--</div>
+                    </div>
+                    <div class="enterprise-item">
+                        <div class="enterprise-label">注册资本(万元)</div>
+                        <div class="enterprise-value">--</div>
+                    </div>
+                    <div class="enterprise-item">
+                        <div class="enterprise-label">注册时间</div>
+                        <div class="enterprise-value">--</div>
+                    </div>
+                </div>
+
+                <!-- 标签 -->
+                <div class="tags-container">
+                    <span class="tag">高新企业</span>
+                    <span class="tag">科技型中小企业</span>
+                    <span class="tag">国家级企业技术中心</span>
+                    <span class="tag">省级企业技术中心</span>
+                    <span class="tag tag-more">更多(11)</span>
+                </div>
+
+                <!-- 地址 -->
+                <div class="address-info">
+                    <i class="fa fa-map-marker address-icon"></i>
+                    <span>广东省佛山市南海区桂城街道3号</span>
+                    <i class="fa fa-phone phone-icon" onclick="makeCall()"></i>
+                </div>
+            </div>
+
+            <!-- 反馈记录 -->
+            <div class="feedback-section">
+                <div class="feedback-title">反馈记录 (0)</div>
+                <div class="empty-state">
+                    <div class="empty-icon">
+                        <i class="fa fa-file-text-o"></i>
+                    </div>
+                    <div class="empty-text">暂无反馈记录</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 悬浮按钮 -->
+        <div class="realtime-reminder" onclick="showReminder()">
+            <span>实时</span>
+            <span>提醒</span>
+        </div>
+
+        <!-- 底部导航 -->
+        <div class="bottom-nav">
+            <div class="flex justify-around">
+                <a href="index.html" class="flex flex-col items-center">
+                    <i class="fa fa-th-large text-blue-500"></i>
+                    <span class="text-xs mt-1 text-blue-500">首页</span>
+                </a>
+                <a href="marketing.html" class="flex flex-col items-center">
+                    <i class="fa fa-bullhorn text-gray-500"></i>
+                    <span class="text-xs mt-1">营销</span>
+                </a>
+                <a href="#" class="flex flex-col items-center">
+                    <i class="fa fa-users text-gray-500"></i>
+                    <span class="text-xs mt-1">客户</span>
+                </a>
+                <a href="#" class="flex flex-col items-center">
+                    <i class="fa fa-user text-gray-500"></i>
+                    <span class="text-xs mt-1">我的</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        function refreshPage() {
+            location.reload();
+        }
+
+        function makeCall() {
+            alert('拨打电话功能');
+        }
+
+        function showReminder() {
+            alert('实时提醒功能');
+        }
+    </script>
+</body>
+</html>

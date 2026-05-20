@@ -460,7 +460,7 @@
             <!-- 客户名单内容 -->
             <div id="customers-content" class="content-section hidden">
                 <!-- 客户卡片1 -->
-                <div class="customer-card">
+                <div class="customer-card" onclick="goToFeedbackDetail()">
                     <div class="customer-header">
                         <div class="customer-info">
                             <div class="customer-badge">
@@ -491,11 +491,11 @@
                             <div class="meta-value">0</div>
                         </div>
                     </div>
-                    <button class="view-record-btn" onclick="viewRecord()">查看反馈记录</button>
+                    <button class="view-record-btn" onclick="event.stopPropagation(); viewRecord()">查看反馈记录</button>
                 </div>
 
                 <!-- 客户卡片2 -->
-                <div class="customer-card">
+                <div class="customer-card" onclick="goToFeedbackDetail()">
                     <div class="customer-header">
                         <div class="customer-info">
                             <div class="customer-badge">
@@ -526,7 +526,7 @@
                             <div class="meta-value">0</div>
                         </div>
                     </div>
-                    <button class="view-record-btn" onclick="viewRecord()">查看反馈记录</button>
+                    <button class="view-record-btn" onclick="event.stopPropagation(); viewRecord()">查看反馈记录</button>
                 </div>
 
                 <!-- 没有更多 -->
@@ -580,6 +580,10 @@
             document.getElementById('basic-content').classList.add('hidden');
             document.getElementById('customers-content').classList.add('hidden');
             document.getElementById(tab + '-content').classList.remove('hidden');
+        }
+
+        function goToFeedbackDetail() {
+            window.location.href = 'feedback-detail.html';
         }
 
         function viewRecord() {
