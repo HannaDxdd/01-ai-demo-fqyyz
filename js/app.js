@@ -160,6 +160,7 @@ const AppData = {
 
 // 企业数据列表 - 用于模糊搜索
 const enterpriseList = [
+    { name: '广州海保安全服务集团有限公司', creditCode: '914401011908556318', industry: '安保服务' },
     { name: '广州越秀集团股份有限公司', creditCode: '91440101MA5AXY1234', industry: '房地产' },
     { name: '广州白云山医药集团股份有限公司', creditCode: '91440101MA5AXY5678', industry: '医药制造' },
     { name: '广州发展集团股份有限公司', creditCode: '91440101MA5AXY9012', industry: '能源' },
@@ -594,14 +595,22 @@ function generateReport() {
     
     parseFinancialReport();
     
+    // 从 marketingData 中查找真实企业数据
+    const matchedCompany = marketingData.find(item => 
+        item.companyName === companyName || item.companyName.includes(companyName) || companyName.includes(item.companyName)
+    );
+    
     setTimeout(() => {
+        // 使用真实数据或默认数据
+        const realData = matchedCompany ? matchedCompany.data : null;
+        
         const newReport = {
             id: Date.now().toString(),
             companyName: companyName,
             createTime: new Date().toLocaleString('zh-CN'),
             status: '已完成',
             data: {
-                basicInfo: {
+                basicInfo: realData ? realData.basicInfo : {
                     companyName: companyName,
                     creditCode: creditCode || '91440101MA5AXYXXXXX',
                     establishTime: '2018-06-15',
@@ -610,7 +619,7 @@ function generateReport() {
                     industry: industry || '制造业',
                     customerLevel: 'A类'
                 },
-                businessOpportunities: [
+                businessOpportunities: realData ? realData.businessOpportunities : [
                     {
                         title: '企业货币资金充足，可推荐结构性存款',
                         data: '货币资金余额为1200万元，较上年同期增加20%',
@@ -627,7 +636,7 @@ function generateReport() {
                         product: '设备贷款'
                     }
                 ],
-                riskWarnings: [
+                riskWarnings: realData ? realData.riskWarnings : [
                     {
                         level: '高',
                         content: '资产负债率同比上升15%，需关注偿债能力',
@@ -639,7 +648,7 @@ function generateReport() {
                         data: '净利润从280万元下降至258万元'
                     }
                 ],
-                financialData: {
+                financialData: realData ? realData.financialData : {
                     revenue: '12000万',
                     revenueChange: '+12%',
                     profit: '258万',
@@ -649,13 +658,13 @@ function generateReport() {
                     currentRatio: '1.8',
                     currentRatioChange: '-0.2'
                 },
-                cooperationHistory: {
+                cooperationHistory: realData ? realData.cooperationHistory : {
                     startDate: '2020-03-10',
                     creditLimit: '2000万',
                     settlementAmount: '8500万',
                     usedProducts: ['流动资金贷款', '银行承兑汇票', '国内信用证']
                 },
-                communicationSuggestions: {
+                communicationSuggestions: realData ? realData.communicationSuggestions : {
                     opening: '您好，张总，感谢您一直以来对我们银行的支持。根据我们的分析，贵公司近期经营状况良好，特别是在市场份额方面有显著提升。',
                     business: '基于贵公司的财务状况，我们为您推荐结构性存款产品，年化收益率可达3.5%，比活期存款高出不少。另外，针对您的应收账款增加情况，我们的保理业务可以帮助您提前回笼资金，优化现金流。',
                     objection: '如果您对产品有任何疑问，我们可以提供详细的方案和案例，帮助您更好地理解产品优势。我们也可以根据您的具体需求，为您量身定制金融解决方案。'
