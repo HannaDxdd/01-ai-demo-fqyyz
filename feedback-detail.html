@@ -201,6 +201,37 @@
             cursor: pointer;
         }
 
+        /* 操作按钮 */
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+        }
+
+        .contact-btn {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+        }
+
         /* 反馈记录 */
         .feedback-section {
             padding: 0 16px;
@@ -336,6 +367,20 @@
                     <span>广东省佛山市南海区桂城街道3号</span>
                     <i class="fa fa-phone phone-icon" onclick="makeCall()"></i>
                 </div>
+
+                <!-- 操作按钮 -->
+                <div class="action-buttons">
+                    <button class="action-btn download-btn" onclick="downloadReport()">
+                        <i class="fa fa-download"></i>
+                        <span>下载访客报告</span>
+                    </button>
+                    <button class="action-btn contact-btn" onclick="visitContact()">
+                        <span>面访接触</span>
+                    </button>
+                    <button class="action-btn contact-btn" onclick="callContact()">
+                        <span>电访接触</span>
+                    </button>
+                </div>
             </div>
 
             <!-- 反馈记录 -->
@@ -390,6 +435,18 @@
 
         function makeCall() {
             alert('拨打电话功能');
+        }
+
+        function downloadReport() {
+            alert('下载访客报告');
+        }
+
+        function visitContact() {
+            alert('面访接触');
+        }
+
+        function callContact() {
+            alert('电访接触');
         }
 
         function showReminder() {
