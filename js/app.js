@@ -780,6 +780,7 @@ function loadReportDetail(reportId) {
     if (!report || !report.data) return;
     
     const data = report.data;
+    const basicInfo = data.basicInfo;
     
     const detailCompanyName = document.getElementById('detail-companyName');
     const detailCompanyNameFull = document.getElementById('detail-companyNameFull');
@@ -789,15 +790,25 @@ function loadReportDetail(reportId) {
     const detailLegalPerson = document.getElementById('detail-legalPerson');
     const detailIndustry = document.getElementById('detail-industry');
     const detailCustomerLevel = document.getElementById('detail-customerLevel');
+    const detailCompanyType = document.getElementById('detail-companyType');
+    const detailEmployeeCount = document.getElementById('detail-employeeCount');
+    const detailStaffCount = document.getElementById('detail-staffCount');
+    const detailStatus = document.getElementById('detail-status');
+    const detailAddress = document.getElementById('detail-address');
     
-    if (detailCompanyName) detailCompanyName.textContent = data.basicInfo.companyName;
-    if (detailCompanyNameFull) detailCompanyNameFull.textContent = data.basicInfo.companyName;
-    if (detailCreditCode) detailCreditCode.textContent = data.basicInfo.creditCode;
-    if (detailEstablishTime) detailEstablishTime.textContent = data.basicInfo.establishTime;
-    if (detailRegisteredCapital) detailRegisteredCapital.textContent = data.basicInfo.registeredCapital;
-    if (detailLegalPerson) detailLegalPerson.textContent = data.basicInfo.legalPerson;
-    if (detailIndustry) detailIndustry.textContent = data.basicInfo.industry;
-    if (detailCustomerLevel) detailCustomerLevel.textContent = data.basicInfo.customerLevel;
+    if (detailCompanyName) detailCompanyName.textContent = basicInfo.companyName || '未知';
+    if (detailCompanyNameFull) detailCompanyNameFull.textContent = basicInfo.companyName || '未知';
+    if (detailCreditCode) detailCreditCode.textContent = basicInfo.creditCode || '未知';
+    if (detailEstablishTime) detailEstablishTime.textContent = basicInfo.establishTime || '未知';
+    if (detailRegisteredCapital) detailRegisteredCapital.textContent = basicInfo.registeredCapital || '未知';
+    if (detailLegalPerson) detailLegalPerson.textContent = basicInfo.legalPerson || '未知';
+    if (detailIndustry) detailIndustry.textContent = basicInfo.industry || '未知';
+    if (detailCustomerLevel) detailCustomerLevel.textContent = basicInfo.customerLevel || '未知';
+    if (detailCompanyType) detailCompanyType.textContent = basicInfo.companyType || '未知';
+    if (detailEmployeeCount) detailEmployeeCount.textContent = basicInfo.employeeCount || '未知';
+    if (detailStaffCount) detailStaffCount.textContent = basicInfo.employeeCount || '未知';
+    if (detailStatus) detailStatus.textContent = '存续（在营）';
+    if (detailAddress) detailAddress.textContent = basicInfo.address || '未知';
 }
 
 function toggleModule(moduleName) {
