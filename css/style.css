@@ -108,8 +108,7 @@ body {
 .page {
     display: none;
     flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: hidden;
     padding-bottom: 60px;
     -webkit-overflow-scrolling: touch;
 }
@@ -155,10 +154,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: fixed;
+    position: sticky;
     top: 0;
-    left: 0;
-    right: 0;
     z-index: 100;
 }
 
@@ -952,9 +949,12 @@ body {
 
 /* ==================== 报告详情页样式（multi_report模板�?==================== */
 .report-content {
-    padding: 60px 20px 20px;
+    padding: 20px;
     background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
-    min-height: 100vh;
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* 企业头部 */
