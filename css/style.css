@@ -101,7 +101,8 @@ body {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .page {
@@ -156,6 +157,19 @@ body {
     position: sticky;
     top: 0;
     z-index: 100;
+}
+
+#page-report-detail .header {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 440px;
+    z-index: 1000;
+}
+
+#page-report-detail .report-content {
+    padding-top: 70px;
 }
 
 .header-title {

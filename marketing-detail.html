@@ -336,11 +336,75 @@
             cursor: pointer;
         }
 
+        
+
         .empty-text {
             text-align: center;
             color: #9ca3af;
             font-size: 14px;
             padding: 30px 0;
+        }
+
+        .custom-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            position: relative;
+            background-color: white;
+            border-radius: 16px;
+            padding: 32px 24px;
+            width: 320px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 12px;
+        }
+
+        .modal-message {
+            font-size: 14px;
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .modal-close-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
         }
 
         /* 悬浮按钮 */
@@ -499,6 +563,8 @@
                         </div>
                     </div>
                     <div class="customer-actions">
+                        <button class="action-btn" onclick="event.stopPropagation(); generateReport()">生成访客报告</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); downloadReport()">查看访客报告</button>
                         <button class="action-btn" onclick="event.stopPropagation(); handleTask()">处理任务</button>
                         <button class="action-btn" onclick="event.stopPropagation(); completeTask()">任务办结</button>
                         <button class="action-btn" onclick="event.stopPropagation(); viewRecord()">查看反馈记录</button>
@@ -538,6 +604,8 @@
                         </div>
                     </div>
                     <div class="customer-actions">
+                        <button class="action-btn" onclick="event.stopPropagation(); generateReport()">生成访客报告</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); downloadReport()">查看访客报告</button>
                         <button class="action-btn" onclick="event.stopPropagation(); handleTask()">处理任务</button>
                         <button class="action-btn" onclick="event.stopPropagation(); completeTask()">任务办结</button>
                         <button class="action-btn" onclick="event.stopPropagation(); viewRecord()">查看反馈记录</button>
@@ -587,6 +655,11 @@
             location.reload();
         }
 
+        function getUrlParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
         function switchTab(tab) {
             const tabs = document.querySelectorAll('.tab');
             tabs.forEach(t => t.classList.remove('active'));
@@ -605,6 +678,32 @@
             alert('查看反馈记录');
         }
 
+        function generateReport() {
+            const modal = document.createElement('div');
+            modal.className = 'custom-modal';
+            modal.innerHTML = `
+                <div class="modal-overlay" onclick="closeModal()"></div>
+                <div class="modal-content">
+                    <div class="modal-icon">📄</div>
+                    <div class="modal-title">报告生成中</div>
+                    <div class="modal-message">报告正在生成中，请稍后点击"查看访客报告"查看报告。</div>
+                    <button class="modal-close-btn" onclick="closeModal()">确定</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        function closeModal() {
+            const modal = document.querySelector('.custom-modal');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        function downloadReport() {
+            window.location.href = 'haibao-report.html';
+        }
+
         function handleTask() {
             alert('处理任务');
         }
@@ -616,6 +715,18 @@
         function showReminder() {
             alert('实时提醒功能');
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const tab = getUrlParam('tab');
+            if (tab === 'customers') {
+                const tabs = document.querySelectorAll('.tab');
+                tabs.forEach(t => t.classList.remove('active'));
+                document.querySelector('.tab:nth-child(2)').classList.add('active');
+                
+                document.getElementById('basic-content').classList.add('hidden');
+                document.getElementById('customers-content').classList.remove('hidden');
+            }
+        });
     </script>
 </body>
 </html>
