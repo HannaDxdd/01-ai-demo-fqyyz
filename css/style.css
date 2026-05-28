@@ -155,8 +155,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 100;
 }
 
@@ -950,7 +952,7 @@ body {
 
 /* ==================== 报告详情页样式（multi_report模板�?==================== */
 .report-content {
-    padding: 20px;
+    padding: 60px 20px 20px;
     background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
     min-height: 100vh;
 }
