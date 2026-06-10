@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -60,6 +60,51 @@
             color: white;
             box-shadow: 0 2px 8px rgba(24, 144, 255, 0.4);
             z-index: 50;
+        }
+        .ai-chat-wrapper {
+            position: absolute;
+            bottom: 130px;
+            right: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 50;
+            user-select: none;
+            cursor: move;
+        }
+        .ai-chat-circle {
+            width: 56px;
+            height: 56px;
+            background-color: #1890ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 2px 8px rgba(24, 144, 255, 0.4);
+            transition: box-shadow 0.2s, transform 0.1s;
+        }
+        .ai-chat-circle:hover {
+            box-shadow: 0 4px 12px rgba(24, 144, 255, 0.6);
+        }
+        .ai-chat-wrapper:active .ai-chat-circle {
+            transform: scale(0.95);
+        }
+        .ai-chat-icon {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+        .ai-chat-label {
+            margin-top: 6px;
+            font-size: 11px;
+            font-weight: 500;
+            color: #333;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 2px 8px;
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            white-space: nowrap;
         }
         .status-bar {
             height: 44px;
@@ -349,6 +394,23 @@
                 </div>
             </div>
         </div>
+        <!-- 智小营AI对话 -->
+        <div class="ai-chat-wrapper" id="aiChatBtn">
+            <div class="ai-chat-circle">
+                <svg class="ai-chat-icon" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="32" cy="20" r="12" fill="none" stroke="white" stroke-width="3"/>
+                    <circle cx="26" cy="18" r="2" fill="white"/>
+                    <circle cx="38" cy="18" r="2" fill="white"/>
+                    <path d="M26 24 Q32 29 38 24" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <rect x="16" y="32" width="32" height="22" rx="6" fill="none" stroke="white" stroke-width="3"/>
+                    <rect x="24" y="38" width="16" height="2" rx="1" fill="white"/>
+                    <rect x="22" y="42" width="8" height="2" rx="1" fill="white"/>
+                    <rect x="32" y="42" width="10" height="2" rx="1" fill="white"/>
+                </svg>
+            </div>
+            <span class="ai-chat-label">智小营</span>
+        </div>
+
         <!-- 实时提醒 -->
         <div class="realtime-reminder">
             <i class="fa fa-bell"></i>
@@ -686,6 +748,67 @@
         document.getElementById('visitReportCard').addEventListener('click', function() {
             window.location.href = 'index1.html';
         });
+
+        // 智小营AI对话入口拖拽功能
+        (function() {
+            const aiBtn = document.getElementById('aiChatBtn');
+            let isDragging = false;
+            let startX, startY, initialRight, initialBottom;
+            let hasMoved = false;
+            const clickThreshold = 5;
+
+            function getPointerPos(e) {
+                if (e.touches && e.touches.length > 0) {
+                    return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+                }
+                return { x: e.clientX, y: e.clientY };
+            }
+
+            function onStart(e) {
+                const pos = getPointerPos(e);
+                startX = pos.x;
+                startY = pos.y;
+                const style = window.getComputedStyle(aiBtn);
+                initialRight = parseFloat(style.right) || 16;
+                initialBottom = parseFloat(style.bottom) || 130;
+                isDragging = true;
+                hasMoved = false;
+                e.preventDefault();
+            }
+
+            function onMove(e) {
+                if (!isDragging) return;
+                const pos = getPointerPos(e);
+                const dx = pos.x - startX;
+                const dy = pos.y - startY;
+                if (Math.abs(dx) > clickThreshold || Math.abs(dy) > clickThreshold) {
+                    hasMoved = true;
+                }
+                const parentRect = aiBtn.offsetParent.getBoundingClientRect();
+                const newRight = Math.max(0, Math.min(parentRect.width - aiBtn.offsetWidth, initialRight - dx));
+                const newBottom = Math.max(60, Math.min(parentRect.height - aiBtn.offsetHeight, initialBottom - dy));
+                aiBtn.style.right = newRight + 'px';
+                aiBtn.style.bottom = newBottom + 'px';
+                aiBtn.style.left = 'auto';
+                aiBtn.style.top = 'auto';
+                e.preventDefault();
+            }
+
+            function onEnd(e) {
+                if (!isDragging) return;
+                isDragging = false;
+                if (!hasMoved) {
+                    window.location.href = 'ai-chat.html';
+                }
+            }
+
+            aiBtn.addEventListener('mousedown', onStart);
+            document.addEventListener('mousemove', onMove);
+            document.addEventListener('mouseup', onEnd);
+            aiBtn.addEventListener('touchstart', onStart, { passive: false });
+            document.addEventListener('touchmove', onMove, { passive: false });
+            document.addEventListener('touchend', onEnd);
+        })();
 
         // 关闭访前助手模态框
         document.getElementById('closeVisitReportModal').addEventListener('click', function() {
